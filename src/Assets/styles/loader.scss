@@ -1,0 +1,119 @@
+@import "./base.scss";
+
+.loading {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 99;
+  display: grid;
+  place-items: center;
+  background-color: rgba(4, 1, 32, 0.952);
+  font-family: "Orbitron", sans-serif;
+  display: none;
+  &__box {
+    position: relative;
+    width: 500px;
+    height: 200px;
+    border: 3px solid $pink;
+    border-top: 3px solid $darkpink;
+    border-bottom: 3px solid $darkpink;
+    @media (max-width: 600px) {
+      & {
+        width: 90vw;
+      }
+    }
+  }
+  &__bar {
+    width: 90%;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    background: #ccc;
+    border-radius: 2px;
+    &--inner {
+      height: 100%;
+      width: 0;
+      border-radius: 2px;
+      background: $pink;
+    }
+  }
+  &__text {
+    position: relative;
+    color: #fefefe;
+    padding: 1rem;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (min-width: 355pxpx) {
+      & {
+        font-size: 18px;
+      }
+    }
+    &--dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      margin: 0 3px;
+      animation: pulse 1s infinite;
+      @keyframes pulse {
+        from {
+          opacity: 0;
+          background: $pink;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    }
+    &--border {
+      width: 85%;
+      height: 1px;
+      background: $pink;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%);
+    }
+  }
+  &__counter {
+    position: absolute;
+    top: 70%;
+    left: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  &__width_animation {
+    animation: width_animation 1s forwards;
+    @keyframes width_animation {
+      0% {
+        width: 85%;
+      }
+      100% {
+        width: 245px;
+      }
+    }
+  }
+  &__svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    opacity: 0;
+  }
+}

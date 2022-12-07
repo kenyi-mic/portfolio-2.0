@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  box-sizing: border-box;
+  &:after,
+  &:before {
+    box-sizing: border-box;
+  }
+  body,
+  html {
+    overflow-x: hidden;
+  }
+  body {
+    position: relative;
+    line-height: 1.5;
+    font-family: "Poppins", sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    overflow-wrap: break-word;
+  }
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px #111;
+}
+ul {
+  list-style: none;
+}
+
+/*-----Variables-----*/
+$pink: #d80da5;
+$darkpink: #a12783;
+$maroon: #8f0303;
+$purple: #33067c;
+$lightblue: #1481ca;
+$yellow: #ddbc26;
+$box-shadow-blue1: rgba(31, 38, 138, 0.27);
+$box-shadow-blue2: rgba(31, 38, 138, 0.67);
+$darkblue: #060b11;
+
+/*-----Predefine variables-----*/
+
+.reviews {
+  padding: 1rem;
+  overflow: hidden;
+  min-height: 100vh;
+  padding-top: 5rem;
+  @media (min-width: 768px) {
+    padding: 5rem;
+  }
+}
