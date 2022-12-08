@@ -12,6 +12,7 @@
       position: relative;
       background: #28316013;
       box-shadow: 0 8px 32px 0 $box-shadow-blue1;
+      margin-bottom: 2rem;
       &__curve {
         position: absolute;
         top: -10px;
@@ -30,10 +31,14 @@
         font-size: 17px;
       }
       &__img {
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         border-right: 2px solid blue;
+        @media (min-width: 400px) {
+          width: 150px;
+          height: 150px;
+        }
       }
       &__col {
         display: flex;
@@ -57,12 +62,12 @@
   padding: 2rem 0;
 }
 .swiper {
-  min-height: 500px;
+  user-select: none;
 }
 .review {
   position: relative;
   display: flex;
-  font-size: 16px;
+  font-size: 14px;
   padding: 5px;
   &__card {
     position: relative;
@@ -70,15 +75,20 @@
     padding: 2rem 0;
     display: flex;
   }
-  svg {
+  & svg {
     width: 30px;
     fill: $yellow;
+    position: absolute;
+    @media (min-width: 500px) {
+      & {
+        width: 40px;
+      }
+    }
   }
   &__topborder {
     width: 100%;
     height: 1px;
     position: absolute;
-
     top: 0;
     left: 0;
     background: #fff;
@@ -93,16 +103,82 @@
   }
   &__img {
     width: 70px;
-    height: 100px;
+    height: 70px;
     object-fit: cover;
     border-radius: 35%;
   }
   &__profile {
     position: absolute;
-    left: 5rem;
     bottom: -1.5rem;
     display: flex;
+    color: $yellow;
+    font-size: 12px;
     flex-direction: column;
     font-family: cursive;
+  }
+}
+
+.swiper-slide {
+  filter: blur(2px) !important;
+  transform: scale(0.8) !important;
+  transition: all 0.5s;
+}
+.swiper-slide-active {
+  filter: blur(0) !important;
+  transform: scale(1) !important;
+}
+.swiper__tools {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 6rem;
+  padding: 0 4rem 0 2rem;
+}
+
+.swiper__buttons {
+  display: flex;
+  & .button {
+    position: relative;
+    background: transparent;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    margin-right: 2rem;
+    border: 1px solid #fff;
+    &:after {
+      display: none;
+    }
+    .uil {
+      filter: invert(100%);
+    }
+    &:first-of-type {
+      font-size: 34px;
+    }
+    &:last-of-type {
+      font-size: 34px;
+    }
+    &:hover {
+      background: #b4803b60;
+    }
+    & {
+      user-select: none;
+    }
+  }
+}
+.swiper-pagination {
+  position: relative !important;
+  @media (max-width: 900px) {
+    display: none !important;
+  }
+  .swiper-pagination-bullet {
+    width: 35px;
+    height: 4px;
+    border-radius: 50px;
+    background: $yellow;
+  }
+
+  .swiper-pagination-bullet-active {
+    width: 50px;
   }
 }

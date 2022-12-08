@@ -17270,12 +17270,74 @@ var _effectCoverflow = _interopRequireDefault(require("./modules/effect-coverflo
 var _effectCreative = _interopRequireDefault(require("./modules/effect-creative/effect-creative.js"));
 var _effectCards = _interopRequireDefault(require("./modules/effect-cards/effect-cards.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./core/core.js":"../node_modules/swiper/core/core.js","./modules/virtual/virtual.js":"../node_modules/swiper/modules/virtual/virtual.js","./modules/keyboard/keyboard.js":"../node_modules/swiper/modules/keyboard/keyboard.js","./modules/mousewheel/mousewheel.js":"../node_modules/swiper/modules/mousewheel/mousewheel.js","./modules/navigation/navigation.js":"../node_modules/swiper/modules/navigation/navigation.js","./modules/pagination/pagination.js":"../node_modules/swiper/modules/pagination/pagination.js","./modules/scrollbar/scrollbar.js":"../node_modules/swiper/modules/scrollbar/scrollbar.js","./modules/parallax/parallax.js":"../node_modules/swiper/modules/parallax/parallax.js","./modules/zoom/zoom.js":"../node_modules/swiper/modules/zoom/zoom.js","./modules/lazy/lazy.js":"../node_modules/swiper/modules/lazy/lazy.js","./modules/controller/controller.js":"../node_modules/swiper/modules/controller/controller.js","./modules/a11y/a11y.js":"../node_modules/swiper/modules/a11y/a11y.js","./modules/history/history.js":"../node_modules/swiper/modules/history/history.js","./modules/hash-navigation/hash-navigation.js":"../node_modules/swiper/modules/hash-navigation/hash-navigation.js","./modules/autoplay/autoplay.js":"../node_modules/swiper/modules/autoplay/autoplay.js","./modules/thumbs/thumbs.js":"../node_modules/swiper/modules/thumbs/thumbs.js","./modules/free-mode/free-mode.js":"../node_modules/swiper/modules/free-mode/free-mode.js","./modules/grid/grid.js":"../node_modules/swiper/modules/grid/grid.js","./modules/manipulation/manipulation.js":"../node_modules/swiper/modules/manipulation/manipulation.js","./modules/effect-fade/effect-fade.js":"../node_modules/swiper/modules/effect-fade/effect-fade.js","./modules/effect-cube/effect-cube.js":"../node_modules/swiper/modules/effect-cube/effect-cube.js","./modules/effect-flip/effect-flip.js":"../node_modules/swiper/modules/effect-flip/effect-flip.js","./modules/effect-coverflow/effect-coverflow.js":"../node_modules/swiper/modules/effect-coverflow/effect-coverflow.js","./modules/effect-creative/effect-creative.js":"../node_modules/swiper/modules/effect-creative/effect-creative.js","./modules/effect-cards/effect-cards.js":"../node_modules/swiper/modules/effect-cards/effect-cards.js"}],"Assets/js/app.js":[function(require,module,exports) {
+},{"./core/core.js":"../node_modules/swiper/core/core.js","./modules/virtual/virtual.js":"../node_modules/swiper/modules/virtual/virtual.js","./modules/keyboard/keyboard.js":"../node_modules/swiper/modules/keyboard/keyboard.js","./modules/mousewheel/mousewheel.js":"../node_modules/swiper/modules/mousewheel/mousewheel.js","./modules/navigation/navigation.js":"../node_modules/swiper/modules/navigation/navigation.js","./modules/pagination/pagination.js":"../node_modules/swiper/modules/pagination/pagination.js","./modules/scrollbar/scrollbar.js":"../node_modules/swiper/modules/scrollbar/scrollbar.js","./modules/parallax/parallax.js":"../node_modules/swiper/modules/parallax/parallax.js","./modules/zoom/zoom.js":"../node_modules/swiper/modules/zoom/zoom.js","./modules/lazy/lazy.js":"../node_modules/swiper/modules/lazy/lazy.js","./modules/controller/controller.js":"../node_modules/swiper/modules/controller/controller.js","./modules/a11y/a11y.js":"../node_modules/swiper/modules/a11y/a11y.js","./modules/history/history.js":"../node_modules/swiper/modules/history/history.js","./modules/hash-navigation/hash-navigation.js":"../node_modules/swiper/modules/hash-navigation/hash-navigation.js","./modules/autoplay/autoplay.js":"../node_modules/swiper/modules/autoplay/autoplay.js","./modules/thumbs/thumbs.js":"../node_modules/swiper/modules/thumbs/thumbs.js","./modules/free-mode/free-mode.js":"../node_modules/swiper/modules/free-mode/free-mode.js","./modules/grid/grid.js":"../node_modules/swiper/modules/grid/grid.js","./modules/manipulation/manipulation.js":"../node_modules/swiper/modules/manipulation/manipulation.js","./modules/effect-fade/effect-fade.js":"../node_modules/swiper/modules/effect-fade/effect-fade.js","./modules/effect-cube/effect-cube.js":"../node_modules/swiper/modules/effect-cube/effect-cube.js","./modules/effect-flip/effect-flip.js":"../node_modules/swiper/modules/effect-flip/effect-flip.js","./modules/effect-coverflow/effect-coverflow.js":"../node_modules/swiper/modules/effect-coverflow/effect-coverflow.js","./modules/effect-creative/effect-creative.js":"../node_modules/swiper/modules/effect-creative/effect-creative.js","./modules/effect-cards/effect-cards.js":"../node_modules/swiper/modules/effect-cards/effect-cards.js"}],"Assets/images/profile/1.png":[function(require,module,exports) {
+module.exports = "/1.9a37db48.png";
+},{}],"Assets/images/profile/jhumon.jpg":[function(require,module,exports) {
+module.exports = "/jhumon.ca09e5d0.jpg";
+},{}],"Assets/images/profile/mahedi.jpg":[function(require,module,exports) {
+module.exports = "/mahedi.0e1de33a.jpg";
+},{}],"Assets/images/profile/sana.jpg":[function(require,module,exports) {
+module.exports = "/sana.7ef34070.jpg";
+},{}],"Assets/js/images.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _ = _interopRequireDefault(require("../images/profile/1.png"));
+var _jhumon = _interopRequireDefault(require("../images/profile/jhumon.jpg"));
+var _mahedi = _interopRequireDefault(require("../images/profile/mahedi.jpg"));
+var _sana = _interopRequireDefault(require("../images/profile/sana.jpg"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var images = {
+  luka: _.default,
+  sana: _sana.default,
+  Mahedi: _mahedi.default,
+  Jhumon: _jhumon.default
+};
+var _default = images;
+exports.default = _default;
+},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg"}],"Assets/js/data.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.reviewers = void 0;
+var _images = _interopRequireDefault(require("./images"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var reviewers = [{
+  name: "Luka Garang",
+  position: "Founder | Hagana Wen",
+  image: _images.default.luka,
+  review: "Fully commited and ready to share all he knows with you, when ever you seek for\n        his\n        hellp. Michael explain for me web devlopment is very easy way possible from html\n        to\n        react and through his help my carrier in web development is like a breezy. For\n        me\n        it's like he know almost everything because whenever I ask him, there's always\n        postive feedback for my question. He learn everyday and make sure he stregthen\n        his\n        weakness. If you want to learn coding whether from scratch or intermediate I\n        prefer\n        him."
+}, {
+  name: "Jhumon Chudhury",
+  position: "Head forign affairs | University of global village",
+  image: _images.default.Jhumon,
+  review: "Michael, you are one of the disciplined students \n    I have worked with so far this few years, I wish you\n     all the best in your carrier and with your current skills\n      I know the sky is not your limit. Keep going and face the\n       future with boldness."
+}, {
+  name: "Mehndi Moon",
+  position: "Student | University of global village",
+  image: _images.default.Mahedi,
+  review: "Thanks brother, you helped me with couple school \n    projects and actually take your time to teach me all these \n    programming basics, now I feel like pro in my class because \n    only few have the level of knowedge I posses, I will definetly \n    refer my friens to learn from you."
+}, {
+  name: "Saimoon Hung",
+  position: "Founder | Tech Sana",
+  image: _images.default.sana,
+  review: "Skill is potrayed by humanity and kindness, Michael doesn't treat \n    people with difference regardless of background or culture, he treat based\n     on content of their character these few years we have been together we learned\n      a lot from each other and can't stop. If you need a mazing worker who only can't\n       provide quality but care about every part of it. this is the person. He's amazing \n       in what he does. "
+}];
+exports.reviewers = reviewers;
+},{"./images":"Assets/js/images.js"}],"Assets/js/app.js":[function(require,module,exports) {
 "use strict";
 
 var _gsap = _interopRequireDefault(require("gsap"));
 var _typed = _interopRequireDefault(require("typed.js"));
-var _swiper = _interopRequireDefault(require("swiper"));
+var _swiper = _interopRequireWildcard(require("swiper"));
+var _data = require("./data");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var loaders = document.querySelector(".loading__bar--inner");
 var loaderText = document.querySelector(".loading__counter--number");
@@ -17339,16 +17401,36 @@ new _typed.default(".auto-type-profession", {
 });
 
 //swiper
-
+_swiper.default.use([_swiper.Pagination, _swiper.Navigation]);
 var swipper = new _swiper.default(".swiper", {
   slidesPerView: 1,
   spaceBetween: 30,
   pagination: {
     el: ".swiper-pagination",
     clickable: true
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev"
+  },
+  breakpoints: {
+    400: {
+      slidesPerView: 1
+    },
+    1000: {
+      slidesPerView: 2
+    },
+    1200: {
+      slidesPerView: 3
+    }
   }
 });
-},{"gsap":"../node_modules/gsap/index.js","typed.js":"../node_modules/typed.js/lib/typed.js","swiper":"../node_modules/swiper/swiper.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var swiper_container = document.querySelector(".swiper-wrapper");
+_data.reviewers.map(function (reviewer) {
+  var template = "\n  <div class=\"swiper-slide\"> <div class=\"review\"> <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"> <g> <path fill=\"none\" d=\"M0 0h24v24H0z\"/> <path d=\"M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z\"/> </g> </svg> <div class=\"review__card\"> <div class=\"review__topborder\"> </div> <div class=\"review__text\"> <span>".concat(reviewer.review.substring(1, 0), "</span> ").concat(reviewer.review.substring(1, reviewer.review.length), " </div> <img src=").concat(reviewer.image, " alt=").concat(reviewer.name, " class=\"review__img\"> <div class=\"review__profile\"> <span>").concat(reviewer.name, "</span> <span>").concat(reviewer.position, "</span> </div> </div> </div></div>");
+  swiper_container.innerHTML += template;
+});
+},{"gsap":"../node_modules/gsap/index.js","typed.js":"../node_modules/typed.js/lib/typed.js","swiper":"../node_modules/swiper/swiper.esm.js","./data":"Assets/js/data.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -17373,7 +17455,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65034" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56064" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
