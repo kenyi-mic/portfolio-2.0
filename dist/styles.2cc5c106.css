@@ -321,7 +321,7 @@ ul {
   height: 100vh;
   background: #000;
   color: white;
-  background-image: url("/66.a074fd3e.jpg");
+  background-image: url("/33.62dd051d.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   /* menu Button animation style*/
@@ -766,6 +766,7 @@ ul {
 }
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&family=Orbitron:wght@400;500;600;700;800;900&display=swap");
 * {
   margin: 0;
   box-sizing: border-box;
@@ -882,6 +883,59 @@ ul {
 .reviews__header .instructor__info uil {
   width: 20px;
   height: 20px;
+}
+
+.swiper__wrapper {
+  padding: 2rem 0;
+}
+
+.swiper {
+  min-height: 500px;
+}
+
+.review {
+  position: relative;
+  display: flex;
+  font-size: 16px;
+  padding: 5px;
+}
+.review__card {
+  position: relative;
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+}
+.review svg {
+  width: 30px;
+  fill: #ddbc26;
+}
+.review__topborder {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+}
+.review__text span {
+  font-family: "Haghisty_DEMO", "sans-serif";
+  font-size: 30px;
+  font-weight: 600;
+  color: #ddbc26;
+}
+.review__img {
+  width: 70px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 35%;
+}
+.review__profile {
+  position: absolute;
+  left: 5rem;
+  bottom: -1.5rem;
+  display: flex;
+  flex-direction: column;
+  font-family: cursive;
 }
 /**
  * Swiper 8.1.4

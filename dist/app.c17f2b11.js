@@ -17341,7 +17341,7 @@ new _typed.default(".auto-type-profession", {
 //swiper
 
 var swipper = new _swiper.default(".swiper", {
-  slidesPerView: 3,
+  slidesPerView: 1,
   spaceBetween: 30,
   pagination: {
     el: ".swiper-pagination",
@@ -17373,7 +17373,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60384" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65034" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
