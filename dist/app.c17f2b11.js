@@ -17278,6 +17278,8 @@ module.exports = "/jhumon.ca09e5d0.jpg";
 module.exports = "/mahedi.0e1de33a.jpg";
 },{}],"Assets/images/profile/sana.jpg":[function(require,module,exports) {
 module.exports = "/sana.7ef34070.jpg";
+},{}],"Assets/images/projects/Amazon.png":[function(require,module,exports) {
+module.exports = "/Amazon.78dd7360.png";
 },{}],"Assets/js/images.js":[function(require,module,exports) {
 "use strict";
 
@@ -17289,22 +17291,24 @@ var _ = _interopRequireDefault(require("../images/profile/1.png"));
 var _jhumon = _interopRequireDefault(require("../images/profile/jhumon.jpg"));
 var _mahedi = _interopRequireDefault(require("../images/profile/mahedi.jpg"));
 var _sana = _interopRequireDefault(require("../images/profile/sana.jpg"));
+var _Amazon = _interopRequireDefault(require("../images/projects/Amazon.png"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var images = {
   luka: _.default,
   sana: _sana.default,
   Mahedi: _mahedi.default,
-  Jhumon: _jhumon.default
+  Jhumon: _jhumon.default,
+  amazon: _Amazon.default
 };
 var _default = images;
 exports.default = _default;
-},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg"}],"Assets/js/data.js":[function(require,module,exports) {
+},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png"}],"Assets/js/data.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.reviewers = void 0;
+exports.reviewers = exports.projects = void 0;
 var _images = _interopRequireDefault(require("./images"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var reviewers = [{
@@ -17329,6 +17333,194 @@ var reviewers = [{
   review: "Skill is potrayed by humanity and kindness, Michael doesn't treat \n    people with difference regardless of background or culture, he treat based\n     on content of their character these few years we have been together we learned\n      a lot from each other and can't stop. If you need a mazing worker who only can't\n       provide quality but care about every part of it. this is the person. He's amazing \n       in what he does. "
 }];
 exports.reviewers = reviewers;
+var projects = [{
+  id: 1,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  code: "Amazon 2.0 Source Code",
+  sourcelink: "https://github.com/kenyi-mic/Amazon-clone-2.0",
+  live: "Amazon 2.0 Live Preview",
+  liveLink: "https://amazon-clone-2-0-foye4mp9g-kenyi-mic.vercel.app/",
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}, {
+  id: 2,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}, {
+  id: 3,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}, {
+  id: 4,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}, {
+  id: 5,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}, {
+  id: 6,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}, {
+  id: 7,
+  name: "Amazon-2.0",
+  createdAt: "Nov 23 2021",
+  image: _images.default.amazon,
+  technologies: [{
+    name: "NEXT JS",
+    title: "Next js",
+    link: "https://nextjs.org/"
+  }, {
+    name: "REACT JS",
+    title: "React",
+    link: "https://reactjs.org/"
+  }, {
+    name: "TAILWIND CSS",
+    title: "Tailwindcss",
+    link: "https://tailwindcss.com/"
+  }, {
+    name: "STRIPE",
+    title: "Strip payement",
+    link: "https://stripe.com/en-gb-us"
+  }, {
+    name: "NODE Js",
+    title: "Node package manager",
+    link: "https://nextjs.org/"
+  }]
+}];
+exports.projects = projects;
 },{"./images":"Assets/js/images.js"}],"Assets/js/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -17430,6 +17622,13 @@ _data.reviewers.map(function (reviewer) {
   var template = "\n  <div class=\"swiper-slide\"> <div class=\"review\"> <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"> <g> <path fill=\"none\" d=\"M0 0h24v24H0z\"/> <path d=\"M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z\"/> </g> </svg> <div class=\"review__card\"> <div class=\"review__topborder\"> </div> <div class=\"review__text\"> <span>".concat(reviewer.review.substring(1, 0), "</span> ").concat(reviewer.review.substring(1, reviewer.review.length), " </div> <img src=").concat(reviewer.image, " alt=").concat(reviewer.name, " class=\"review__img\"> <div class=\"review__profile\"> <span>").concat(reviewer.name, "</span> <span>").concat(reviewer.position, "</span> </div> </div> </div></div>");
   swiper_container.innerHTML += template;
 });
+var project_container = document.querySelector(".project");
+_data.projects.map(function (project) {
+  var project_template = "<div class=\"project__header\">\n<span>".concat(project.id, "/").concat(_data.projects.length, "</span>\n<span>").concat(project.createdAt, "</span>\n</div>\n<div class=\"project__infos\">\n<h1 class=\"project__infos--name\">\n    ").concat(project.name, "<span> (Exact functionalities)</span>\n</h1>\n</div>\n<div class=\"project__img\">\n<img src=").concat(project.image, " alt=").concat(project.name, " />\n<div class=\"project__links\">\n    <a href=").concat(project.sourcelink, " title=").concat(project.code, " target=\"_blank\">\n        <button class=\"contactButton\">\n            <span>Github</span>\n        </button>\n    </a>\n    <a href=").concat(project.liveLink, " class=\"cirleEyeButton\" title=").concat(project.live, " target=\"_blank\">\n        <svg class=\"textcircle\" viewBox=\"0 0 500 500\">\n            <defs>\n                <path id=\"textcircle\" d=\"M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z\" />\n            </defs>\n            <text>\n                <textPath xlink:href=\"#textcircle\" aria-label=\".Click to see the live version.\"\n                    textLength=\"900\">\n                    .Click to see the live version.\n                </textPath>\n            </text>\n        </svg>\n        <svg class=\"eye\" aria-hidden=\"true\" class=\"eye\" viewBox=\"0 0 70 70\"\n            xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"eye__outer\"\n                d=\"M10.5 35.308c5.227-7.98 14.248-13.252 24.5-13.252s19.273 5.271 24.5 13.252c-5.227 7.98-14.248 13.253-24.5 13.253s-19.273-5.272-24.5-13.253z\" />\n            <path class=\"eye__lashes-up\"\n                d=\"M35 8.802v8.836M49.537 11.383l-3.31 8.192M20.522 11.684l3.31 8.192\" />\n            <path class=\"eye__lashes-down\"\n                d=\"M35 61.818v-8.836 8.836zM49.537 59.237l-3.31-8.193 3.31 8.193zM20.522 58.936l3.31-8.193-3.31 8.193z\" />\n            <circle class=\"eye__iris\" cx=\"35\" cy=\"35.31\" r=\"5.221\" />\n            <circle class=\"eye__inner\" cx=\"35\" cy=\"35.31\" r=\"10.041\" />\n        </svg>\n    </a>\n</div>\n<div class=\"project__tags\">\n").concat(project.technologies.map(function (item) {
+    return "\n<a href=".concat(item.link, " target=\"_blank\" title=").concat(item.title, " class=\"dependencyLinks\">\n    <span>").concat(item.name, "</span>\n    <svg width=\"100%\" height=\"9\" viewBox=\"0 0 101 9\">\n        <path\n            d=\"M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294\"\n            pathLength=\"1\" fill=\"none\" stroke=\"#000\" />\n    </svg>\n</a>");
+  }), "\n   \n</div>\n</div>");
+  project_container.innerHTML += project_template;
+});
 },{"gsap":"../node_modules/gsap/index.js","typed.js":"../node_modules/typed.js/lib/typed.js","swiper":"../node_modules/swiper/swiper.esm.js","./data":"Assets/js/data.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -17455,7 +17654,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56064" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59431" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

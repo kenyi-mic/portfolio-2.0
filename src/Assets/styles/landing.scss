@@ -7,7 +7,7 @@
   background: #000;
   color: white;
 
-  background-image: url("../images/background/33.jpg");
+  background-image: url("../images/background/22.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   .intro {
@@ -167,58 +167,7 @@
       font-size: 23px;
     }
   }
-  .contactButton {
-    position: relative;
-    border: none;
-    background: none;
-    color: #fff;
-    width: 175px;
-    height: 120px;
-    cursor: pointer;
-    transform: scale3d(0.6, 0.6, 0.6);
-    font-size: 24px;
-    &:before,
-    &:after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    &:before {
-      content: "";
-      background: #fff;
-      clip-path: path(
-        "M154.5, 88.5 C131, 113.5 62.5,  110 30, 89.5 C-2.5, 69 -3.5, 42 4.5, 25.5 C12.5, 9 33.5, -6 85, 3.5 C136.5, 13 178, 63.5 154.5, 88.5 Z"
-      );
-      transition: 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55);
-    }
-    &:hover:before {
-      background: rgb(138, 4, 138);
-      clip-path: path(
-        "M143, 77 C117, 96 74, 100.5 45.5, 91.5 C17, 82.5 -10.5, 57 5.5, 31.5 C21.5, 6 79, -5.5 130.5, 4 C182, 13.5 169, 58 143, 77 Z"
-      );
-      box-shadow: 0px 20px 50px rgba(255, 255, 255, 0.5);
-    }
-    & span {
-      mix-blend-mode: difference;
-    }
-    &:after {
-      content: "";
-      height: 85%;
-      width: 95%;
-      top: 6px;
-      z-index: -5;
-      border: 1px solid white;
-      border-radius: 58% 42% 55% 45%/56% 45% 55% 44%;
-      transform: rotate(-20deg);
-      transition: 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55);
-    }
-    &:hover:after {
-      border: 1px solid rgb(184, 31, 145);
-      transform: translate3d(0, -5px, 0);
-    }
-  }
+
   .socials {
     position: absolute;
     left: 50%;

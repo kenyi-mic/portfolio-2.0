@@ -11,7 +11,13 @@
   padding: 1rem;
   &__header {
     font-weight: 600;
+    @media (max-width: 567px) {
+      & {
+        font-size: 30px;
+      }
+    }
   }
+
   &__text {
     position: absolute;
     white-space: nowrap;

@@ -52,4 +52,242 @@ let reviewers = [
   },
 ];
 
-export { reviewers };
+let projects = [
+  {
+    id: 1,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    code: "Amazon 2.0 Source Code",
+    sourcelink: "https://github.com/kenyi-mic/Amazon-clone-2.0",
+    live: "Amazon 2.0 Live Preview",
+    liveLink: "https://amazon-clone-2-0-foye4mp9g-kenyi-mic.vercel.app/",
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+  {
+    id: 7,
+    name: "Amazon-2.0",
+    createdAt: "Nov 23 2021",
+    image: images.amazon,
+    technologies: [
+      {
+        name: "NEXT JS",
+        title: "Next js",
+        link: "https://nextjs.org/",
+      },
+      {
+        name: "REACT JS",
+        title: "React",
+        link: "https://reactjs.org/",
+      },
+      {
+        name: "TAILWIND CSS",
+        title: "Tailwindcss",
+        link: "https://tailwindcss.com/",
+      },
+      {
+        name: "STRIPE",
+        title: "Strip payement",
+        link: "https://stripe.com/en-gb-us",
+      },
+      {
+        name: "NODE Js",
+        title: "Node package manager",
+        link: "https://nextjs.org/",
+      },
+    ],
+  },
+];
+
+export { reviewers, projects };
