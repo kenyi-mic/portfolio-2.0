@@ -17280,6 +17280,18 @@ module.exports = "/mahedi.0e1de33a.jpg";
 module.exports = "/sana.7ef34070.jpg";
 },{}],"Assets/images/projects/Amazon.png":[function(require,module,exports) {
 module.exports = "/Amazon.78dd7360.png";
+},{}],"Assets/images/projects/beeflix.png":[function(require,module,exports) {
+module.exports = "/beeflix.5a169dd7.png";
+},{}],"Assets/images/projects/dashboard.png":[function(require,module,exports) {
+module.exports = "/dashboard.3ec0d3bb.png";
+},{}],"Assets/images/projects/Blog.png":[function(require,module,exports) {
+module.exports = "/Blog.fdae25ef.png";
+},{}],"Assets/images/projects/nft.png":[function(require,module,exports) {
+module.exports = "/nft.37e9041e.png";
+},{}],"Assets/images/projects/Resume.png":[function(require,module,exports) {
+module.exports = "/Resume.2db282ae.png";
+},{}],"Assets/images/projects/portfolio.png":[function(require,module,exports) {
+module.exports = "/portfolio.86c39943.png";
 },{}],"Assets/js/images.js":[function(require,module,exports) {
 "use strict";
 
@@ -17292,17 +17304,29 @@ var _jhumon = _interopRequireDefault(require("../images/profile/jhumon.jpg"));
 var _mahedi = _interopRequireDefault(require("../images/profile/mahedi.jpg"));
 var _sana = _interopRequireDefault(require("../images/profile/sana.jpg"));
 var _Amazon = _interopRequireDefault(require("../images/projects/Amazon.png"));
+var _beeflix = _interopRequireDefault(require("../images/projects/beeflix.png"));
+var _dashboard = _interopRequireDefault(require("../images/projects/dashboard.png"));
+var _Blog = _interopRequireDefault(require("../images/projects/Blog.png"));
+var _nft = _interopRequireDefault(require("../images/projects/nft.png"));
+var _Resume = _interopRequireDefault(require("../images/projects/Resume.png"));
+var _portfolio = _interopRequireDefault(require("../images/projects/portfolio.png"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var images = {
   luka: _.default,
   sana: _sana.default,
   Mahedi: _mahedi.default,
   Jhumon: _jhumon.default,
-  amazon: _Amazon.default
+  amazon: _Amazon.default,
+  beeflix: _beeflix.default,
+  dashboard: _dashboard.default,
+  blog: _Blog.default,
+  nft: _nft.default,
+  resume: _Resume.default,
+  portfolio: _portfolio.default
 };
 var _default = images;
 exports.default = _default;
-},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png"}],"Assets/js/data.js":[function(require,module,exports) {
+},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png"}],"Assets/js/data.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17336,6 +17360,7 @@ exports.reviewers = reviewers;
 var projects = [{
   id: 1,
   name: "Amazon-2.0",
+  shortDesc: "Amazing Functionalities",
   createdAt: "Nov 23 2021",
   image: _images.default.amazon,
   code: "Amazon 2.0 Source Code",
@@ -17362,27 +17387,40 @@ var projects = [{
     name: "NODE Js",
     title: "Node package manager",
     link: "https://nextjs.org/"
+  }, {
+    name: "Vercel",
+    title: "For Deployment!",
+    link: "https://vercel.com/"
   }]
 }, {
   id: 2,
-  name: "Amazon-2.0",
-  createdAt: "Nov 23 2021",
-  image: _images.default.amazon,
+  name: "Beeflix",
+  shortDesc: "Super Streaming platform",
+  createdAt: "March 15, 2021",
+  image: _images.default.beeflix,
+  code: "Source code",
+  sourcelink: "https://github.com/kenyi-mic/netflix-build",
+  live: "Beeflix Live Preview",
+  liveLink: "https://beeflix-88dfc.web.app/",
   technologies: [{
-    name: "NEXT JS",
-    title: "Next js",
-    link: "https://nextjs.org/"
-  }, {
     name: "REACT JS",
     title: "React",
     link: "https://reactjs.org/"
   }, {
-    name: "TAILWIND CSS",
-    title: "Tailwindcss",
-    link: "https://tailwindcss.com/"
+    name: "Firebase",
+    title: "Database",
+    link: "https://firebase.google.com/"
   }, {
-    name: "STRIPE",
-    title: "Strip payement",
+    name: "CSS3",
+    title: "Style sheet css",
+    link: "https://drafts.csswg.org/"
+  }, {
+    name: "Material UI",
+    title: "Icons and styles",
+    link: "https://mui.com/material-ui/material-icons/"
+  }, {
+    name: "MOVIE API",
+    title: "Movie API",
     link: "https://stripe.com/en-gb-us"
   }, {
     name: "NODE Js",
@@ -17391,25 +17429,22 @@ var projects = [{
   }]
 }, {
   id: 3,
-  name: "Amazon-2.0",
-  createdAt: "Nov 23 2021",
-  image: _images.default.amazon,
+  name: "Admin Dashboard",
+  shortDesc: "Slick Design",
+  createdAt: "May 22, 2022",
+  image: _images.default.dashboard,
+  code: "Source code",
+  sourcelink: "https://github.com/kenyi-mic/DashBoard",
+  live: "Dashboard Live Preview",
+  liveLink: "https://hyper-dashboard-26cc76.netlify.app/",
   technologies: [{
-    name: "NEXT JS",
-    title: "Next js",
-    link: "https://nextjs.org/"
-  }, {
     name: "REACT JS",
-    title: "React",
+    title: "Reactapp",
     link: "https://reactjs.org/"
   }, {
-    name: "TAILWIND CSS",
-    title: "Tailwindcss",
-    link: "https://tailwindcss.com/"
-  }, {
-    name: "STRIPE",
-    title: "Strip payement",
-    link: "https://stripe.com/en-gb-us"
+    name: "SASS",
+    title: "Styling Sass",
+    link: "https://sass-lang.com/"
   }, {
     name: "NODE Js",
     title: "Node package manager",
@@ -17417,9 +17452,14 @@ var projects = [{
   }]
 }, {
   id: 4,
-  name: "Amazon-2.0",
-  createdAt: "Nov 23 2021",
-  image: _images.default.amazon,
+  name: "Luka's Blog",
+  shortDesc: "Full Stack",
+  createdAt: "Jun 03, 2022",
+  image: _images.default.blog,
+  code: "Source code",
+  sourcelink: "https://github.com/kenyi-mic/Luka_blog",
+  live: "Dashboard Live Preview",
+  liveLink: "https://luka-blog.vercel.app/",
   technologies: [{
     name: "NEXT JS",
     title: "Next js",
@@ -17433,19 +17473,28 @@ var projects = [{
     title: "Tailwindcss",
     link: "https://tailwindcss.com/"
   }, {
-    name: "STRIPE",
-    title: "Strip payement",
-    link: "https://stripe.com/en-gb-us"
+    name: "TYPESCRIPT",
+    title: "Language",
+    link: "https://www.typescriptlang.org/"
   }, {
     name: "NODE Js",
     title: "Node package manager",
     link: "https://nextjs.org/"
+  }, {
+    name: "SANITY CMS",
+    title: "CotentManager ",
+    link: "https://www.sanity.io/"
   }]
 }, {
   id: 5,
-  name: "Amazon-2.0",
-  createdAt: "Nov 23 2021",
-  image: _images.default.amazon,
+  name: "NFT Mint Market place",
+  shortDesc: "Web Three",
+  createdAt: "April 03, 2022",
+  image: _images.default.nft,
+  code: "Source code",
+  sourcelink: "https://github.com/kenyi-mic/Hyper-nft-drop",
+  live: "NFT Market Live Preview",
+  liveLink: "https://hyper-nft-drop-3x1hbu8sy-kenyi-mic.vercel.app/",
   technologies: [{
     name: "NEXT JS",
     title: "Next js",
@@ -17459,61 +17508,71 @@ var projects = [{
     title: "Tailwindcss",
     link: "https://tailwindcss.com/"
   }, {
-    name: "STRIPE",
-    title: "Strip payement",
-    link: "https://stripe.com/en-gb-us"
+    name: "THIRD WEB",
+    title: "Supply store",
+    link: "https://thirdweb.com/"
+  }, {
+    name: "TYPESCRIPT",
+    title: "Language",
+    link: "https://www.typescriptlang.org/"
   }, {
     name: "NODE Js",
     title: "Node package manager",
     link: "https://nextjs.org/"
+  }, {
+    name: "ETHERS",
+    title: "JavaScript Etherium plugin",
+    link: "https://moralis.io/ethers-js-tutorial-how-to-get-started-using-a-simple-ethers-js-example/"
+  }, {
+    name: "SANITY CMS",
+    title: "CotentManager ",
+    link: "https://www.sanity.io/"
   }]
 }, {
   id: 6,
-  name: "Amazon-2.0",
-  createdAt: "Nov 23 2021",
-  image: _images.default.amazon,
+  name: "Responsive Portfolio",
+  shortDesc: "HTML5 Portfolio",
+  createdAt: "Nov 30, 2020",
+  image: _images.default.resume,
+  code: "Source code",
+  sourcelink: "https://github.com/kenyi-mic/portfolio-web",
+  live: "Portfolio Live Preview",
+  liveLink: "https://kenyi-mic.github.io/portfolio-web/site",
   technologies: [{
-    name: "NEXT JS",
-    title: "Next js",
-    link: "https://nextjs.org/"
+    name: "HTML5",
+    title: "Html version 5",
+    link: "https://html.spec.whatwg.org/multipage/"
   }, {
-    name: "REACT JS",
-    title: "React",
-    link: "https://reactjs.org/"
+    name: "CSS3",
+    title: "3rd verion of CSS",
+    link: "https://drafts.csswg.org/"
   }, {
-    name: "TAILWIND CSS",
-    title: "Tailwindcss",
-    link: "https://tailwindcss.com/"
-  }, {
-    name: "STRIPE",
-    title: "Strip payement",
-    link: "https://stripe.com/en-gb-us"
-  }, {
-    name: "NODE Js",
-    title: "Node package manager",
-    link: "https://nextjs.org/"
+    name: "JAVASCRIPT",
+    title: "Scripting Language",
+    link: "https://www.javascript.com/"
   }]
 }, {
   id: 7,
-  name: "Amazon-2.0",
-  createdAt: "Nov 23 2021",
-  image: _images.default.amazon,
+  name: "Portfolio ",
+  shortDesc: "Bootstrap and JavaScript",
+  createdAt: "Nov 23, 2022",
+  image: _images.default.portfolio,
+  code: "Source code",
+  sourcelink: "https://github.com/kenyi-mic/Portfolio_bootstrap",
+  live: "Portfolio Live Preview",
+  liveLink: "https://michaelkenyi-resume-bootstrap.netlify.app",
   technologies: [{
-    name: "NEXT JS",
-    title: "Next js",
-    link: "https://nextjs.org/"
+    name: "HTML5",
+    title: "Html version 5",
+    link: "https://html.spec.whatwg.org/multipage/"
   }, {
-    name: "REACT JS",
-    title: "React",
-    link: "https://reactjs.org/"
+    name: "JAVASCRIPT",
+    title: "Scripting Language",
+    link: "https://www.javascript.com/"
   }, {
-    name: "TAILWIND CSS",
-    title: "Tailwindcss",
-    link: "https://tailwindcss.com/"
-  }, {
-    name: "STRIPE",
-    title: "Strip payement",
-    link: "https://stripe.com/en-gb-us"
+    name: "BOOTSTRAP5",
+    title: "Responsive Design tool",
+    link: "https://getbootstrap.com/"
   }, {
     name: "NODE Js",
     title: "Node package manager",
@@ -17624,7 +17683,7 @@ _data.reviewers.map(function (reviewer) {
 });
 var project_container = document.querySelector(".project");
 _data.projects.map(function (project) {
-  var project_template = "<div class=\"project__header\">\n<span>".concat(project.id, "/").concat(_data.projects.length, "</span>\n<span>").concat(project.createdAt, "</span>\n</div>\n<div class=\"project__infos\">\n<h1 class=\"project__infos--name\">\n    ").concat(project.name, "<span> (Exact functionalities)</span>\n</h1>\n</div>\n<div class=\"project__img\">\n<img src=").concat(project.image, " alt=").concat(project.name, " />\n<div class=\"project__links\">\n    <a href=").concat(project.sourcelink, " title=").concat(project.code, " target=\"_blank\">\n        <button class=\"contactButton\">\n            <span>Github</span>\n        </button>\n    </a>\n    <a href=").concat(project.liveLink, " class=\"cirleEyeButton\" title=").concat(project.live, " target=\"_blank\">\n        <svg class=\"textcircle\" viewBox=\"0 0 500 500\">\n            <defs>\n                <path id=\"textcircle\" d=\"M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z\" />\n            </defs>\n            <text>\n                <textPath xlink:href=\"#textcircle\" aria-label=\".Click to see the live version.\"\n                    textLength=\"900\">\n                    .Click to see the live version.\n                </textPath>\n            </text>\n        </svg>\n        <svg class=\"eye\" aria-hidden=\"true\" class=\"eye\" viewBox=\"0 0 70 70\"\n            xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"eye__outer\"\n                d=\"M10.5 35.308c5.227-7.98 14.248-13.252 24.5-13.252s19.273 5.271 24.5 13.252c-5.227 7.98-14.248 13.253-24.5 13.253s-19.273-5.272-24.5-13.253z\" />\n            <path class=\"eye__lashes-up\"\n                d=\"M35 8.802v8.836M49.537 11.383l-3.31 8.192M20.522 11.684l3.31 8.192\" />\n            <path class=\"eye__lashes-down\"\n                d=\"M35 61.818v-8.836 8.836zM49.537 59.237l-3.31-8.193 3.31 8.193zM20.522 58.936l3.31-8.193-3.31 8.193z\" />\n            <circle class=\"eye__iris\" cx=\"35\" cy=\"35.31\" r=\"5.221\" />\n            <circle class=\"eye__inner\" cx=\"35\" cy=\"35.31\" r=\"10.041\" />\n        </svg>\n    </a>\n</div>\n<div class=\"project__tags\">\n").concat(project.technologies.map(function (item) {
+  var project_template = "<div class=\"project__header\">\n<span>".concat(project.id, "/").concat(_data.projects.length, "</span>\n<span>").concat(project.createdAt, "</span>\n</div>\n<div class=\"project__infos\">\n<h1 class=\"project__infos--name\">\n    ").concat(project.name, "<span> (").concat(project.shortDesc, ")</span>\n</h1>\n</div>\n<div class=\"project__img\">\n<img src=").concat(project.image, " alt=").concat(project.name, " />\n<div class=\"project__links\">\n    <a href=").concat(project.sourcelink, " title=").concat(project.code, " target=\"_blank\">\n        <button class=\"contactButton\">\n            <span>Github</span>\n        </button>\n    </a>\n    <a href=").concat(project.liveLink, " class=\"cirleEyeButton\" title=").concat(project.live, " target=\"_blank\">\n        <svg class=\"textcircle\" viewBox=\"0 0 500 500\">\n            <defs>\n                <path id=\"textcircle\" d=\"M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z\" />\n            </defs>\n            <text>\n                <textPath xlink:href=\"#textcircle\" aria-label=\".Click to see the live version.\"\n                    textLength=\"900\">\n                    .Click to see the live version.\n                </textPath>\n            </text>\n        </svg>\n        <svg class=\"eye\" aria-hidden=\"true\" class=\"eye\" viewBox=\"0 0 70 70\"\n            xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"eye__outer\"\n                d=\"M10.5 35.308c5.227-7.98 14.248-13.252 24.5-13.252s19.273 5.271 24.5 13.252c-5.227 7.98-14.248 13.253-24.5 13.253s-19.273-5.272-24.5-13.253z\" />\n            <path class=\"eye__lashes-up\"\n                d=\"M35 8.802v8.836M49.537 11.383l-3.31 8.192M20.522 11.684l3.31 8.192\" />\n            <path class=\"eye__lashes-down\"\n                d=\"M35 61.818v-8.836 8.836zM49.537 59.237l-3.31-8.193 3.31 8.193zM20.522 58.936l3.31-8.193-3.31 8.193z\" />\n            <circle class=\"eye__iris\" cx=\"35\" cy=\"35.31\" r=\"5.221\" />\n            <circle class=\"eye__inner\" cx=\"35\" cy=\"35.31\" r=\"10.041\" />\n        </svg>\n    </a>\n</div>\n<div class=\"project__tags\">\n").concat(project.technologies.map(function (item) {
     return "\n<a href=".concat(item.link, " target=\"_blank\" title=").concat(item.title, " class=\"dependencyLinks\">\n    <span>").concat(item.name, "</span>\n    <svg width=\"100%\" height=\"9\" viewBox=\"0 0 101 9\">\n        <path\n            d=\"M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294\"\n            pathLength=\"1\" fill=\"none\" stroke=\"#000\" />\n    </svg>\n</a>");
   }), "\n   \n</div>\n</div>");
   project_container.innerHTML += project_template;
@@ -17654,7 +17713,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59431" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49577" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -2285,6 +2285,14 @@ ul {
   opacity: 0;
 }
 
+.project__tags {
+  display: flex;
+  flex-direction: row;
+}
+.project__tags:nth-last-child(0) {
+  display: none;
+}
+
 .dependencyLinks {
   position: relative;
   font-family: sans-serif;
@@ -2307,6 +2315,12 @@ ul {
 .dependencyLinks:hover svg path {
   stroke-dashoffset: 0;
   transition-timing-function: cubic-bezier(0.8, 1, 0.7, 1);
+}
+
+@media (max-width: 1343px) {
+  .project .cirleEyeButton {
+    transform: translate(-14rem, -3rem);
+  }
 }
 .contactButton {
   position: relative;

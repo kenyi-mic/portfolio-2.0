@@ -123,7 +123,7 @@ projects.map((project) => {
 </div>
 <div class="project__infos">
 <h1 class="project__infos--name">
-    ${project.name}<span> (Exact functionalities)</span>
+    ${project.name}<span> (${project.shortDesc})</span>
 </h1>
 </div>
 <div class="project__img">
