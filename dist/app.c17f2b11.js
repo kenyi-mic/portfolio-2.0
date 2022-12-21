@@ -17332,7 +17332,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.reviewers = exports.projects = void 0;
+exports.reviewers = exports.projects = exports.faq = void 0;
 var _images = _interopRequireDefault(require("./images"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var reviewers = [{
@@ -17580,6 +17580,32 @@ var projects = [{
   }]
 }];
 exports.projects = projects;
+var faq = [{
+  question: "How long does it take to build a website?",
+  answer: "This completely depends on what you neeed. It takes longer to build a 1000 page megasite than asmaller eight page resturant website."
+}, {
+  question: "Do you work internationally?",
+  answer: "Yeah Sure! With help of online conference tools such as Zoom, google meets and ofcourse Skype. Which makes working with businesses anywhere a breeze."
+}, {
+  question: "Will my website work on smart phones and tablets as well?",
+  answer: "It certainly will, nowadays people are  accessing websites using small screens such as mobile or tablets that's why we create every website to be mobile responsive, with mobile first design in mind"
+}, {
+  question: "How much does a website cost?",
+  answer: "The age-old question! It completely depends on what you need, but you can rest assured we deliver the best possible value for your money and it won't break the nark. Why not ask for a quote? There's no obligation and we won't sulk if you say 'no!'"
+}, {
+  question: "Do you create Mobile Applications also?",
+  answer: "Yeah absolutely, we build mobile app using react native, which works both in IOS and Android and can be scalled to web as well. Which means one code base for your entire applications..."
+}, {
+  question: "What are the Payment terms for development of web or App",
+  answer: "We will work on 30% upfront basis and 30% payable after designs are agreed and the outstanding 40% payable when the development has been completed and signed off."
+}, {
+  question: "Who hosts the website or App?",
+  answer: "To build a site you must have a provider to host your website, this makes your website available online and secured as well since those provider helps with ssl certificate. If you are not aware of these hosting services, we can recommend you the best suitable one for your requirements or help you with an existing provider if you already have one. "
+}, {
+  question: "Does my site need to be updated to HTTPS instead of HTTP?",
+  answer: "Ofcourse, tou shouldn't compromise on it, It is essential to update your website with HTTPS instead of HTTP as HTTPS is considered to solve data protection issues"
+}];
+exports.faq = faq;
 },{"./images":"Assets/js/images.js"}],"Assets/js/app.js":[function(require,module,exports) {
 "use strict";
 
@@ -17590,6 +17616,12 @@ var _data = require("./data");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 var loaders = document.querySelector(".loading__bar--inner");
 var loaderText = document.querySelector(".loading__counter--number");
 var count = 0;
@@ -17688,6 +17720,20 @@ _data.projects.map(function (project) {
   }), "\n   \n</div>\n</div>");
   project_container.innerHTML += project_template;
 });
+
+//faq
+
+var faq_container = document.querySelector(".question__container");
+_data.faq.map(function (items) {
+  var faq_template = "<div class=\"question\">\n\n  \n  <div class=\"question__wrap\">\n  <div class=\"question__status\"></div>\n  <h3>".concat(items.question, "</h3>\n\n</div>\n<div class=\"question__answer\">\n  <p>").concat(items.answer, " </p>\n</div>\n</div>");
+  faq_container.innerHTML += faq_template;
+});
+var questions = _toConsumableArray(document.querySelectorAll(".question"));
+questions.map(function (question) {
+  question.addEventListener("click", function () {
+    question.classList.toggle("open");
+  });
+});
 },{"gsap":"../node_modules/gsap/index.js","typed.js":"../node_modules/typed.js/lib/typed.js","swiper":"../node_modules/swiper/swiper.esm.js","./data":"Assets/js/data.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -17713,7 +17759,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49577" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50488" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

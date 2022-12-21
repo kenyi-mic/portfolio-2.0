@@ -1,0 +1,125 @@
+@import "faq.scss";
+.contact {
+  position: relative;
+  background: linear-gradient(to right, #ec11cf, #eb68d9, #ffa3f3);
+  font-family: sans-serif;
+  width: 100%;
+  @media (max-width: 1100) {
+    padding: 2rem;
+  }
+  .section__header-title {
+    font-size: 23px;
+    font-weight: 700;
+    color: #383838;
+  }
+  .section__header-subtitle {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  &__wrapper {
+    width: 90%;
+    margin: auto;
+    height: 100vh;
+  }
+  &__header {
+    margin-bottom: 3rem;
+  }
+}
+
+.form {
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.2vw;
+    font-weight: 500;
+    input {
+      font-size: inherit;
+      font-weight: inherit;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #0f0f0f;
+      color: #444;
+      &:focus {
+        outline: none;
+        background: transparent;
+      }
+    }
+  }
+  &__flex {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    textarea {
+      width: 70%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #0f0f0f;
+      font-size: 2.2vw;
+      color: #444;
+      resize: none;
+      &:focus {
+        outline: none;
+      }
+    }
+    .contactButton {
+      font-weight: 900;
+      &:before {
+        background: #0f0f0f;
+      }
+      &:after {
+        display: none;
+      }
+      &:hover:before {
+        background: #fff;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .form {
+    &__flex {
+      flex-direction: column;
+      textarea {
+        font-size: 4vw;
+      }
+    }
+    &__info {
+      font-size: 4vw;
+
+      input {
+        font-size: 4vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .contact .contactButton {
+    background: #eb68d9;
+    transform: scale3d(1, 1, 1);
+    font-size: 19px;
+  }
+}
+
+@media (min-width: 768px) {
+  .form {
+    &__info {
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 5vw;
+      width: 100%;
+      input {
+        font-size: inherit;
+        width: inherit;
+      }
+    }
+    &__flex {
+      textarea {
+        width: 100%;
+        font-size: 5vw;
+      }
+    }
+  }
+}

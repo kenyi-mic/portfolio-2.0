@@ -328,4 +328,46 @@ let projects = [
   },
 ];
 
-export { reviewers, projects };
+let faq = [
+  {
+    question: "How long does it take to build a website?",
+    answer:
+      "This completely depends on what you neeed. It takes longer to build a 1000 page megasite than asmaller eight page resturant website.",
+  },
+  {
+    question: "Do you work internationally?",
+    answer:
+      "Yeah Sure! With help of online conference tools such as Zoom, google meets and ofcourse Skype. Which makes working with businesses anywhere a breeze.",
+  },
+  {
+    question: "Will my website work on smart phones and tablets as well?",
+    answer:
+      "It certainly will, nowadays people are  accessing websites using small screens such as mobile or tablets that's why we create every website to be mobile responsive, with mobile first design in mind",
+  },
+  {
+    question: "How much does a website cost?",
+    answer:
+      "The age-old question! It completely depends on what you need, but you can rest assured we deliver the best possible value for your money and it won't break the nark. Why not ask for a quote? There's no obligation and we won't sulk if you say 'no!'",
+  },
+  {
+    question: "Do you create Mobile Applications also?",
+    answer:
+      "Yeah absolutely, we build mobile app using react native, which works both in IOS and Android and can be scalled to web as well. Which means one code base for your entire applications...",
+  },
+  {
+    question: "What are the Payment terms for development of web or App",
+    answer:
+      "We will work on 30% upfront basis and 30% payable after designs are agreed and the outstanding 40% payable when the development has been completed and signed off.",
+  },
+  {
+    question: "Who hosts the website or App?",
+    answer:
+      "To build a site you must have a provider to host your website, this makes your website available online and secured as well since those provider helps with ssl certificate. If you are not aware of these hosting services, we can recommend you the best suitable one for your requirements or help you with an existing provider if you already have one. ",
+  },
+  {
+    question: "Does my site need to be updated to HTTPS instead of HTTP?",
+    answer:
+      "Ofcourse, tou shouldn't compromise on it, It is essential to update your website with HTTPS instead of HTTP as HTTPS is considered to solve data protection issues",
+  },
+];
+export { reviewers, projects, faq };

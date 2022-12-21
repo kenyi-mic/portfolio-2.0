@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import Typed from "typed.js";
 import Swiper, { Pagination, Navigation } from "swiper";
-import { projects, reviewers } from "./data";
+import { faq, projects, reviewers } from "./data";
 
 const loaders = document.querySelector(".loading__bar--inner");
 const loaderText = document.querySelector(".loading__counter--number");
@@ -177,4 +177,32 @@ ${project.technologies.map(
 </div>
 </div>`;
   project_container.innerHTML += project_template;
+});
+
+//faq
+
+let faq_container = document.querySelector(".question__container");
+
+faq.map((items) => {
+  let faq_template = `<div class="question">
+
+  
+  <div class="question__wrap">
+  <div class="question__status"></div>
+  <h3>${items.question}</h3>
+
+</div>
+<div class="question__answer">
+  <p>${items.answer} </p>
+</div>
+</div>`;
+  faq_container.innerHTML += faq_template;
+});
+
+let questions = [...document.querySelectorAll(".question")];
+
+questions.map((question) => {
+  question.addEventListener("click", () => {
+    question.classList.toggle("open");
+  });
 });
