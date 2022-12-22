@@ -2371,7 +2371,7 @@ ul {
 }
 .faq {
   position: relative;
-  background: linear-gradient(to right, #ec11cf, #eb68d9, #ffa3f3);
+  background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
 }
 .faq__wrap {
   padding: 3rem 4.5%;
@@ -2443,7 +2443,7 @@ ul {
 }
 .faq {
   position: relative;
-  background: linear-gradient(to right, #ec11cf, #eb68d9, #ffa3f3);
+  background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
 }
 .faq__wrap {
   padding: 3rem 4.5%;
@@ -2516,8 +2516,9 @@ ul {
 
 .contact {
   position: relative;
-  background: linear-gradient(to right, #ec11cf, #eb68d9, #ffa3f3);
+  background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
   font-family: sans-serif;
+  background-blend-mode: multiply;
   width: 100%;
 }
 @media (max-width: 1100) {
@@ -2534,6 +2535,50 @@ ul {
   font-size: 22px;
   font-weight: 600;
 }
+.contact__profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+.contact__profile-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.contact__profile-item img {
+  width: 70px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.contact__profile-col {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 17px;
+  z-index: 1;
+}
+.contact__profile-bg {
+  position: absolute;
+  width: 250px;
+  height: 100px;
+  background: #6e3c97;
+  border-radius: 5px;
+  left: 20%;
+}
+.contact__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding-bottom: 3rem;
+}
+.contact__socials a {
+  font-size: 25px;
+  text-transform: capitalize;
+}
 .contact__wrapper {
   width: 90%;
   margin: auto;
@@ -2541,6 +2586,25 @@ ul {
 }
 .contact__header {
   margin-bottom: 3rem;
+}
+.contact__footer {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+.contact__footer-link {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+@media (min-width: 900px) {
+  .contact__footer-link {
+    font-style: 14px;
+  }
 }
 
 .form__info {
@@ -2606,14 +2670,7 @@ ul {
     font-size: 4vw;
   }
 }
-@media (max-width: 800px) {
-  .contact .contactButton {
-    background: #eb68d9;
-    transform: scale3d(1, 1, 1);
-    font-size: 19px;
-  }
-}
-@media (min-width: 768px) {
+@media (max-width: 610px) {
   .form__info {
     flex-direction: column;
     align-items: flex-start;
