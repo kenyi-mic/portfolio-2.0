@@ -2441,85 +2441,12 @@ ul {
   outline: 1px solid #0f0f0f;
   outline-offset: 2px;
 }
-.faq {
-  position: relative;
-  background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
-}
-.faq__wrap {
-  padding: 3rem 4.5%;
-}
-.faq .section__header-title {
-  font-size: 23px;
-  font-weight: 700;
-  color: #383838;
-}
-.faq .section__header-subtitle {
-  font-size: 22px;
-  font-weight: 600;
-}
-.faq .question {
-  position: relative;
-  border-bottom: 1px solid #0f0f0f;
-  padding: 24px 0 24px 0;
-}
-.faq .question h3 {
-  cursor: pointer;
-  font-size: 27px;
-  color: #0f0f0f;
-  font-weight: 600;
-}
-@media (min-width: 768px) {
-  .faq .question h3 {
-    font-size: 22px;
-  }
-}
-.faq .question__wrap {
-  display: grid;
-  grid-template-columns: 26px auto;
-  align-items: center;
-  gap: 1rem;
-}
-.faq .question__answer {
-  font-family: sans-serif;
-  font-size: 20px;
-  margin: 20px 0;
-  max-width: 40em;
-  color: #0f0f0f;
-  padding-left: 40px;
-  transition: all 0.2s ease-in-out;
-  display: none;
-}
-.faq .question__status {
-  width: 26px;
-  height: 26px;
-  background: transparent;
-  border: 3px solid #0f0f0f;
-  border-radius: 50%;
-  margin-top: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-@media (min-width: 768px) {
-  .faq .question__status {
-    width: 25px;
-    height: 25px;
-  }
-}
-.faq .question.open .question__answer {
-  display: block;
-}
-.faq .question.open .question__status {
-  background: #0f0f0f;
-  outline: 1px solid #0f0f0f;
-  outline-offset: 2px;
-}
-
 .contact {
   position: relative;
   background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
   font-family: sans-serif;
   background-blend-mode: multiply;
-  width: 100%;
+  width: 100vw;
 }
 @media (max-width: 1100) {
   .contact {
@@ -2588,13 +2515,12 @@ ul {
   margin-bottom: 3rem;
 }
 .contact__footer {
-  position: absolute;
-  bottom: 1rem;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 100%;
+  padding-bottom: 2rem;
 }
 .contact__footer-link {
   width: 100%;
@@ -2625,6 +2551,9 @@ ul {
 .form__info input:focus {
   outline: none;
   background: transparent;
+}
+.form__profile, .form__socials, .form__footer {
+  position: absolute;
 }
 .form__flex {
   display: flex;

@@ -1,11 +1,10 @@
-@import "faq.scss";
-
 .contact {
   position: relative;
   background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
   font-family: sans-serif;
   background-blend-mode: multiply;
-  width: 100%;
+  width: 100vw;
+
   @media (max-width: 1100) {
     padding: 2rem;
   }
@@ -72,13 +71,12 @@
     margin-bottom: 3rem;
   }
   &__footer {
-    position: absolute;
-    bottom: 1rem;
     left: 0;
     display: flex;
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    padding-bottom: 2rem;
     &-link {
       width: 100%;
       text-align: center;
@@ -109,6 +107,11 @@
         background: transparent;
       }
     }
+  }
+  &__profile,
+  &__socials,
+  &__footer {
+    position: absolute;
   }
   &__flex {
     display: flex;
