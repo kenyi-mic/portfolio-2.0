@@ -215,15 +215,15 @@
                 <div class="section__header-subtitle">Get in touch</div>
             </div>
             <div class="contact__form">
-                <form action="#" class="form">
+                <form action="https://formsubmit.co/michaelkenyi13@gmail.com" method="POST" class="form">
                     <div class="form__flex">
                         <div class="form__info">
-                            <label for="name">Hi, My name is </label>
-                            <input name="name" type="text" placeholder="Type here...">
+                            <label for="fullName">Hi, My name is </label>
+                            <input name="fullName" type="text" required placeholder="Type here...">
                         </div>
                         <div class="form__info">
                             <label for="service">I'm looking for </label>
-                            <input name="service" type="text" placeholder="Type of service">
+                            <input name="service" required type="text" placeholder="Type of service">
                         </div>
                     </div>
                     <div class="form__flex">
@@ -234,7 +234,7 @@
 
                     </div>
                     <div class="form__flex">
-                        <textarea type="text" placeholder="Your Message"></textarea>
+                        <textarea type="text" placeholder="Your Message" name="message"></textarea>
                     </div>
                     <div class="form__flex">
                         <div class="form__info">
@@ -357,6 +357,7 @@
         </div>
     </section>
     <script src="./Assets/js/app.js"></script>
+    <script src="./Assets/js/threeanim.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </body>

@@ -8082,10 +8082,6 @@ exports.nextTick = nextTick;
 exports.now = now;
 exports.setCSSProperty = setCSSProperty;
 var _ssrWindow = require("ssr-window");
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function deleteProps(obj) {
   const object = obj;
   Object.keys(object).forEach(key => {
@@ -8152,7 +8148,7 @@ function getTranslate(el, axis = 'x') {
   return curTransform || 0;
 }
 function isObject(o) {
-  return _typeof(o) === 'object' && o !== null && o.constructor && Object.prototype.toString.call(o).slice(8, -1) === 'Object';
+  return typeof o === 'object' && o !== null && o.constructor && Object.prototype.toString.call(o).slice(8, -1) === 'Object';
 }
 function isNode(node) {
   // eslint-disable-next-line
@@ -8198,9 +8194,9 @@ function setCSSProperty(el, varName, varValue) {
   el.style.setProperty(varName, varValue);
 }
 function animateCSSModeScroll({
-  swiper: swiper,
-  targetPosition: targetPosition,
-  side: side
+  swiper,
+  targetPosition,
+  side
 }) {
   const window = (0, _ssrWindow.getWindow)();
   const startPosition = -swiper.translate;
@@ -8224,13 +8220,17 @@ function animateCSSModeScroll({
     if (isOutOfBound(currentPosition, targetPosition)) {
       currentPosition = targetPosition;
     }
-    swiper.wrapperEl.scrollTo(_defineProperty({}, side, currentPosition));
+    swiper.wrapperEl.scrollTo({
+      [side]: currentPosition
+    });
     if (isOutOfBound(currentPosition, targetPosition)) {
       swiper.wrapperEl.style.overflow = 'hidden';
       swiper.wrapperEl.style.scrollSnapType = '';
       setTimeout(() => {
         swiper.wrapperEl.style.overflow = '';
-        swiper.wrapperEl.scrollTo(_defineProperty({}, side, currentPosition));
+        swiper.wrapperEl.scrollTo({
+          [side]: currentPosition
+        });
       });
       window.cancelAnimationFrame(swiper.cssModeFrameID);
       return;
@@ -8259,7 +8259,7 @@ function calcSupport() {
       try {
         const opts = Object.defineProperty({}, 'passive', {
           // eslint-disable-next-line
-          get: function () {
+          get() {
             supportsPassive = true;
           }
         });
@@ -8290,7 +8290,7 @@ var _ssrWindow = require("ssr-window");
 var _getSupport = require("./get-support.js");
 let deviceCached;
 function calcDevice({
-  userAgent: userAgent
+  userAgent
 } = {}) {
   const support = (0, _getSupport.getSupport)();
   const window = (0, _ssrWindow.getWindow)();
@@ -8311,7 +8311,7 @@ function calcDevice({
   let macos = platform === 'MacIntel'; // iPadOs 13 fix
 
   const iPadScreens = ['1024x1366', '1366x1024', '834x1194', '1194x834', '834x1112', '1112x834', '768x1024', '1024x768', '820x1180', '1180x820', '810x1080', '1080x810'];
-  if (!ipad && macos && support.touch && iPadScreens.indexOf("".concat(screenWidth, "x").concat(screenHeight)) >= 0) {
+  if (!ipad && macos && support.touch && iPadScreens.indexOf(`${screenWidth}x${screenHeight}`) >= 0) {
     ipad = ua.match(/(Version)\/([\d.]+)/);
     if (!ipad) ipad = [0, 1, '13_0_0'];
     macos = false;
@@ -8369,9 +8369,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Resize;
 var _ssrWindow = require("ssr-window");
 function Resize({
-  swiper: swiper,
-  on: on,
-  emit: emit
+  swiper,
+  on,
+  emit
 }) {
   const window = (0, _ssrWindow.getWindow)();
   let observer = null;
@@ -8386,15 +8386,15 @@ function Resize({
     observer = new ResizeObserver(entries => {
       animationFrame = window.requestAnimationFrame(() => {
         const {
-          width: width,
-          height: height
+          width,
+          height
         } = swiper;
         let newWidth = width;
         let newHeight = height;
         entries.forEach(({
-          contentBoxSize: contentBoxSize,
-          contentRect: contentRect,
-          target: target
+          contentBoxSize,
+          contentRect,
+          target
         }) => {
           if (target && target !== swiper.el) return;
           newWidth = contentRect ? contentRect.width : (contentBoxSize[0] || contentBoxSize).inlineSize;
@@ -8443,10 +8443,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Observer;
 var _ssrWindow = require("ssr-window");
 function Observer({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   const observers = [];
   const window = (0, _ssrWindow.getWindow)();
@@ -8516,7 +8516,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /* eslint-disable no-underscore-dangle */
 var _default = {
-  on: function (events, handler, priority) {
+  on(events, handler, priority) {
     const self = this;
     if (!self.eventsListeners || self.destroyed) return self;
     if (typeof handler !== 'function') return self;
@@ -8527,7 +8527,7 @@ var _default = {
     });
     return self;
   },
-  once: function (events, handler, priority) {
+  once(events, handler, priority) {
     const self = this;
     if (!self.eventsListeners || self.destroyed) return self;
     if (typeof handler !== 'function') return self;
@@ -8541,7 +8541,7 @@ var _default = {
     onceHandler.__emitterProxy = handler;
     return self.on(events, onceHandler, priority);
   },
-  onAny: function (handler, priority) {
+  onAny(handler, priority) {
     const self = this;
     if (!self.eventsListeners || self.destroyed) return self;
     if (typeof handler !== 'function') return self;
@@ -8551,7 +8551,7 @@ var _default = {
     }
     return self;
   },
-  offAny: function (handler) {
+  offAny(handler) {
     const self = this;
     if (!self.eventsListeners || self.destroyed) return self;
     if (!self.eventsAnyListeners) return self;
@@ -8561,7 +8561,7 @@ var _default = {
     }
     return self;
   },
-  off: function (events, handler) {
+  off(events, handler) {
     const self = this;
     if (!self.eventsListeners || self.destroyed) return self;
     if (!self.eventsListeners) return self;
@@ -8578,7 +8578,7 @@ var _default = {
     });
     return self;
   },
-  emit: function (...args) {
+  emit(...args) {
     const self = this;
     if (!self.eventsListeners || self.destroyed) return self;
     if (!self.eventsListeners) return self;
@@ -8643,8 +8643,8 @@ function updateSize() {
   if (Number.isNaN(width)) width = 0;
   if (Number.isNaN(height)) height = 0;
   Object.assign(swiper, {
-    width: width,
-    height: height,
+    width,
+    height,
     size: swiper.isHorizontal() ? width : height
   });
 }
@@ -8656,10 +8656,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = updateSlides;
 var _utils = require("../../shared/utils.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function updateSlides() {
   const swiper = this;
   function getDirectionLabel(property) {
@@ -8683,14 +8679,14 @@ function updateSlides() {
   }
   const params = swiper.params;
   const {
-    $wrapperEl: $wrapperEl,
+    $wrapperEl,
     size: swiperSize,
     rtlTranslate: rtl,
-    wrongRTL: wrongRTL
+    wrongRTL
   } = swiper;
   const isVirtual = swiper.virtual && params.virtual.enabled;
   const previousSlidesLength = isVirtual ? swiper.virtual.slides.length : swiper.slides.length;
-  const slides = $wrapperEl.children(".".concat(swiper.params.slideClass));
+  const slides = $wrapperEl.children(`.${swiper.params.slideClass}`);
   const slidesLength = isVirtual ? swiper.virtual.slides.length : slides.length;
   let snapGrid = [];
   const slidesGrid = [];
@@ -8750,7 +8746,7 @@ function updateSlides() {
 
     if (params.slidesPerView === 'auto') {
       if (shouldResetSlideSize) {
-        slides[i].style[getDirectionLabel('width')] = "";
+        slides[i].style[getDirectionLabel('width')] = ``;
       }
       const slideStyles = getComputedStyle(slide[0]);
       const currentTransform = slide[0].style.transform;
@@ -8775,8 +8771,8 @@ function updateSlides() {
           slideSize = width + marginLeft + marginRight;
         } else {
           const {
-            clientWidth: clientWidth,
-            offsetWidth: offsetWidth
+            clientWidth,
+            offsetWidth
           } = slide[0];
           slideSize = width + paddingLeft + paddingRight + marginLeft + marginRight + (offsetWidth - clientWidth);
         }
@@ -8792,7 +8788,7 @@ function updateSlides() {
       slideSize = (swiperSize - (params.slidesPerView - 1) * spaceBetween) / params.slidesPerView;
       if (params.roundLengths) slideSize = Math.floor(slideSize);
       if (slides[i]) {
-        slides[i].style[getDirectionLabel('width')] = "".concat(slideSize, "px");
+        slides[i].style[getDirectionLabel('width')] = `${slideSize}px`;
       }
     }
     if (slides[i]) {
@@ -8820,11 +8816,13 @@ function updateSlides() {
   swiper.virtualSize = Math.max(swiper.virtualSize, swiperSize) + offsetAfter;
   if (rtl && wrongRTL && (params.effect === 'slide' || params.effect === 'coverflow')) {
     $wrapperEl.css({
-      width: "".concat(swiper.virtualSize + params.spaceBetween, "px")
+      width: `${swiper.virtualSize + params.spaceBetween}px`
     });
   }
   if (params.setWrapperSize) {
-    $wrapperEl.css(_defineProperty({}, getDirectionLabel('width'), "".concat(swiper.virtualSize + params.spaceBetween, "px")));
+    $wrapperEl.css({
+      [getDirectionLabel('width')]: `${swiper.virtualSize + params.spaceBetween}px`
+    });
   }
   if (gridEnabled) {
     swiper.grid.updateWrapperSize(slideSize, snapGrid, getDirectionLabel);
@@ -8853,7 +8851,9 @@ function updateSlides() {
         return false;
       }
       return true;
-    }).css(_defineProperty({}, key, "".concat(spaceBetween, "px")));
+    }).css({
+      [key]: `${spaceBetween}px`
+    });
   }
   if (params.centeredSlides && params.centeredSlidesBounds) {
     let allSlidesSize = 0;
@@ -8885,14 +8885,14 @@ function updateSlides() {
     }
   }
   Object.assign(swiper, {
-    slides: slides,
-    snapGrid: snapGrid,
-    slidesGrid: slidesGrid,
-    slidesSizesGrid: slidesSizesGrid
+    slides,
+    snapGrid,
+    slidesGrid,
+    slidesSizesGrid
   });
   if (params.centeredSlides && params.cssMode && !params.centeredSlidesBounds) {
-    (0, _utils.setCSSProperty)(swiper.wrapperEl, '--swiper-centered-offset-before', "".concat(-snapGrid[0], "px"));
-    (0, _utils.setCSSProperty)(swiper.wrapperEl, '--swiper-centered-offset-after', "".concat(swiper.size / 2 - slidesSizesGrid[slidesSizesGrid.length - 1] / 2, "px"));
+    (0, _utils.setCSSProperty)(swiper.wrapperEl, '--swiper-centered-offset-before', `${-snapGrid[0]}px`);
+    (0, _utils.setCSSProperty)(swiper.wrapperEl, '--swiper-centered-offset-after', `${swiper.size / 2 - slidesSizesGrid[slidesSizesGrid.length - 1] / 2}px`);
     const addToSnapGrid = -swiper.snapGrid[0];
     const addToSlidesGrid = -swiper.slidesGrid[0];
     swiper.snapGrid = swiper.snapGrid.map(v => v + addToSnapGrid);
@@ -8912,7 +8912,7 @@ function updateSlides() {
     swiper.updateSlidesOffset();
   }
   if (!isVirtual && !params.cssMode && (params.effect === 'slide' || params.effect === 'fade')) {
-    const backFaceHiddenClass = "".concat(params.containerModifierClass, "backface-hidden");
+    const backFaceHiddenClass = `${params.containerModifierClass}backface-hidden`;
     const hasClassBackfaceClassAdded = swiper.$el.hasClass(backFaceHiddenClass);
     if (slidesLength <= params.maxBackfaceHiddenSlides) {
       if (!hasClassBackfaceClassAdded) swiper.$el.addClass(backFaceHiddenClass);
@@ -8971,7 +8971,7 @@ function updateAutoHeight(speed) {
     }
   } // Update Height
 
-  if (newHeight || newHeight === 0) swiper.$wrapperEl.css('height', "".concat(newHeight, "px"));
+  if (newHeight || newHeight === 0) swiper.$wrapperEl.css('height', `${newHeight}px`);
 }
 },{"../../shared/dom.js":"../node_modules/swiper/shared/dom.js"}],"../node_modules/swiper/core/update/updateSlidesOffset.js":[function(require,module,exports) {
 "use strict";
@@ -9000,9 +9000,9 @@ function updateSlidesProgress(translate = this && this.translate || 0) {
   const swiper = this;
   const params = swiper.params;
   const {
-    slides: slides,
+    slides,
     rtlTranslate: rtl,
-    snapGrid: snapGrid
+    snapGrid
   } = swiper;
   if (slides.length === 0) return;
   if (typeof slides[0].swiperSlideOffset === 'undefined') swiper.updateSlidesOffset();
@@ -9050,9 +9050,9 @@ function updateProgress(translate) {
   const params = swiper.params;
   const translatesDiff = swiper.maxTranslate() - swiper.minTranslate();
   let {
-    progress: progress,
-    isBeginning: isBeginning,
-    isEnd: isEnd
+    progress,
+    isBeginning,
+    isEnd
   } = swiper;
   const wasBeginning = isBeginning;
   const wasEnd = isEnd;
@@ -9066,9 +9066,9 @@ function updateProgress(translate) {
     isEnd = progress >= 1;
   }
   Object.assign(swiper, {
-    progress: progress,
-    isBeginning: isBeginning,
-    isEnd: isEnd
+    progress,
+    isBeginning,
+    isEnd
   });
   if (params.watchSlidesProgress || params.centeredSlides && params.autoHeight) swiper.updateSlidesProgress(translate);
   if (isBeginning && !wasBeginning) {
@@ -9092,17 +9092,17 @@ exports.default = updateSlidesClasses;
 function updateSlidesClasses() {
   const swiper = this;
   const {
-    slides: slides,
-    params: params,
-    $wrapperEl: $wrapperEl,
-    activeIndex: activeIndex,
-    realIndex: realIndex
+    slides,
+    params,
+    $wrapperEl,
+    activeIndex,
+    realIndex
   } = swiper;
   const isVirtual = swiper.virtual && params.virtual.enabled;
-  slides.removeClass("".concat(params.slideActiveClass, " ").concat(params.slideNextClass, " ").concat(params.slidePrevClass, " ").concat(params.slideDuplicateActiveClass, " ").concat(params.slideDuplicateNextClass, " ").concat(params.slideDuplicatePrevClass));
+  slides.removeClass(`${params.slideActiveClass} ${params.slideNextClass} ${params.slidePrevClass} ${params.slideDuplicateActiveClass} ${params.slideDuplicateNextClass} ${params.slideDuplicatePrevClass}`);
   let activeSlide;
   if (isVirtual) {
-    activeSlide = swiper.$wrapperEl.find(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(activeIndex, "\"]"));
+    activeSlide = swiper.$wrapperEl.find(`.${params.slideClass}[data-swiper-slide-index="${activeIndex}"]`);
   } else {
     activeSlide = slides.eq(activeIndex);
   } // Active classes
@@ -9111,19 +9111,19 @@ function updateSlidesClasses() {
   if (params.loop) {
     // Duplicate to all looped slides
     if (activeSlide.hasClass(params.slideDuplicateClass)) {
-      $wrapperEl.children(".".concat(params.slideClass, ":not(.").concat(params.slideDuplicateClass, ")[data-swiper-slide-index=\"").concat(realIndex, "\"]")).addClass(params.slideDuplicateActiveClass);
+      $wrapperEl.children(`.${params.slideClass}:not(.${params.slideDuplicateClass})[data-swiper-slide-index="${realIndex}"]`).addClass(params.slideDuplicateActiveClass);
     } else {
-      $wrapperEl.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass, "[data-swiper-slide-index=\"").concat(realIndex, "\"]")).addClass(params.slideDuplicateActiveClass);
+      $wrapperEl.children(`.${params.slideClass}.${params.slideDuplicateClass}[data-swiper-slide-index="${realIndex}"]`).addClass(params.slideDuplicateActiveClass);
     }
   } // Next Slide
 
-  let nextSlide = activeSlide.nextAll(".".concat(params.slideClass)).eq(0).addClass(params.slideNextClass);
+  let nextSlide = activeSlide.nextAll(`.${params.slideClass}`).eq(0).addClass(params.slideNextClass);
   if (params.loop && nextSlide.length === 0) {
     nextSlide = slides.eq(0);
     nextSlide.addClass(params.slideNextClass);
   } // Prev Slide
 
-  let prevSlide = activeSlide.prevAll(".".concat(params.slideClass)).eq(0).addClass(params.slidePrevClass);
+  let prevSlide = activeSlide.prevAll(`.${params.slideClass}`).eq(0).addClass(params.slidePrevClass);
   if (params.loop && prevSlide.length === 0) {
     prevSlide = slides.eq(-1);
     prevSlide.addClass(params.slidePrevClass);
@@ -9131,14 +9131,14 @@ function updateSlidesClasses() {
   if (params.loop) {
     // Duplicate to all looped slides
     if (nextSlide.hasClass(params.slideDuplicateClass)) {
-      $wrapperEl.children(".".concat(params.slideClass, ":not(.").concat(params.slideDuplicateClass, ")[data-swiper-slide-index=\"").concat(nextSlide.attr('data-swiper-slide-index'), "\"]")).addClass(params.slideDuplicateNextClass);
+      $wrapperEl.children(`.${params.slideClass}:not(.${params.slideDuplicateClass})[data-swiper-slide-index="${nextSlide.attr('data-swiper-slide-index')}"]`).addClass(params.slideDuplicateNextClass);
     } else {
-      $wrapperEl.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass, "[data-swiper-slide-index=\"").concat(nextSlide.attr('data-swiper-slide-index'), "\"]")).addClass(params.slideDuplicateNextClass);
+      $wrapperEl.children(`.${params.slideClass}.${params.slideDuplicateClass}[data-swiper-slide-index="${nextSlide.attr('data-swiper-slide-index')}"]`).addClass(params.slideDuplicateNextClass);
     }
     if (prevSlide.hasClass(params.slideDuplicateClass)) {
-      $wrapperEl.children(".".concat(params.slideClass, ":not(.").concat(params.slideDuplicateClass, ")[data-swiper-slide-index=\"").concat(prevSlide.attr('data-swiper-slide-index'), "\"]")).addClass(params.slideDuplicatePrevClass);
+      $wrapperEl.children(`.${params.slideClass}:not(.${params.slideDuplicateClass})[data-swiper-slide-index="${prevSlide.attr('data-swiper-slide-index')}"]`).addClass(params.slideDuplicatePrevClass);
     } else {
-      $wrapperEl.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass, "[data-swiper-slide-index=\"").concat(prevSlide.attr('data-swiper-slide-index'), "\"]")).addClass(params.slideDuplicatePrevClass);
+      $wrapperEl.children(`.${params.slideClass}.${params.slideDuplicateClass}[data-swiper-slide-index="${prevSlide.attr('data-swiper-slide-index')}"]`).addClass(params.slideDuplicatePrevClass);
     }
   }
   swiper.emitSlidesClasses();
@@ -9154,9 +9154,9 @@ function updateActiveIndex(newActiveIndex) {
   const swiper = this;
   const translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
   const {
-    slidesGrid: slidesGrid,
-    snapGrid: snapGrid,
-    params: params,
+    slidesGrid,
+    snapGrid,
+    params,
     activeIndex: previousIndex,
     realIndex: previousRealIndex,
     snapIndex: previousSnapIndex
@@ -9197,10 +9197,10 @@ function updateActiveIndex(newActiveIndex) {
 
   const realIndex = parseInt(swiper.slides.eq(activeIndex).attr('data-swiper-slide-index') || activeIndex, 10);
   Object.assign(swiper, {
-    snapIndex: snapIndex,
-    realIndex: realIndex,
-    previousIndex: previousIndex,
-    activeIndex: activeIndex
+    snapIndex,
+    realIndex,
+    previousIndex,
+    activeIndex
   });
   swiper.emit('activeIndexChange');
   swiper.emit('snapIndexChange');
@@ -9223,7 +9223,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function updateClickedSlide(e) {
   const swiper = this;
   const params = swiper.params;
-  const slide = (0, _dom.default)(e).closest(".".concat(params.slideClass))[0];
+  const slide = (0, _dom.default)(e).closest(`.${params.slideClass}`)[0];
   let slideFound = false;
   let slideIndex;
   if (slide) {
@@ -9291,10 +9291,10 @@ var _utils = require("../../shared/utils.js");
 function getSwiperTranslate(axis = this.isHorizontal() ? 'x' : 'y') {
   const swiper = this;
   const {
-    params: params,
+    params,
     rtlTranslate: rtl,
-    translate: translate,
-    $wrapperEl: $wrapperEl
+    translate,
+    $wrapperEl
   } = swiper;
   if (params.virtualTranslate) {
     return rtl ? -translate : translate;
@@ -9317,10 +9317,10 @@ function setTranslate(translate, byController) {
   const swiper = this;
   const {
     rtlTranslate: rtl,
-    params: params,
-    $wrapperEl: $wrapperEl,
-    wrapperEl: wrapperEl,
-    progress: progress
+    params,
+    $wrapperEl,
+    wrapperEl,
+    progress
   } = swiper;
   let x = 0;
   let y = 0;
@@ -9337,7 +9337,7 @@ function setTranslate(translate, byController) {
   if (params.cssMode) {
     wrapperEl[swiper.isHorizontal() ? 'scrollLeft' : 'scrollTop'] = swiper.isHorizontal() ? -x : -y;
   } else if (!params.virtualTranslate) {
-    $wrapperEl.transform("translate3d(".concat(x, "px, ").concat(y, "px, ").concat(z, "px)"));
+    $wrapperEl.transform(`translate3d(${x}px, ${y}px, ${z}px)`);
   }
   swiper.previousTranslate = swiper.translate;
   swiper.translate = swiper.isHorizontal() ? x : y; // Check if we need to update progress
@@ -9382,15 +9382,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = translateTo;
 var _utils = require("../../shared/utils.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function translateTo(translate = 0, speed = this.params.speed, runCallbacks = true, translateBounds = true, internal) {
   const swiper = this;
   const {
-    params: params,
-    wrapperEl: wrapperEl
+    params,
+    wrapperEl
   } = swiper;
   if (swiper.animating && params.preventInteractionOnTransition) {
     return false;
@@ -9406,16 +9402,18 @@ function translateTo(translate = 0, speed = this.params.speed, runCallbacks = tr
     if (speed === 0) {
       wrapperEl[isH ? 'scrollLeft' : 'scrollTop'] = -newTranslate;
     } else {
-      var _wrapperEl$scrollTo;
       if (!swiper.support.smoothScroll) {
         (0, _utils.animateCSSModeScroll)({
-          swiper: swiper,
+          swiper,
           targetPosition: -newTranslate,
           side: isH ? 'left' : 'top'
         });
         return true;
       }
-      wrapperEl.scrollTo((_wrapperEl$scrollTo = {}, _defineProperty(_wrapperEl$scrollTo, isH ? 'left' : 'top', -newTranslate), _defineProperty(_wrapperEl$scrollTo, "behavior", 'smooth'), _wrapperEl$scrollTo));
+      wrapperEl.scrollTo({
+        [isH ? 'left' : 'top']: -newTranslate,
+        behavior: 'smooth'
+      });
     }
     return true;
   }
@@ -9497,30 +9495,30 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = transitionEmit;
 function transitionEmit({
-  swiper: swiper,
-  runCallbacks: runCallbacks,
-  direction: direction,
-  step: step
+  swiper,
+  runCallbacks,
+  direction,
+  step
 }) {
   const {
-    activeIndex: activeIndex,
-    previousIndex: previousIndex
+    activeIndex,
+    previousIndex
   } = swiper;
   let dir = direction;
   if (!dir) {
     if (activeIndex > previousIndex) dir = 'next';else if (activeIndex < previousIndex) dir = 'prev';else dir = 'reset';
   }
-  swiper.emit("transition".concat(step));
+  swiper.emit(`transition${step}`);
   if (runCallbacks && activeIndex !== previousIndex) {
     if (dir === 'reset') {
-      swiper.emit("slideResetTransition".concat(step));
+      swiper.emit(`slideResetTransition${step}`);
       return;
     }
-    swiper.emit("slideChangeTransition".concat(step));
+    swiper.emit(`slideChangeTransition${step}`);
     if (dir === 'next') {
-      swiper.emit("slideNextTransition".concat(step));
+      swiper.emit(`slideNextTransition${step}`);
     } else {
-      swiper.emit("slidePrevTransition".concat(step));
+      swiper.emit(`slidePrevTransition${step}`);
     }
   }
 }
@@ -9536,16 +9534,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function transitionStart(runCallbacks = true, direction) {
   const swiper = this;
   const {
-    params: params
+    params
   } = swiper;
   if (params.cssMode) return;
   if (params.autoHeight) {
     swiper.updateAutoHeight();
   }
   (0, _transitionEmit.default)({
-    swiper: swiper,
-    runCallbacks: runCallbacks,
-    direction: direction,
+    swiper,
+    runCallbacks,
+    direction,
     step: 'Start'
   });
 }
@@ -9561,15 +9559,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function transitionEnd(runCallbacks = true, direction) {
   const swiper = this;
   const {
-    params: params
+    params
   } = swiper;
   swiper.animating = false;
   if (params.cssMode) return;
   swiper.setTransition(0);
   (0, _transitionEmit.default)({
-    swiper: swiper,
-    runCallbacks: runCallbacks,
-    direction: direction,
+    swiper,
+    runCallbacks,
+    direction,
     step: 'End'
   });
 }
@@ -9598,13 +9596,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = slideTo;
 var _utils = require("../../shared/utils.js");
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, internal, initial) {
   if (typeof index !== 'number' && typeof index !== 'string') {
-    throw new Error("The 'index' argument cannot have type other than 'number' or 'string'. [".concat(_typeof(index), "] given."));
+    throw new Error(`The 'index' argument cannot have type other than 'number' or 'string'. [${typeof index}] given.`);
   }
   if (typeof index === 'string') {
     /**
@@ -9620,7 +9614,7 @@ function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, inte
 
     const isValidNumber = isFinite(indexAsNumber);
     if (!isValidNumber) {
-      throw new Error("The passed-in 'index' (string) couldn't be converted to 'number'. [".concat(index, "] given."));
+      throw new Error(`The passed-in 'index' (string) couldn't be converted to 'number'. [${index}] given.`);
     } // Knowing that the converted `index` is a valid number,
     // we can update the original argument's value.
 
@@ -9630,14 +9624,14 @@ function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, inte
   let slideIndex = index;
   if (slideIndex < 0) slideIndex = 0;
   const {
-    params: params,
-    snapGrid: snapGrid,
-    slidesGrid: slidesGrid,
-    previousIndex: previousIndex,
-    activeIndex: activeIndex,
+    params,
+    snapGrid,
+    slidesGrid,
+    previousIndex,
+    activeIndex,
     rtlTranslate: rtl,
-    wrapperEl: wrapperEl,
-    enabled: enabled
+    wrapperEl,
+    enabled
   } = swiper;
   if (swiper.animating && params.preventInteractionOnTransition || !enabled && !internal && !initial) {
     return false;
@@ -9713,16 +9707,18 @@ function slideTo(index = 0, speed = this.params.speed, runCallbacks = true, inte
         });
       }
     } else {
-      var _wrapperEl$scrollTo;
       if (!swiper.support.smoothScroll) {
         (0, _utils.animateCSSModeScroll)({
-          swiper: swiper,
+          swiper,
           targetPosition: t,
           side: isH ? 'left' : 'top'
         });
         return true;
       }
-      wrapperEl.scrollTo((_wrapperEl$scrollTo = {}, _defineProperty(_wrapperEl$scrollTo, isH ? 'left' : 'top', t), _defineProperty(_wrapperEl$scrollTo, "behavior", 'smooth'), _wrapperEl$scrollTo));
+      wrapperEl.scrollTo({
+        [isH ? 'left' : 'top']: t,
+        behavior: 'smooth'
+      });
     }
     return true;
   }
@@ -9774,7 +9770,7 @@ function slideToLoop(index = 0, speed = this.params.speed, runCallbacks = true, 
 
     const isValidNumber = isFinite(indexAsNumber);
     if (!isValidNumber) {
-      throw new Error("The passed-in 'index' (string) couldn't be converted to 'number'. [".concat(index, "] given."));
+      throw new Error(`The passed-in 'index' (string) couldn't be converted to 'number'. [${index}] given.`);
     } // Knowing that the converted `index` is a valid number,
     // we can update the original argument's value.
 
@@ -9798,9 +9794,9 @@ exports.default = slideNext;
 function slideNext(speed = this.params.speed, runCallbacks = true, internal) {
   const swiper = this;
   const {
-    animating: animating,
-    enabled: enabled,
-    params: params
+    animating,
+    enabled,
+    params
   } = swiper;
   if (!enabled) return swiper;
   let perGroup = params.slidesPerGroup;
@@ -9830,12 +9826,12 @@ exports.default = slidePrev;
 function slidePrev(speed = this.params.speed, runCallbacks = true, internal) {
   const swiper = this;
   const {
-    params: params,
-    animating: animating,
-    snapGrid: snapGrid,
-    slidesGrid: slidesGrid,
-    rtlTranslate: rtlTranslate,
-    enabled: enabled
+    params,
+    animating,
+    snapGrid,
+    slidesGrid,
+    rtlTranslate,
+    enabled
   } = swiper;
   if (!enabled) return swiper;
   if (params.loop) {
@@ -9939,8 +9935,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function slideToClickedSlide() {
   const swiper = this;
   const {
-    params: params,
-    $wrapperEl: $wrapperEl
+    params,
+    $wrapperEl
   } = swiper;
   const slidesPerView = params.slidesPerView === 'auto' ? swiper.slidesPerViewDynamic() : params.slidesPerView;
   let slideToIndex = swiper.clickedIndex;
@@ -9951,7 +9947,7 @@ function slideToClickedSlide() {
     if (params.centeredSlides) {
       if (slideToIndex < swiper.loopedSlides - slidesPerView / 2 || slideToIndex > swiper.slides.length - swiper.loopedSlides + slidesPerView / 2) {
         swiper.loopFix();
-        slideToIndex = $wrapperEl.children(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(realIndex, "\"]:not(.").concat(params.slideDuplicateClass, ")")).eq(0).index();
+        slideToIndex = $wrapperEl.children(`.${params.slideClass}[data-swiper-slide-index="${realIndex}"]:not(.${params.slideDuplicateClass})`).eq(0).index();
         (0, _utils.nextTick)(() => {
           swiper.slideTo(slideToIndex);
         });
@@ -9960,7 +9956,7 @@ function slideToClickedSlide() {
       }
     } else if (slideToIndex > swiper.slides.length - slidesPerView) {
       swiper.loopFix();
-      slideToIndex = $wrapperEl.children(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(realIndex, "\"]:not(.").concat(params.slideDuplicateClass, ")")).eq(0).index();
+      slideToIndex = $wrapperEl.children(`.${params.slideClass}[data-swiper-slide-index="${realIndex}"]:not(.${params.slideDuplicateClass})`).eq(0).index();
       (0, _utils.nextTick)(() => {
         swiper.slideTo(slideToIndex);
       });
@@ -10010,21 +10006,21 @@ function loopCreate() {
   const swiper = this;
   const document = (0, _ssrWindow.getDocument)();
   const {
-    params: params,
-    $wrapperEl: $wrapperEl
+    params,
+    $wrapperEl
   } = swiper; // Remove duplicated slides
 
   const $selector = $wrapperEl.children().length > 0 ? (0, _dom.default)($wrapperEl.children()[0].parentNode) : $wrapperEl;
-  $selector.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass)).remove();
-  let slides = $selector.children(".".concat(params.slideClass));
+  $selector.children(`.${params.slideClass}.${params.slideDuplicateClass}`).remove();
+  let slides = $selector.children(`.${params.slideClass}`);
   if (params.loopFillGroupWithBlank) {
     const blankSlidesNum = params.slidesPerGroup - slides.length % params.slidesPerGroup;
     if (blankSlidesNum !== params.slidesPerGroup) {
       for (let i = 0; i < blankSlidesNum; i += 1) {
-        const blankNode = (0, _dom.default)(document.createElement('div')).addClass("".concat(params.slideClass, " ").concat(params.slideBlankClass));
+        const blankNode = (0, _dom.default)(document.createElement('div')).addClass(`${params.slideClass} ${params.slideBlankClass}`);
         $selector.append(blankNode);
       }
-      slides = $selector.children(".".concat(params.slideClass));
+      slides = $selector.children(`.${params.slideClass}`);
     }
   }
   if (params.slidesPerView === 'auto' && !params.loopedSlides) params.loopedSlides = slides.length;
@@ -10062,12 +10058,12 @@ function loopFix() {
   const swiper = this;
   swiper.emit('beforeLoopFix');
   const {
-    activeIndex: activeIndex,
-    slides: slides,
-    loopedSlides: loopedSlides,
-    allowSlidePrev: allowSlidePrev,
-    allowSlideNext: allowSlideNext,
-    snapGrid: snapGrid,
+    activeIndex,
+    slides,
+    loopedSlides,
+    allowSlidePrev,
+    allowSlideNext,
+    snapGrid,
     rtlTranslate: rtl
   } = swiper;
   let newIndex;
@@ -10106,11 +10102,11 @@ exports.default = loopDestroy;
 function loopDestroy() {
   const swiper = this;
   const {
-    $wrapperEl: $wrapperEl,
-    params: params,
-    slides: slides
+    $wrapperEl,
+    params,
+    slides
   } = swiper;
-  $wrapperEl.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass, ",.").concat(params.slideClass, ".").concat(params.slideBlankClass)).remove();
+  $wrapperEl.children(`.${params.slideClass}.${params.slideDuplicateClass},.${params.slideClass}.${params.slideBlankClass}`).remove();
   slides.removeAttr('data-swiper-slide-index');
 }
 },{}],"../node_modules/swiper/core/loop/index.js":[function(require,module,exports) {
@@ -10204,9 +10200,9 @@ function onTouchStart(event) {
   const window = (0, _ssrWindow.getWindow)();
   const data = swiper.touchEventsData;
   const {
-    params: params,
-    touches: touches,
-    enabled: enabled
+    params,
+    touches,
+    enabled
   } = swiper;
   if (!enabled) return;
   if (swiper.animating && params.preventInteractionOnTransition) {
@@ -10232,7 +10228,7 @@ function onTouchStart(event) {
   if (swipingClassHasValue && e.target && e.target.shadowRoot && eventPath) {
     $targetEl = (0, _dom.default)(eventPath[0]);
   }
-  const noSwipingSelector = params.noSwipingSelector ? params.noSwipingSelector : ".".concat(params.noSwipingClass);
+  const noSwipingSelector = params.noSwipingSelector ? params.noSwipingSelector : `.${params.noSwipingClass}`;
   const isTargetShadow = !!(e.target && e.target.shadowRoot); // use closestElement for shadow root element to get the actual closest for nested shadow root element
 
   if (params.noSwiping && (isTargetShadow ? closestElement(noSwipingSelector, $targetEl[0]) : $targetEl.closest(noSwipingSelector)[0])) {
@@ -10307,10 +10303,10 @@ function onTouchMove(event) {
   const swiper = this;
   const data = swiper.touchEventsData;
   const {
-    params: params,
-    touches: touches,
+    params,
+    touches,
     rtlTranslate: rtl,
-    enabled: enabled
+    enabled
   } = swiper;
   if (!enabled) return;
   let e = event;
@@ -10498,11 +10494,11 @@ function onTouchEnd(event) {
   const swiper = this;
   const data = swiper.touchEventsData;
   const {
-    params: params,
-    touches: touches,
+    params,
+    touches,
     rtlTranslate: rtl,
-    slidesGrid: slidesGrid,
-    enabled: enabled
+    slidesGrid,
+    enabled
   } = swiper;
   if (!enabled) return;
   let e = event;
@@ -10559,7 +10555,7 @@ function onTouchEnd(event) {
   }
   if (swiper.params.freeMode && params.freeMode.enabled) {
     swiper.freeMode.onTouchEnd({
-      currentPos: currentPos
+      currentPos
     });
     return;
   } // Find current slide
@@ -10639,8 +10635,8 @@ exports.default = onResize;
 function onResize() {
   const swiper = this;
   const {
-    params: params,
-    el: el
+    params,
+    el
   } = swiper;
   if (el && el.offsetWidth === 0) return; // Breakpoints
 
@@ -10649,9 +10645,9 @@ function onResize() {
   } // Save locks
 
   const {
-    allowSlideNext: allowSlideNext,
-    allowSlidePrev: allowSlidePrev,
-    snapGrid: snapGrid
+    allowSlideNext,
+    allowSlidePrev,
+    snapGrid
   } = swiper; // Disable locks on resize
 
   swiper.allowSlideNext = true;
@@ -10702,9 +10698,9 @@ exports.default = onScroll;
 function onScroll() {
   const swiper = this;
   const {
-    wrapperEl: wrapperEl,
-    rtlTranslate: rtlTranslate,
-    enabled: enabled
+    wrapperEl,
+    rtlTranslate,
+    enabled
   } = swiper;
   if (!enabled) return;
   swiper.previousTranslate = swiper.translate;
@@ -10749,12 +10745,12 @@ function dummyEventListener() {}
 const events = (swiper, method) => {
   const document = (0, _ssrWindow.getDocument)();
   const {
-    params: params,
-    touchEvents: touchEvents,
-    el: el,
-    wrapperEl: wrapperEl,
-    device: device,
-    support: support
+    params,
+    touchEvents,
+    el,
+    wrapperEl,
+    device,
+    support
   } = swiper;
   const capture = !!params.nested;
   const domMethod = method === 'on' ? 'addEventListener' : 'removeEventListener';
@@ -10772,7 +10768,7 @@ const events = (swiper, method) => {
     el[domMethod](touchEvents.start, swiper.onTouchStart, passiveListener);
     el[domMethod](touchEvents.move, swiper.onTouchMove, support.passiveListener ? {
       passive: false,
-      capture: capture
+      capture
     } : capture);
     el[domMethod](touchEvents.end, swiper.onTouchEnd, passiveListener);
     if (touchEvents.cancel) {
@@ -10797,8 +10793,8 @@ function attachEvents() {
   const swiper = this;
   const document = (0, _ssrWindow.getDocument)();
   const {
-    params: params,
-    support: support
+    params,
+    support
   } = swiper;
   swiper.onTouchStart = _onTouchStart.default.bind(swiper);
   swiper.onTouchMove = _onTouchMove.default.bind(swiper);
@@ -10818,8 +10814,8 @@ function detachEvents() {
   events(swiper, 'off');
 }
 var _default = {
-  attachEvents: attachEvents,
-  detachEvents: detachEvents
+  attachEvents,
+  detachEvents
 };
 exports.default = _default;
 },{"ssr-window":"../node_modules/ssr-window/ssr-window.esm.js","./onTouchStart.js":"../node_modules/swiper/core/events/onTouchStart.js","./onTouchMove.js":"../node_modules/swiper/core/events/onTouchMove.js","./onTouchEnd.js":"../node_modules/swiper/core/events/onTouchEnd.js","./onResize.js":"../node_modules/swiper/core/events/onResize.js","./onClick.js":"../node_modules/swiper/core/events/onClick.js","./onScroll.js":"../node_modules/swiper/core/events/onScroll.js"}],"../node_modules/swiper/core/breakpoints/setBreakpoint.js":[function(require,module,exports) {
@@ -10836,11 +10832,11 @@ const isGridEnabled = (swiper, params) => {
 function setBreakpoint() {
   const swiper = this;
   const {
-    activeIndex: activeIndex,
-    initialized: initialized,
+    activeIndex,
+    initialized,
     loopedSlides = 0,
-    params: params,
-    $el: $el
+    params,
+    $el
   } = swiper;
   const breakpoints = params.breakpoints;
   if (!breakpoints || breakpoints && Object.keys(breakpoints).length === 0) return; // Get breakpoint for window width and update parameters
@@ -10853,12 +10849,12 @@ function setBreakpoint() {
   const isMultiRow = isGridEnabled(swiper, breakpointParams);
   const wasEnabled = params.enabled;
   if (wasMultiRow && !isMultiRow) {
-    $el.removeClass("".concat(params.containerModifierClass, "grid ").concat(params.containerModifierClass, "grid-column"));
+    $el.removeClass(`${params.containerModifierClass}grid ${params.containerModifierClass}grid-column`);
     swiper.emitContainerClasses();
   } else if (!wasMultiRow && isMultiRow) {
-    $el.addClass("".concat(params.containerModifierClass, "grid"));
+    $el.addClass(`${params.containerModifierClass}grid`);
     if (breakpointParams.grid.fill && breakpointParams.grid.fill === 'column' || !breakpointParams.grid.fill && params.grid.fill === 'column') {
-      $el.addClass("".concat(params.containerModifierClass, "grid-column"));
+      $el.addClass(`${params.containerModifierClass}grid-column`);
     }
     swiper.emitContainerClasses();
   } // Toggle navigation, pagination, scrollbar
@@ -10918,23 +10914,23 @@ function getBreakpoint(breakpoints, base = 'window', containerEl) {
       const minRatio = parseFloat(point.substr(1));
       const value = currentHeight * minRatio;
       return {
-        value: value,
-        point: point
+        value,
+        point
       };
     }
     return {
       value: point,
-      point: point
+      point
     };
   });
   points.sort((a, b) => parseInt(a.value, 10) - parseInt(b.value, 10));
   for (let i = 0; i < points.length; i += 1) {
     const {
-      point: point,
-      value: value
+      point,
+      value
     } = points[i];
     if (base === 'window') {
-      if (window.matchMedia("(min-width: ".concat(value, "px)")).matches) {
+      if (window.matchMedia(`(min-width: ${value}px)`).matches) {
         breakpoint = point;
       }
     } else if (value <= containerEl.clientWidth) {
@@ -10965,11 +10961,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = addClasses;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function prepareClasses(entries, prefix) {
   const resultClasses = [];
   entries.forEach(item => {
-    if (_typeof(item) === 'object') {
+    if (typeof item === 'object') {
       Object.keys(item).forEach(classNames => {
         if (item[classNames]) {
           resultClasses.push(prefix + classNames);
@@ -10984,12 +10979,12 @@ function prepareClasses(entries, prefix) {
 function addClasses() {
   const swiper = this;
   const {
-    classNames: classNames,
-    params: params,
-    rtl: rtl,
-    $el: $el,
-    device: device,
-    support: support
+    classNames,
+    params,
+    rtl,
+    $el,
+    device,
+    support
   } = swiper; // prettier-ignore
 
   const suffixes = prepareClasses(['initialized', params.direction, {
@@ -11029,8 +11024,8 @@ exports.default = removeClasses;
 function removeClasses() {
   const swiper = this;
   const {
-    $el: $el,
-    classNames: classNames
+    $el,
+    classNames
   } = swiper;
   $el.removeClass(classNames.join(' '));
   swiper.emitContainerClasses();
@@ -11138,10 +11133,10 @@ function checkOverflow() {
   const swiper = this;
   const {
     isLocked: wasLocked,
-    params: params
+    params
   } = swiper;
   const {
-    slidesOffsetBefore: slidesOffsetBefore
+    slidesOffsetBefore
   } = params;
   if (slidesOffsetBefore) {
     const lastSlideIndex = swiper.slides.length - 1;
@@ -11164,7 +11159,7 @@ function checkOverflow() {
   }
 }
 var _default = {
-  checkOverflow: checkOverflow
+  checkOverflow
 };
 exports.default = _default;
 },{}],"../node_modules/swiper/core/defaults.js":[function(require,module,exports) {
@@ -11307,12 +11302,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = moduleExtendParams;
 var _utils = require("../shared/utils.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function moduleExtendParams(params, allModulesParams) {
   return function extendParams(obj = {}) {
     const moduleParamName = Object.keys(obj)[0];
     const moduleParams = obj[moduleParamName];
-    if (_typeof(moduleParams) !== 'object' || moduleParams === null) {
+    if (typeof moduleParams !== 'object' || moduleParams === null) {
       (0, _utils.extend)(allModulesParams, obj);
       return;
     }
@@ -11330,7 +11324,7 @@ function moduleExtendParams(params, allModulesParams) {
         enabled: true
       };
     }
-    if (_typeof(params[moduleParamName]) === 'object' && !('enabled' in params[moduleParamName])) {
+    if (typeof params[moduleParamName] === 'object' && !('enabled' in params[moduleParamName])) {
       params[moduleParamName].enabled = true;
     }
     if (!params[moduleParamName]) params[moduleParamName] = {
@@ -11426,7 +11420,7 @@ class Swiper {
     const allModulesParams = {};
     swiper.modules.forEach(mod => {
       mod({
-        swiper: swiper,
+        swiper,
         extendParams: (0, _moduleExtendParams.default)(params, allModulesParams),
         on: swiper.on.bind(swiper),
         once: swiper.once.bind(swiper),
@@ -11454,7 +11448,7 @@ class Swiper {
 
     Object.assign(swiper, {
       enabled: swiper.params.enabled,
-      el: el,
+      el,
       // Classes
       classNames: [],
       // Slides
@@ -11463,10 +11457,10 @@ class Swiper {
       snapGrid: [],
       slidesSizesGrid: [],
       // isDirection
-      isHorizontal: function () {
+      isHorizontal() {
         return swiper.params.direction === 'horizontal';
       },
-      isVertical: function () {
+      isVertical() {
         return swiper.params.direction === 'vertical';
       },
       // Indexes
@@ -11595,8 +11589,8 @@ class Swiper {
     swiper.slides.each(slideEl => {
       const classNames = swiper.getSlideClasses(slideEl);
       updates.push({
-        slideEl: slideEl,
-        classNames: classNames
+        slideEl,
+        classNames
       });
       swiper.emit('_slideClass', slideEl, classNames);
     });
@@ -11605,12 +11599,12 @@ class Swiper {
   slidesPerViewDynamic(view = 'current', exact = false) {
     const swiper = this;
     const {
-      params: params,
-      slides: slides,
-      slidesGrid: slidesGrid,
-      slidesSizesGrid: slidesSizesGrid,
+      params,
+      slides,
+      slidesGrid,
+      slidesSizesGrid,
       size: swiperSize,
-      activeIndex: activeIndex
+      activeIndex
     } = swiper;
     let spv = 1;
     if (params.centeredSlides) {
@@ -11655,8 +11649,8 @@ class Swiper {
     const swiper = this;
     if (!swiper || swiper.destroyed) return;
     const {
-      snapGrid: snapGrid,
-      params: params
+      snapGrid,
+      params
     } = swiper; // Breakpoints
 
     if (params.breakpoints) {
@@ -11704,7 +11698,7 @@ class Swiper {
     if (newDirection === currentDirection || newDirection !== 'horizontal' && newDirection !== 'vertical') {
       return swiper;
     }
-    swiper.$el.removeClass("".concat(swiper.params.containerModifierClass).concat(currentDirection)).addClass("".concat(swiper.params.containerModifierClass).concat(newDirection));
+    swiper.$el.removeClass(`${swiper.params.containerModifierClass}${currentDirection}`).addClass(`${swiper.params.containerModifierClass}${newDirection}`);
     swiper.emitContainerClasses();
     swiper.params.direction = newDirection;
     swiper.slides.each(slideEl => {
@@ -11724,10 +11718,10 @@ class Swiper {
     swiper.rtl = direction === 'rtl';
     swiper.rtlTranslate = swiper.params.direction === 'horizontal' && swiper.rtl;
     if (swiper.rtl) {
-      swiper.$el.addClass("".concat(swiper.params.containerModifierClass, "rtl"));
+      swiper.$el.addClass(`${swiper.params.containerModifierClass}rtl`);
       swiper.el.dir = 'rtl';
     } else {
-      swiper.$el.removeClass("".concat(swiper.params.containerModifierClass, "rtl"));
+      swiper.$el.removeClass(`${swiper.params.containerModifierClass}rtl`);
       swiper.el.dir = 'ltr';
     }
     swiper.update();
@@ -11743,7 +11737,7 @@ class Swiper {
     }
     el.swiper = swiper;
     const getWrapperSelector = () => {
-      return ".".concat((swiper.params.wrapperClass || '').trim().split(' ').join('.'));
+      return `.${(swiper.params.wrapperClass || '').trim().split(' ').join('.')}`;
     };
     const getWrapper = () => {
       if (el && el.shadowRoot && el.shadowRoot.querySelector) {
@@ -11765,14 +11759,14 @@ class Swiper {
       $wrapperEl = (0, _dom.default)(wrapper);
       wrapper.className = swiper.params.wrapperClass;
       $el.append(wrapper);
-      $el.children(".".concat(swiper.params.slideClass)).each(slideEl => {
+      $el.children(`.${swiper.params.slideClass}`).each(slideEl => {
         $wrapperEl.append(slideEl);
       });
     }
     Object.assign(swiper, {
-      $el: $el,
-      el: el,
-      $wrapperEl: $wrapperEl,
+      $el,
+      el,
+      $wrapperEl,
       wrapperEl: $wrapperEl[0],
       mounted: true,
       // RTL
@@ -11830,10 +11824,10 @@ class Swiper {
   destroy(deleteInstance = true, cleanStyles = true) {
     const swiper = this;
     const {
-      params: params,
-      $el: $el,
-      $wrapperEl: $wrapperEl,
-      slides: slides
+      params,
+      $el,
+      $wrapperEl,
+      slides
     } = swiper;
     if (typeof swiper.params === 'undefined' || swiper.destroyed) {
       return null;
@@ -11911,12 +11905,11 @@ exports.default = Virtual;
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 var _utils = require("../../shared/utils.js");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function Virtual({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   extendParams({
     virtual: {
@@ -11944,25 +11937,25 @@ function Virtual({
     if (params.cache && swiper.virtual.cache[index]) {
       return swiper.virtual.cache[index];
     }
-    const $slideEl = params.renderSlide ? (0, _dom.default)(params.renderSlide.call(swiper, slide, index)) : (0, _dom.default)("<div class=\"".concat(swiper.params.slideClass, "\" data-swiper-slide-index=\"").concat(index, "\">").concat(slide, "</div>"));
+    const $slideEl = params.renderSlide ? (0, _dom.default)(params.renderSlide.call(swiper, slide, index)) : (0, _dom.default)(`<div class="${swiper.params.slideClass}" data-swiper-slide-index="${index}">${slide}</div>`);
     if (!$slideEl.attr('data-swiper-slide-index')) $slideEl.attr('data-swiper-slide-index', index);
     if (params.cache) swiper.virtual.cache[index] = $slideEl;
     return $slideEl;
   }
   function update(force) {
     const {
-      slidesPerView: slidesPerView,
-      slidesPerGroup: slidesPerGroup,
-      centeredSlides: centeredSlides
+      slidesPerView,
+      slidesPerGroup,
+      centeredSlides
     } = swiper.params;
     const {
-      addSlidesBefore: addSlidesBefore,
-      addSlidesAfter: addSlidesAfter
+      addSlidesBefore,
+      addSlidesAfter
     } = swiper.params.virtual;
     const {
       from: previousFrom,
       to: previousTo,
-      slides: slides,
+      slides,
       slidesGrid: previousSlidesGrid,
       offset: previousOffset
     } = swiper.virtual;
@@ -11985,9 +11978,9 @@ function Virtual({
     const to = Math.min((activeIndex || 0) + slidesAfter, slides.length - 1);
     const offset = (swiper.slidesGrid[from] || 0) - (swiper.slidesGrid[0] || 0);
     Object.assign(swiper.virtual, {
-      from: from,
-      to: to,
-      offset: offset,
+      from,
+      to,
+      offset,
       slidesGrid: swiper.slidesGrid
     });
     function onRendered() {
@@ -12001,7 +11994,7 @@ function Virtual({
     }
     if (previousFrom === from && previousTo === to && !force) {
       if (swiper.slidesGrid !== previousSlidesGrid && offset !== previousOffset) {
-        swiper.slides.css(offsetProp, "".concat(offset, "px"));
+        swiper.slides.css(offsetProp, `${offset}px`);
       }
       swiper.updateProgress();
       emit('virtualUpdate');
@@ -12009,9 +12002,9 @@ function Virtual({
     }
     if (swiper.params.virtual.renderExternal) {
       swiper.params.virtual.renderExternal.call(swiper, {
-        offset: offset,
-        from: from,
-        to: to,
+        offset,
+        from,
+        to,
         slides: function getSlides() {
           const slidesToRender = [];
           for (let i = from; i <= to; i += 1) {
@@ -12030,11 +12023,11 @@ function Virtual({
     const prependIndexes = [];
     const appendIndexes = [];
     if (force) {
-      swiper.$wrapperEl.find(".".concat(swiper.params.slideClass)).remove();
+      swiper.$wrapperEl.find(`.${swiper.params.slideClass}`).remove();
     } else {
       for (let i = previousFrom; i <= previousTo; i += 1) {
         if (i < from || i > to) {
-          swiper.$wrapperEl.find(".".concat(swiper.params.slideClass, "[data-swiper-slide-index=\"").concat(i, "\"]")).remove();
+          swiper.$wrapperEl.find(`.${swiper.params.slideClass}[data-swiper-slide-index="${i}"]`).remove();
         }
       }
     }
@@ -12054,11 +12047,11 @@ function Virtual({
     prependIndexes.sort((a, b) => b - a).forEach(index => {
       swiper.$wrapperEl.prepend(renderSlide(slides[index], index));
     });
-    swiper.$wrapperEl.children('.swiper-slide').css(offsetProp, "".concat(offset, "px"));
+    swiper.$wrapperEl.children('.swiper-slide').css(offsetProp, `${offset}px`);
     onRendered();
   }
   function appendSlide(slides) {
-    if (_typeof(slides) === 'object' && 'length' in slides) {
+    if (typeof slides === 'object' && 'length' in slides) {
       for (let i = 0; i < slides.length; i += 1) {
         if (slides[i]) swiper.virtual.slides.push(slides[i]);
       }
@@ -12130,7 +12123,7 @@ function Virtual({
   on('beforeInit', () => {
     if (!swiper.params.virtual.enabled) return;
     swiper.virtual.slides = swiper.params.virtual.slides;
-    swiper.classNames.push("".concat(swiper.params.containerModifierClass, "virtual"));
+    swiper.classNames.push(`${swiper.params.containerModifierClass}virtual`);
     swiper.params.watchSlidesProgress = true;
     swiper.originalParams.watchSlidesProgress = true;
     if (!swiper.params.initialSlide) {
@@ -12151,15 +12144,15 @@ function Virtual({
   on('init update resize', () => {
     if (!swiper.params.virtual.enabled) return;
     if (swiper.params.cssMode) {
-      (0, _utils.setCSSProperty)(swiper.wrapperEl, '--swiper-virtual-size', "".concat(swiper.virtualSize, "px"));
+      (0, _utils.setCSSProperty)(swiper.wrapperEl, '--swiper-virtual-size', `${swiper.virtualSize}px`);
     }
   });
   Object.assign(swiper.virtual, {
-    appendSlide: appendSlide,
-    prependSlide: prependSlide,
-    removeSlide: removeSlide,
-    removeAllSlides: removeAllSlides,
-    update: update
+    appendSlide,
+    prependSlide,
+    removeSlide,
+    removeAllSlides,
+    update
   });
 }
 },{"../../shared/dom.js":"../node_modules/swiper/shared/dom.js","../../shared/utils.js":"../node_modules/swiper/shared/utils.js"}],"../node_modules/swiper/modules/keyboard/keyboard.js":[function(require,module,exports) {
@@ -12175,10 +12168,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable consistent-return */
 
 function Keyboard({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   const document = (0, _ssrWindow.getDocument)();
   const window = (0, _ssrWindow.getWindow)();
@@ -12224,7 +12217,7 @@ function Keyboard({
     if (swiper.params.keyboard.onlyInViewport && (isPageUp || isPageDown || isArrowLeft || isArrowRight || isArrowUp || isArrowDown)) {
       let inView = false; // Check that swiper should be inside of visible area of window
 
-      if (swiper.$el.parents(".".concat(swiper.params.slideClass)).length > 0 && swiper.$el.parents(".".concat(swiper.params.slideActiveClass)).length === 0) {
+      if (swiper.$el.parents(`.${swiper.params.slideClass}`).length > 0 && swiper.$el.parents(`.${swiper.params.slideActiveClass}`).length === 0) {
         return undefined;
       }
       const $el = swiper.$el;
@@ -12282,8 +12275,8 @@ function Keyboard({
     }
   });
   Object.assign(swiper.keyboard, {
-    enable: enable,
-    disable: disable
+    enable,
+    disable
   });
 }
 },{"ssr-window":"../node_modules/ssr-window/ssr-window.esm.js","../../shared/dom.js":"../node_modules/swiper/shared/dom.js"}],"../node_modules/swiper/modules/mousewheel/mousewheel.js":[function(require,module,exports) {
@@ -12300,10 +12293,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable consistent-return */
 
 function Mousewheel({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   const window = (0, _ssrWindow.getWindow)();
   extendParams({
@@ -12662,8 +12655,8 @@ function Mousewheel({
     if (swiper.mousewheel.enabled) disable();
   });
   Object.assign(swiper.mousewheel, {
-    enable: enable,
-    disable: disable
+    enable,
+    disable
   });
 }
 },{"ssr-window":"../node_modules/ssr-window/ssr-window.esm.js","../../shared/dom.js":"../node_modules/swiper/shared/dom.js","../../shared/utils.js":"../node_modules/swiper/shared/utils.js"}],"../node_modules/swiper/shared/create-element-if-not-defined.js":[function(require,module,exports) {
@@ -12679,7 +12672,7 @@ function createElementIfNotDefined(swiper, originalParams, params, checkProps) {
   if (swiper.params.createElements) {
     Object.keys(checkProps).forEach(key => {
       if (!params[key] && params.auto === true) {
-        let element = swiper.$el.children(".".concat(checkProps[key]))[0];
+        let element = swiper.$el.children(`.${checkProps[key]}`)[0];
         if (!element) {
           element = document.createElement('div');
           element.className = checkProps[key];
@@ -12703,10 +12696,10 @@ var _createElementIfNotDefined = _interopRequireDefault(require("../../shared/cr
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Navigation({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   extendParams({
     navigation: {
@@ -12749,8 +12742,8 @@ function Navigation({
     // Update Navigation Buttons
     if (swiper.params.loop) return;
     const {
-      $nextEl: $nextEl,
-      $prevEl: $prevEl
+      $nextEl,
+      $prevEl
     } = swiper.navigation;
     toggleEl($prevEl, swiper.isBeginning && !swiper.params.rewind);
     toggleEl($nextEl, swiper.isEnd && !swiper.params.rewind);
@@ -12783,9 +12776,9 @@ function Navigation({
       $prevEl.on('click', onPrevClick);
     }
     Object.assign(swiper.navigation, {
-      $nextEl: $nextEl,
+      $nextEl,
       nextEl: $nextEl && $nextEl[0],
-      $prevEl: $prevEl,
+      $prevEl,
       prevEl: $prevEl && $prevEl[0]
     });
     if (!swiper.enabled) {
@@ -12795,8 +12788,8 @@ function Navigation({
   }
   function destroy() {
     const {
-      $nextEl: $nextEl,
-      $prevEl: $prevEl
+      $nextEl,
+      $prevEl
     } = swiper.navigation;
     if ($nextEl && $nextEl.length) {
       $nextEl.off('click', onNextClick);
@@ -12824,8 +12817,8 @@ function Navigation({
   });
   on('enable disable', () => {
     const {
-      $nextEl: $nextEl,
-      $prevEl: $prevEl
+      $nextEl,
+      $prevEl
     } = swiper.navigation;
     if ($nextEl) {
       $nextEl[swiper.enabled ? 'removeClass' : 'addClass'](swiper.params.navigation.lockClass);
@@ -12836,8 +12829,8 @@ function Navigation({
   });
   on('click', (_s, e) => {
     const {
-      $nextEl: $nextEl,
-      $prevEl: $prevEl
+      $nextEl,
+      $prevEl
     } = swiper.navigation;
     const targetEl = e.target;
     if (swiper.params.navigation.hideOnClick && !(0, _dom.default)(targetEl).is($prevEl) && !(0, _dom.default)(targetEl).is($nextEl)) {
@@ -12871,11 +12864,11 @@ function Navigation({
     destroy();
   };
   Object.assign(swiper.navigation, {
-    enable: enable,
-    disable: disable,
-    update: update,
-    init: init,
-    destroy: destroy
+    enable,
+    disable,
+    update,
+    init,
+    destroy
   });
 }
 },{"../../shared/create-element-if-not-defined.js":"../node_modules/swiper/shared/create-element-if-not-defined.js","../../shared/dom.js":"../node_modules/swiper/shared/dom.js"}],"../node_modules/swiper/shared/classes-to-selector.js":[function(require,module,exports) {
@@ -12886,8 +12879,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = classesToSelector;
 function classesToSelector(classes = '') {
-  return ".".concat(classes.trim().replace(/([\.:!\/])/g, '\\$1') // eslint-disable-line
-  .replace(/ /g, '.'));
+  return `.${classes.trim().replace(/([\.:!\/])/g, '\\$1') // eslint-disable-line
+  .replace(/ /g, '.')}`;
 }
 },{}],"../node_modules/swiper/modules/pagination/pagination.js":[function(require,module,exports) {
 "use strict";
@@ -12901,10 +12894,10 @@ var _classesToSelector = _interopRequireDefault(require("../../shared/classes-to
 var _createElementIfNotDefined = _interopRequireDefault(require("../../shared/create-element-if-not-defined.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Pagination({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   const pfx = 'swiper-pagination';
   extendParams({
@@ -12924,19 +12917,19 @@ function Pagination({
       dynamicMainBullets: 1,
       formatFractionCurrent: number => number,
       formatFractionTotal: number => number,
-      bulletClass: "".concat(pfx, "-bullet"),
-      bulletActiveClass: "".concat(pfx, "-bullet-active"),
-      modifierClass: "".concat(pfx, "-"),
-      currentClass: "".concat(pfx, "-current"),
-      totalClass: "".concat(pfx, "-total"),
-      hiddenClass: "".concat(pfx, "-hidden"),
-      progressbarFillClass: "".concat(pfx, "-progressbar-fill"),
-      progressbarOppositeClass: "".concat(pfx, "-progressbar-opposite"),
-      clickableClass: "".concat(pfx, "-clickable"),
-      lockClass: "".concat(pfx, "-lock"),
-      horizontalClass: "".concat(pfx, "-horizontal"),
-      verticalClass: "".concat(pfx, "-vertical"),
-      paginationDisabledClass: "".concat(pfx, "-disabled")
+      bulletClass: `${pfx}-bullet`,
+      bulletActiveClass: `${pfx}-bullet-active`,
+      modifierClass: `${pfx}-`,
+      currentClass: `${pfx}-current`,
+      totalClass: `${pfx}-total`,
+      hiddenClass: `${pfx}-hidden`,
+      progressbarFillClass: `${pfx}-progressbar-fill`,
+      progressbarOppositeClass: `${pfx}-progressbar-opposite`,
+      clickableClass: `${pfx}-clickable`,
+      lockClass: `${pfx}-lock`,
+      horizontalClass: `${pfx}-horizontal`,
+      verticalClass: `${pfx}-vertical`,
+      paginationDisabledClass: `${pfx}-disabled`
     }
   });
   swiper.pagination = {
@@ -12951,9 +12944,9 @@ function Pagination({
   }
   function setSideBullets($bulletEl, position) {
     const {
-      bulletActiveClass: bulletActiveClass
+      bulletActiveClass
     } = swiper.params.pagination;
-    $bulletEl[position]().addClass("".concat(bulletActiveClass, "-").concat(position))[position]().addClass("".concat(bulletActiveClass, "-").concat(position, "-").concat(position));
+    $bulletEl[position]().addClass(`${bulletActiveClass}-${position}`)[position]().addClass(`${bulletActiveClass}-${position}-${position}`);
   }
   function update() {
     // Render || Update Pagination bullets/items
@@ -12985,7 +12978,7 @@ function Pagination({
       let midIndex;
       if (params.dynamicBullets) {
         bulletSize = bullets.eq(0)[swiper.isHorizontal() ? 'outerWidth' : 'outerHeight'](true);
-        $el.css(swiper.isHorizontal() ? 'width' : 'height', "".concat(bulletSize * (params.dynamicMainBullets + 4), "px"));
+        $el.css(swiper.isHorizontal() ? 'width' : 'height', `${bulletSize * (params.dynamicMainBullets + 4)}px`);
         if (params.dynamicMainBullets > 1 && swiper.previousIndex !== undefined) {
           dynamicBulletIndex += current - (swiper.previousIndex - swiper.loopedSlides || 0);
           if (dynamicBulletIndex > params.dynamicMainBullets - 1) {
@@ -12998,7 +12991,7 @@ function Pagination({
         lastIndex = firstIndex + (Math.min(bullets.length, params.dynamicMainBullets) - 1);
         midIndex = (lastIndex + firstIndex) / 2;
       }
-      bullets.removeClass(['', '-next', '-next-next', '-prev', '-prev-prev', '-main'].map(suffix => "".concat(params.bulletActiveClass).concat(suffix)).join(' '));
+      bullets.removeClass(['', '-next', '-next-next', '-prev', '-prev-prev', '-main'].map(suffix => `${params.bulletActiveClass}${suffix}`).join(' '));
       if ($el.length > 1) {
         bullets.each(bullet => {
           const $bullet = (0, _dom.default)(bullet);
@@ -13008,7 +13001,7 @@ function Pagination({
           }
           if (params.dynamicBullets) {
             if (bulletIndex >= firstIndex && bulletIndex <= lastIndex) {
-              $bullet.addClass("".concat(params.bulletActiveClass, "-main"));
+              $bullet.addClass(`${params.bulletActiveClass}-main`);
             }
             if (bulletIndex === firstIndex) {
               setSideBullets($bullet, 'prev');
@@ -13026,14 +13019,14 @@ function Pagination({
           const $firstDisplayedBullet = bullets.eq(firstIndex);
           const $lastDisplayedBullet = bullets.eq(lastIndex);
           for (let i = firstIndex; i <= lastIndex; i += 1) {
-            bullets.eq(i).addClass("".concat(params.bulletActiveClass, "-main"));
+            bullets.eq(i).addClass(`${params.bulletActiveClass}-main`);
           }
           if (swiper.params.loop) {
             if (bulletIndex >= bullets.length) {
               for (let i = params.dynamicMainBullets; i >= 0; i -= 1) {
-                bullets.eq(bullets.length - i).addClass("".concat(params.bulletActiveClass, "-main"));
+                bullets.eq(bullets.length - i).addClass(`${params.bulletActiveClass}-main`);
               }
-              bullets.eq(bullets.length - params.dynamicMainBullets - 1).addClass("".concat(params.bulletActiveClass, "-prev"));
+              bullets.eq(bullets.length - params.dynamicMainBullets - 1).addClass(`${params.bulletActiveClass}-prev`);
             } else {
               setSideBullets($firstDisplayedBullet, 'prev');
               setSideBullets($lastDisplayedBullet, 'next');
@@ -13048,7 +13041,7 @@ function Pagination({
         const dynamicBulletsLength = Math.min(bullets.length, params.dynamicMainBullets + 4);
         const bulletsOffset = (bulletSize * dynamicBulletsLength - bulletSize) / 2 - midIndex * bulletSize;
         const offsetProp = rtl ? 'right' : 'left';
-        bullets.css(swiper.isHorizontal() ? offsetProp : 'top', "".concat(bulletsOffset, "px"));
+        bullets.css(swiper.isHorizontal() ? offsetProp : 'top', `${bulletsOffset}px`);
       }
     }
     if (params.type === 'fraction') {
@@ -13070,7 +13063,7 @@ function Pagination({
       } else {
         scaleY = scale;
       }
-      $el.find((0, _classesToSelector.default)(params.progressbarFillClass)).transform("translate3d(0,0,0) scaleX(".concat(scaleX, ") scaleY(").concat(scaleY, ")")).transition(swiper.params.speed);
+      $el.find((0, _classesToSelector.default)(params.progressbarFillClass)).transform(`translate3d(0,0,0) scaleX(${scaleX}) scaleY(${scaleY})`).transition(swiper.params.speed);
     }
     if (params.type === 'custom' && params.renderCustom) {
       $el.html(params.renderCustom(swiper, current + 1, total));
@@ -13098,7 +13091,7 @@ function Pagination({
         if (params.renderBullet) {
           paginationHTML += params.renderBullet.call(swiper, i, params.bulletClass);
         } else {
-          paginationHTML += "<".concat(params.bulletElement, " class=\"").concat(params.bulletClass, "\"></").concat(params.bulletElement, ">");
+          paginationHTML += `<${params.bulletElement} class="${params.bulletClass}"></${params.bulletElement}>`;
         }
       }
       $el.html(paginationHTML);
@@ -13108,7 +13101,7 @@ function Pagination({
       if (params.renderFraction) {
         paginationHTML = params.renderFraction.call(swiper, params.currentClass, params.totalClass);
       } else {
-        paginationHTML = "<span class=\"".concat(params.currentClass, "\"></span>") + ' / ' + "<span class=\"".concat(params.totalClass, "\"></span>");
+        paginationHTML = `<span class="${params.currentClass}"></span>` + ' / ' + `<span class="${params.totalClass}"></span>`;
       }
       $el.html(paginationHTML);
     }
@@ -13116,7 +13109,7 @@ function Pagination({
       if (params.renderProgressbar) {
         paginationHTML = params.renderProgressbar.call(swiper, params.progressbarFillClass);
       } else {
-        paginationHTML = "<span class=\"".concat(params.progressbarFillClass, "\"></span>");
+        paginationHTML = `<span class="${params.progressbarFillClass}"></span>`;
       }
       $el.html(paginationHTML);
     }
@@ -13148,7 +13141,7 @@ function Pagination({
     $el.addClass(params.modifierClass + params.type);
     $el.addClass(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
     if (params.type === 'bullets' && params.dynamicBullets) {
-      $el.addClass("".concat(params.modifierClass).concat(params.type, "-dynamic"));
+      $el.addClass(`${params.modifierClass}${params.type}-dynamic`);
       dynamicBulletIndex = 0;
       if (params.dynamicMainBullets < 1) {
         params.dynamicMainBullets = 1;
@@ -13166,7 +13159,7 @@ function Pagination({
       });
     }
     Object.assign(swiper.pagination, {
-      $el: $el,
+      $el,
       el: $el[0]
     });
     if (!swiper.enabled) {
@@ -13224,7 +13217,7 @@ function Pagination({
   });
   on('enable disable', () => {
     const {
-      $el: $el
+      $el
     } = swiper.pagination;
     if ($el) {
       $el[swiper.enabled ? 'removeClass' : 'addClass'](swiper.params.pagination.lockClass);
@@ -13236,7 +13229,7 @@ function Pagination({
   on('click', (_s, e) => {
     const targetEl = e.target;
     const {
-      $el: $el
+      $el
     } = swiper.pagination;
     if (swiper.params.pagination.el && swiper.params.pagination.hideOnClick && $el && $el.length > 0 && !(0, _dom.default)(targetEl).hasClass(swiper.params.pagination.bulletClass)) {
       if (swiper.navigation && (swiper.navigation.nextEl && targetEl === swiper.navigation.nextEl || swiper.navigation.prevEl && targetEl === swiper.navigation.prevEl)) return;
@@ -13266,12 +13259,12 @@ function Pagination({
     destroy();
   };
   Object.assign(swiper.pagination, {
-    enable: enable,
-    disable: disable,
-    render: render,
-    update: update,
-    init: init,
-    destroy: destroy
+    enable,
+    disable,
+    render,
+    update,
+    init,
+    destroy
   });
 }
 },{"../../shared/dom.js":"../node_modules/swiper/shared/dom.js","../../shared/classes-to-selector.js":"../node_modules/swiper/shared/classes-to-selector.js","../../shared/create-element-if-not-defined.js":"../node_modules/swiper/shared/create-element-if-not-defined.js"}],"../node_modules/swiper/modules/scrollbar/scrollbar.js":[function(require,module,exports) {
@@ -13287,10 +13280,10 @@ var _utils = require("../../shared/utils.js");
 var _createElementIfNotDefined = _interopRequireDefault(require("../../shared/create-element-if-not-defined.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Scrollbar({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   const document = (0, _ssrWindow.getDocument)();
   let isTouched = false;
@@ -13310,8 +13303,8 @@ function Scrollbar({
       lockClass: 'swiper-scrollbar-lock',
       dragClass: 'swiper-scrollbar-drag',
       scrollbarDisabledClass: 'swiper-scrollbar-disabled',
-      horizontalClass: "swiper-scrollbar-horizontal",
-      verticalClass: "swiper-scrollbar-vertical"
+      horizontalClass: `swiper-scrollbar-horizontal`,
+      verticalClass: `swiper-scrollbar-vertical`
     }
   });
   swiper.scrollbar = {
@@ -13323,13 +13316,13 @@ function Scrollbar({
   function setTranslate() {
     if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
     const {
-      scrollbar: scrollbar,
+      scrollbar,
       rtlTranslate: rtl,
-      progress: progress
+      progress
     } = swiper;
     const {
-      $dragEl: $dragEl,
-      $el: $el
+      $dragEl,
+      $el
     } = scrollbar;
     const params = swiper.params.scrollbar;
     let newSize = dragSize;
@@ -13349,11 +13342,11 @@ function Scrollbar({
       newSize = trackSize - newPos;
     }
     if (swiper.isHorizontal()) {
-      $dragEl.transform("translate3d(".concat(newPos, "px, 0, 0)"));
-      $dragEl[0].style.width = "".concat(newSize, "px");
+      $dragEl.transform(`translate3d(${newPos}px, 0, 0)`);
+      $dragEl[0].style.width = `${newSize}px`;
     } else {
-      $dragEl.transform("translate3d(0px, ".concat(newPos, "px, 0)"));
-      $dragEl[0].style.height = "".concat(newSize, "px");
+      $dragEl.transform(`translate3d(0px, ${newPos}px, 0)`);
+      $dragEl[0].style.height = `${newSize}px`;
     }
     if (params.hide) {
       clearTimeout(timeout);
@@ -13371,11 +13364,11 @@ function Scrollbar({
   function updateSize() {
     if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
     const {
-      scrollbar: scrollbar
+      scrollbar
     } = swiper;
     const {
-      $dragEl: $dragEl,
-      $el: $el
+      $dragEl,
+      $el
     } = scrollbar;
     $dragEl[0].style.width = '';
     $dragEl[0].style.height = '';
@@ -13387,9 +13380,9 @@ function Scrollbar({
       dragSize = parseInt(swiper.params.scrollbar.dragSize, 10);
     }
     if (swiper.isHorizontal()) {
-      $dragEl[0].style.width = "".concat(dragSize, "px");
+      $dragEl[0].style.width = `${dragSize}px`;
     } else {
-      $dragEl[0].style.height = "".concat(dragSize, "px");
+      $dragEl[0].style.height = `${dragSize}px`;
     }
     if (divider >= 1) {
       $el[0].style.display = 'none';
@@ -13411,11 +13404,11 @@ function Scrollbar({
   }
   function setDragPosition(e) {
     const {
-      scrollbar: scrollbar,
+      scrollbar,
       rtlTranslate: rtl
     } = swiper;
     const {
-      $el: $el
+      $el
     } = scrollbar;
     let positionRatio;
     positionRatio = (getPointerPosition(e) - $el.offset()[swiper.isHorizontal() ? 'left' : 'top'] - (dragStartPos !== null ? dragStartPos : dragSize / 2)) / (trackSize - dragSize);
@@ -13432,12 +13425,12 @@ function Scrollbar({
   function onDragStart(e) {
     const params = swiper.params.scrollbar;
     const {
-      scrollbar: scrollbar,
-      $wrapperEl: $wrapperEl
+      scrollbar,
+      $wrapperEl
     } = swiper;
     const {
-      $el: $el,
-      $dragEl: $dragEl
+      $el,
+      $dragEl
     } = scrollbar;
     isTouched = true;
     dragStartPos = e.target === $dragEl[0] || e.target === $dragEl ? getPointerPosition(e) - e.target.getBoundingClientRect()[swiper.isHorizontal() ? 'left' : 'top'] : null;
@@ -13458,12 +13451,12 @@ function Scrollbar({
   }
   function onDragMove(e) {
     const {
-      scrollbar: scrollbar,
-      $wrapperEl: $wrapperEl
+      scrollbar,
+      $wrapperEl
     } = swiper;
     const {
-      $el: $el,
-      $dragEl: $dragEl
+      $el,
+      $dragEl
     } = scrollbar;
     if (!isTouched) return;
     if (e.preventDefault) e.preventDefault();else e.returnValue = false;
@@ -13476,11 +13469,11 @@ function Scrollbar({
   function onDragEnd(e) {
     const params = swiper.params.scrollbar;
     const {
-      scrollbar: scrollbar,
-      $wrapperEl: $wrapperEl
+      scrollbar,
+      $wrapperEl
     } = swiper;
     const {
-      $el: $el
+      $el
     } = scrollbar;
     if (!isTouched) return;
     isTouched = false;
@@ -13502,11 +13495,11 @@ function Scrollbar({
   }
   function events(method) {
     const {
-      scrollbar: scrollbar,
-      touchEventsTouch: touchEventsTouch,
-      touchEventsDesktop: touchEventsDesktop,
-      params: params,
-      support: support
+      scrollbar,
+      touchEventsTouch,
+      touchEventsDesktop,
+      params,
+      support
     } = swiper;
     const $el = scrollbar.$el;
     if (!$el) return;
@@ -13541,7 +13534,7 @@ function Scrollbar({
   }
   function init() {
     const {
-      scrollbar: scrollbar,
+      scrollbar,
       $el: $swiperEl
     } = swiper;
     swiper.params.scrollbar = (0, _createElementIfNotDefined.default)(swiper, swiper.originalParams.scrollbar, swiper.params.scrollbar, {
@@ -13554,15 +13547,15 @@ function Scrollbar({
       $el = $swiperEl.find(params.el);
     }
     $el.addClass(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
-    let $dragEl = $el.find(".".concat(swiper.params.scrollbar.dragClass));
+    let $dragEl = $el.find(`.${swiper.params.scrollbar.dragClass}`);
     if ($dragEl.length === 0) {
-      $dragEl = (0, _dom.default)("<div class=\"".concat(swiper.params.scrollbar.dragClass, "\"></div>"));
+      $dragEl = (0, _dom.default)(`<div class="${swiper.params.scrollbar.dragClass}"></div>`);
       $el.append($dragEl);
     }
     Object.assign(scrollbar, {
-      $el: $el,
+      $el,
       el: $el[0],
-      $dragEl: $dragEl,
+      $dragEl,
       dragEl: $dragEl[0]
     });
     if (params.draggable) {
@@ -13601,7 +13594,7 @@ function Scrollbar({
   });
   on('enable disable', () => {
     const {
-      $el: $el
+      $el
     } = swiper.scrollbar;
     if ($el) {
       $el[swiper.enabled ? 'removeClass' : 'addClass'](swiper.params.scrollbar.lockClass);
@@ -13627,12 +13620,12 @@ function Scrollbar({
     destroy();
   };
   Object.assign(swiper.scrollbar, {
-    enable: enable,
-    disable: disable,
-    updateSize: updateSize,
-    setTranslate: setTranslate,
-    init: init,
-    destroy: destroy
+    enable,
+    disable,
+    updateSize,
+    setTranslate,
+    init,
+    destroy
   });
 }
 },{"ssr-window":"../node_modules/ssr-window/ssr-window.esm.js","../../shared/dom.js":"../node_modules/swiper/shared/dom.js","../../shared/utils.js":"../node_modules/swiper/shared/utils.js","../../shared/create-element-if-not-defined.js":"../node_modules/swiper/shared/create-element-if-not-defined.js"}],"../node_modules/swiper/modules/parallax/parallax.js":[function(require,module,exports) {
@@ -13645,9 +13638,9 @@ exports.default = Parallax;
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Parallax({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     parallax: {
@@ -13656,7 +13649,7 @@ function Parallax({
   });
   const setTransform = (el, progress) => {
     const {
-      rtl: rtl
+      rtl
     } = swiper;
     const $el = (0, _dom.default)(el);
     const rtlFactor = rtl ? -1 : 1;
@@ -13676,32 +13669,32 @@ function Parallax({
       x = '0';
     }
     if (x.indexOf('%') >= 0) {
-      x = "".concat(parseInt(x, 10) * progress * rtlFactor, "%");
+      x = `${parseInt(x, 10) * progress * rtlFactor}%`;
     } else {
-      x = "".concat(x * progress * rtlFactor, "px");
+      x = `${x * progress * rtlFactor}px`;
     }
     if (y.indexOf('%') >= 0) {
-      y = "".concat(parseInt(y, 10) * progress, "%");
+      y = `${parseInt(y, 10) * progress}%`;
     } else {
-      y = "".concat(y * progress, "px");
+      y = `${y * progress}px`;
     }
     if (typeof opacity !== 'undefined' && opacity !== null) {
       const currentOpacity = opacity - (opacity - 1) * (1 - Math.abs(progress));
       $el[0].style.opacity = currentOpacity;
     }
     if (typeof scale === 'undefined' || scale === null) {
-      $el.transform("translate3d(".concat(x, ", ").concat(y, ", 0px)"));
+      $el.transform(`translate3d(${x}, ${y}, 0px)`);
     } else {
       const currentScale = scale - (scale - 1) * (1 - Math.abs(progress));
-      $el.transform("translate3d(".concat(x, ", ").concat(y, ", 0px) scale(").concat(currentScale, ")"));
+      $el.transform(`translate3d(${x}, ${y}, 0px) scale(${currentScale})`);
     }
   };
   const setTranslate = () => {
     const {
-      $el: $el,
-      slides: slides,
-      progress: progress,
-      snapGrid: snapGrid
+      $el,
+      slides,
+      progress,
+      snapGrid
     } = swiper;
     $el.children('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]').each(el => {
       setTransform(el, progress);
@@ -13719,7 +13712,7 @@ function Parallax({
   };
   const setTransition = (duration = swiper.params.speed) => {
     const {
-      $el: $el
+      $el
     } = swiper;
     $el.find('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]').each(parallaxEl => {
       const $parallaxEl = (0, _dom.default)(parallaxEl);
@@ -13758,10 +13751,10 @@ var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 var _utils = require("../../shared/utils.js");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Zoom({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   const window = (0, _ssrWindow.getWindow)();
   extendParams({
@@ -13815,10 +13808,10 @@ function Zoom({
   };
   let scale = 1;
   Object.defineProperty(swiper.zoom, 'scale', {
-    get: function () {
+    get() {
       return scale;
     },
-    set: function (value) {
+    set(value) {
       if (scale !== value) {
         const imageEl = gesture.$imageEl ? gesture.$imageEl[0] : undefined;
         const slideEl = gesture.$slideEl ? gesture.$slideEl[0] : undefined;
@@ -13850,10 +13843,10 @@ function Zoom({
       gesture.scaleStart = getDistanceBetweenTouches(e);
     }
     if (!gesture.$slideEl || !gesture.$slideEl.length) {
-      gesture.$slideEl = (0, _dom.default)(e.target).closest(".".concat(swiper.params.slideClass));
+      gesture.$slideEl = (0, _dom.default)(e.target).closest(`.${swiper.params.slideClass}`);
       if (gesture.$slideEl.length === 0) gesture.$slideEl = swiper.slides.eq(swiper.activeIndex);
-      gesture.$imageEl = gesture.$slideEl.find(".".concat(params.containerClass)).eq(0).find('picture, img, svg, canvas, .swiper-zoom-target').eq(0);
-      gesture.$imageWrapEl = gesture.$imageEl.parent(".".concat(params.containerClass));
+      gesture.$imageEl = gesture.$slideEl.find(`.${params.containerClass}`).eq(0).find('picture, img, svg, canvas, .swiper-zoom-target').eq(0);
+      gesture.$imageWrapEl = gesture.$imageEl.parent(`.${params.containerClass}`);
       gesture.maxRatio = gesture.$imageWrapEl.attr('data-swiper-zoom') || params.maxRatio;
       if (gesture.$imageWrapEl.length === 0) {
         gesture.$imageEl = undefined;
@@ -13891,7 +13884,7 @@ function Zoom({
     if (zoom.scale < params.minRatio) {
       zoom.scale = params.minRatio + 1 - (params.minRatio - zoom.scale + 1) ** 0.5;
     }
-    gesture.$imageEl.transform("translate3d(0,0,0) scale(".concat(zoom.scale, ")"));
+    gesture.$imageEl.transform(`translate3d(0,0,0) scale(${zoom.scale})`);
   }
   function onGestureEnd(e) {
     const device = swiper.device;
@@ -13910,7 +13903,7 @@ function Zoom({
     }
     if (!gesture.$imageEl || gesture.$imageEl.length === 0) return;
     zoom.scale = Math.max(Math.min(zoom.scale, gesture.maxRatio), params.minRatio);
-    gesture.$imageEl.transition(swiper.params.speed).transform("translate3d(0,0,0) scale(".concat(zoom.scale, ")"));
+    gesture.$imageEl.transition(swiper.params.speed).transform(`translate3d(0,0,0) scale(${zoom.scale})`);
     currentScale = zoom.scale;
     isScaling = false;
     if (zoom.scale === 1) gesture.$slideEl = undefined;
@@ -13988,7 +13981,7 @@ function Zoom({
     velocity.prevPositionX = image.touchesCurrent.x;
     velocity.prevPositionY = image.touchesCurrent.y;
     velocity.prevTime = Date.now();
-    gesture.$imageWrapEl.transform("translate3d(".concat(image.currentX, "px, ").concat(image.currentY, "px,0)"));
+    gesture.$imageWrapEl.transform(`translate3d(${image.currentX}px, ${image.currentY}px,0)`);
   }
   function onTouchEnd() {
     const zoom = swiper.zoom;
@@ -14021,7 +14014,7 @@ function Zoom({
     image.maxY = -image.minY;
     image.currentX = Math.max(Math.min(image.currentX, image.maxX), image.minX);
     image.currentY = Math.max(Math.min(image.currentY, image.maxY), image.minY);
-    gesture.$imageWrapEl.transition(momentumDuration).transform("translate3d(".concat(image.currentX, "px, ").concat(image.currentY, "px,0)"));
+    gesture.$imageWrapEl.transition(momentumDuration).transform(`translate3d(${image.currentX}px, ${image.currentY}px,0)`);
   }
   function onTransitionEnd() {
     const zoom = swiper.zoom;
@@ -14044,24 +14037,24 @@ function Zoom({
     const params = swiper.params.zoom;
     if (!gesture.$slideEl) {
       if (e && e.target) {
-        gesture.$slideEl = (0, _dom.default)(e.target).closest(".".concat(swiper.params.slideClass));
+        gesture.$slideEl = (0, _dom.default)(e.target).closest(`.${swiper.params.slideClass}`);
       }
       if (!gesture.$slideEl) {
         if (swiper.params.virtual && swiper.params.virtual.enabled && swiper.virtual) {
-          gesture.$slideEl = swiper.$wrapperEl.children(".".concat(swiper.params.slideActiveClass));
+          gesture.$slideEl = swiper.$wrapperEl.children(`.${swiper.params.slideActiveClass}`);
         } else {
           gesture.$slideEl = swiper.slides.eq(swiper.activeIndex);
         }
       }
-      gesture.$imageEl = gesture.$slideEl.find(".".concat(params.containerClass)).eq(0).find('picture, img, svg, canvas, .swiper-zoom-target').eq(0);
-      gesture.$imageWrapEl = gesture.$imageEl.parent(".".concat(params.containerClass));
+      gesture.$imageEl = gesture.$slideEl.find(`.${params.containerClass}`).eq(0).find('picture, img, svg, canvas, .swiper-zoom-target').eq(0);
+      gesture.$imageWrapEl = gesture.$imageEl.parent(`.${params.containerClass}`);
     }
     if (!gesture.$imageEl || gesture.$imageEl.length === 0 || !gesture.$imageWrapEl || gesture.$imageWrapEl.length === 0) return;
     if (swiper.params.cssMode) {
       swiper.wrapperEl.style.overflow = 'hidden';
       swiper.wrapperEl.style.touchAction = 'none';
     }
-    gesture.$slideEl.addClass("".concat(params.zoomedSlideClass));
+    gesture.$slideEl.addClass(`${params.zoomedSlideClass}`);
     let touchX;
     let touchY;
     let offsetX;
@@ -14122,20 +14115,20 @@ function Zoom({
       translateX = 0;
       translateY = 0;
     }
-    gesture.$imageWrapEl.transition(300).transform("translate3d(".concat(translateX, "px, ").concat(translateY, "px,0)"));
-    gesture.$imageEl.transition(300).transform("translate3d(0,0,0) scale(".concat(zoom.scale, ")"));
+    gesture.$imageWrapEl.transition(300).transform(`translate3d(${translateX}px, ${translateY}px,0)`);
+    gesture.$imageEl.transition(300).transform(`translate3d(0,0,0) scale(${zoom.scale})`);
   }
   function zoomOut() {
     const zoom = swiper.zoom;
     const params = swiper.params.zoom;
     if (!gesture.$slideEl) {
       if (swiper.params.virtual && swiper.params.virtual.enabled && swiper.virtual) {
-        gesture.$slideEl = swiper.$wrapperEl.children(".".concat(swiper.params.slideActiveClass));
+        gesture.$slideEl = swiper.$wrapperEl.children(`.${swiper.params.slideActiveClass}`);
       } else {
         gesture.$slideEl = swiper.slides.eq(swiper.activeIndex);
       }
-      gesture.$imageEl = gesture.$slideEl.find(".".concat(params.containerClass)).eq(0).find('picture, img, svg, canvas, .swiper-zoom-target').eq(0);
-      gesture.$imageWrapEl = gesture.$imageEl.parent(".".concat(params.containerClass));
+      gesture.$imageEl = gesture.$slideEl.find(`.${params.containerClass}`).eq(0).find('picture, img, svg, canvas, .swiper-zoom-target').eq(0);
+      gesture.$imageWrapEl = gesture.$imageEl.parent(`.${params.containerClass}`);
     }
     if (!gesture.$imageEl || gesture.$imageEl.length === 0 || !gesture.$imageWrapEl || gesture.$imageWrapEl.length === 0) return;
     if (swiper.params.cssMode) {
@@ -14146,7 +14139,7 @@ function Zoom({
     currentScale = 1;
     gesture.$imageWrapEl.transition(300).transform('translate3d(0,0,0)');
     gesture.$imageEl.transition(300).transform('translate3d(0,0,0) scale(1)');
-    gesture.$slideEl.removeClass("".concat(params.zoomedSlideClass));
+    gesture.$slideEl.removeClass(`${params.zoomedSlideClass}`);
     gesture.$slideEl = undefined;
   } // Toggle Zoom
 
@@ -14171,16 +14164,16 @@ function Zoom({
       capture: true
     } : true;
     return {
-      passiveListener: passiveListener,
-      activeListenerWithCapture: activeListenerWithCapture
+      passiveListener,
+      activeListenerWithCapture
     };
   }
   function getSlideSelector() {
-    return ".".concat(swiper.params.slideClass);
+    return `.${swiper.params.slideClass}`;
   }
   function toggleGestures(method) {
     const {
-      passiveListener: passiveListener
+      passiveListener
     } = getListeners();
     const slideSelector = getSlideSelector();
     swiper.$wrapperEl[method]('gesturestart', slideSelector, onGestureStart, passiveListener);
@@ -14204,8 +14197,8 @@ function Zoom({
     zoom.enabled = true;
     const support = swiper.support;
     const {
-      passiveListener: passiveListener,
-      activeListenerWithCapture: activeListenerWithCapture
+      passiveListener,
+      activeListenerWithCapture
     } = getListeners();
     const slideSelector = getSlideSelector(); // Scale image
 
@@ -14221,7 +14214,7 @@ function Zoom({
       }
     } // Move image
 
-    swiper.$wrapperEl.on(swiper.touchEvents.move, ".".concat(swiper.params.zoom.containerClass), onTouchMove, activeListenerWithCapture);
+    swiper.$wrapperEl.on(swiper.touchEvents.move, `.${swiper.params.zoom.containerClass}`, onTouchMove, activeListenerWithCapture);
   }
   function disable() {
     const zoom = swiper.zoom;
@@ -14229,8 +14222,8 @@ function Zoom({
     const support = swiper.support;
     zoom.enabled = false;
     const {
-      passiveListener: passiveListener,
-      activeListenerWithCapture: activeListenerWithCapture
+      passiveListener,
+      activeListenerWithCapture
     } = getListeners();
     const slideSelector = getSlideSelector(); // Scale image
 
@@ -14246,7 +14239,7 @@ function Zoom({
       }
     } // Move image
 
-    swiper.$wrapperEl.off(swiper.touchEvents.move, ".".concat(swiper.params.zoom.containerClass), onTouchMove, activeListenerWithCapture);
+    swiper.$wrapperEl.off(swiper.touchEvents.move, `.${swiper.params.zoom.containerClass}`, onTouchMove, activeListenerWithCapture);
   }
   on('init', () => {
     if (swiper.params.zoom.enabled) {
@@ -14280,8 +14273,8 @@ function Zoom({
     }
   });
   Object.assign(swiper.zoom, {
-    enable: enable,
-    disable: disable,
+    enable,
+    disable,
     in: zoomIn,
     out: zoomOut,
     toggle: zoomToggle
@@ -14298,10 +14291,10 @@ var _ssrWindow = require("ssr-window");
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Lazy({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   extendParams({
     lazy: {
@@ -14325,8 +14318,8 @@ function Lazy({
     if (typeof index === 'undefined') return;
     if (swiper.slides.length === 0) return;
     const isVirtual = swiper.virtual && swiper.params.virtual.enabled;
-    const $slideEl = isVirtual ? swiper.$wrapperEl.children(".".concat(swiper.params.slideClass, "[data-swiper-slide-index=\"").concat(index, "\"]")) : swiper.slides.eq(index);
-    const $images = $slideEl.find(".".concat(params.elementClass, ":not(.").concat(params.loadedClass, "):not(.").concat(params.loadingClass, ")"));
+    const $slideEl = isVirtual ? swiper.$wrapperEl.children(`.${swiper.params.slideClass}[data-swiper-slide-index="${index}"]`) : swiper.slides.eq(index);
+    const $images = $slideEl.find(`.${params.elementClass}:not(.${params.loadedClass}):not(.${params.loadingClass})`);
     if ($slideEl.hasClass(params.elementClass) && !$slideEl.hasClass(params.loadedClass) && !$slideEl.hasClass(params.loadingClass)) {
       $images.push($slideEl[0]);
     }
@@ -14342,7 +14335,7 @@ function Lazy({
       swiper.loadImage($imageEl[0], src || background, srcset, sizes, false, () => {
         if (typeof swiper === 'undefined' || swiper === null || !swiper || swiper && !swiper.params || swiper.destroyed) return;
         if (background) {
-          $imageEl.css('background-image', "url(\"".concat(background, "\")"));
+          $imageEl.css('background-image', `url("${background}")`);
           $imageEl.removeAttr('data-background');
         } else {
           if (srcset) {
@@ -14368,14 +14361,14 @@ function Lazy({
           }
         }
         $imageEl.addClass(params.loadedClass).removeClass(params.loadingClass);
-        $slideEl.find(".".concat(params.preloaderClass)).remove();
+        $slideEl.find(`.${params.preloaderClass}`).remove();
         if (swiper.params.loop && loadInDuplicate) {
           const slideOriginalIndex = $slideEl.attr('data-swiper-slide-index');
           if ($slideEl.hasClass(swiper.params.slideDuplicateClass)) {
-            const originalSlide = swiper.$wrapperEl.children("[data-swiper-slide-index=\"".concat(slideOriginalIndex, "\"]:not(.").concat(swiper.params.slideDuplicateClass, ")"));
+            const originalSlide = swiper.$wrapperEl.children(`[data-swiper-slide-index="${slideOriginalIndex}"]:not(.${swiper.params.slideDuplicateClass})`);
             loadInSlide(originalSlide.index(), false);
           } else {
-            const duplicatedSlide = swiper.$wrapperEl.children(".".concat(swiper.params.slideDuplicateClass, "[data-swiper-slide-index=\"").concat(slideOriginalIndex, "\"]"));
+            const duplicatedSlide = swiper.$wrapperEl.children(`.${swiper.params.slideDuplicateClass}[data-swiper-slide-index="${slideOriginalIndex}"]`);
             loadInSlide(duplicatedSlide.index(), false);
           }
         }
@@ -14389,10 +14382,10 @@ function Lazy({
   }
   function load() {
     const {
-      $wrapperEl: $wrapperEl,
+      $wrapperEl,
       params: swiperParams,
-      slides: slides,
-      activeIndex: activeIndex
+      slides,
+      activeIndex
     } = swiper;
     const isVirtual = swiper.virtual && swiperParams.virtual.enabled;
     const params = swiperParams.lazy;
@@ -14402,7 +14395,7 @@ function Lazy({
     }
     function slideExist(index) {
       if (isVirtual) {
-        if ($wrapperEl.children(".".concat(swiperParams.slideClass, "[data-swiper-slide-index=\"").concat(index, "\"]")).length) {
+        if ($wrapperEl.children(`.${swiperParams.slideClass}[data-swiper-slide-index="${index}"]`).length) {
           return true;
         }
       } else if (slides[index]) return true;
@@ -14416,7 +14409,7 @@ function Lazy({
     }
     if (!initialImageLoaded) initialImageLoaded = true;
     if (swiper.params.watchSlidesProgress) {
-      $wrapperEl.children(".".concat(swiperParams.slideVisibleClass)).each(slideEl => {
+      $wrapperEl.children(`.${swiperParams.slideVisibleClass}`).each(slideEl => {
         const index = isVirtual ? (0, _dom.default)(slideEl).attr('data-swiper-slide-index') : (0, _dom.default)(slideEl).index();
         loadInSlide(index);
       });
@@ -14442,9 +14435,9 @@ function Lazy({
           if (slideExist(i)) loadInSlide(i);
         }
       } else {
-        const nextSlide = $wrapperEl.children(".".concat(swiperParams.slideNextClass));
+        const nextSlide = $wrapperEl.children(`.${swiperParams.slideNextClass}`);
         if (nextSlide.length > 0) loadInSlide(slideIndex(nextSlide));
-        const prevSlide = $wrapperEl.children(".".concat(swiperParams.slidePrevClass));
+        const prevSlide = $wrapperEl.children(`.${swiperParams.slidePrevClass}`);
         if (prevSlide.length > 0) loadInSlide(slideIndex(prevSlide));
       }
     }
@@ -14533,11 +14526,11 @@ function Lazy({
   });
   on('slideChange', () => {
     const {
-      lazy: lazy,
-      cssMode: cssMode,
-      watchSlidesProgress: watchSlidesProgress,
-      touchReleaseOnEdges: touchReleaseOnEdges,
-      resistanceRatio: resistanceRatio
+      lazy,
+      cssMode,
+      watchSlidesProgress,
+      touchReleaseOnEdges,
+      resistanceRatio
     } = swiper.params;
     if (lazy.enabled && (cssMode || watchSlidesProgress && (touchReleaseOnEdges || resistanceRatio === 0))) {
       load();
@@ -14545,11 +14538,11 @@ function Lazy({
   });
   on('destroy', () => {
     if (!swiper.$el) return;
-    swiper.$el.find(".".concat(swiper.params.lazy.loadingClass)).removeClass(swiper.params.lazy.loadingClass);
+    swiper.$el.find(`.${swiper.params.lazy.loadingClass}`).removeClass(swiper.params.lazy.loadingClass);
   });
   Object.assign(swiper.lazy, {
-    load: load,
-    loadInSlide: loadInSlide
+    load,
+    loadInSlide
   });
 }
 },{"ssr-window":"../node_modules/ssr-window/ssr-window.esm.js","../../shared/dom.js":"../node_modules/swiper/shared/dom.js"}],"../node_modules/swiper/modules/controller/controller.js":[function(require,module,exports) {
@@ -14563,9 +14556,9 @@ var _utils = require("../../shared/utils.js");
 /* eslint no-bitwise: ["error", { "allow": [">>"] }] */
 
 function Controller({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     controller: {
@@ -14721,8 +14714,8 @@ function Controller({
     swiper.controller.setTransition(duration, byController);
   });
   Object.assign(swiper.controller, {
-    setTranslate: setTranslate,
-    setTransition: setTransition
+    setTranslate,
+    setTransition
   });
 }
 },{"../../shared/utils.js":"../node_modules/swiper/shared/utils.js"}],"../node_modules/swiper/modules/a11y/a11y.js":[function(require,module,exports) {
@@ -14736,9 +14729,9 @@ var _classesToSelector = _interopRequireDefault(require("../../shared/classes-to
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function A11y({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     a11y: {
@@ -14832,8 +14825,8 @@ function A11y({
   function updateNavigation() {
     if (swiper.params.loop || swiper.params.rewind || !swiper.navigation) return;
     const {
-      $nextEl: $nextEl,
-      $prevEl: $prevEl
+      $nextEl,
+      $prevEl
     } = swiper.navigation;
     if ($prevEl && $prevEl.length > 0) {
       if (swiper.isBeginning) {
@@ -14872,7 +14865,7 @@ function A11y({
           addElLabel($bulletEl, params.paginationBulletMessage.replace(/\{\{index\}\}/, $bulletEl.index() + 1));
         }
       }
-      if ($bulletEl.is(".".concat(swiper.params.pagination.bulletActiveClass))) {
+      if ($bulletEl.is(`.${swiper.params.pagination.bulletActiveClass}`)) {
         $bulletEl.attr('aria-current', 'true');
       } else {
         $bulletEl.removeAttr('aria-current');
@@ -14902,7 +14895,7 @@ function A11y({
   };
   const handleFocus = e => {
     if (swiper.a11y.clicked) return;
-    const slideEl = e.target.closest(".".concat(swiper.params.slideClass));
+    const slideEl = e.target.closest(`.${swiper.params.slideClass}`);
     if (!slideEl || !swiper.slides.includes(slideEl)) return;
     const isActive = swiper.slides.indexOf(slideEl) === swiper.activeIndex;
     const isVisible = swiper.params.watchSlidesProgress && swiper.visibleSlides && swiper.visibleSlides.includes(slideEl);
@@ -14946,7 +14939,7 @@ function A11y({
     } // Wrapper
 
     const $wrapperEl = swiper.$wrapperEl;
-    const wrapperId = params.id || $wrapperEl.attr('id') || "swiper-wrapper-".concat(getRandomNumber(16));
+    const wrapperId = params.id || $wrapperEl.attr('id') || `swiper-wrapper-${getRandomNumber(16)}`;
     const live = swiper.params.autoplay && swiper.params.autoplay.enabled ? 'off' : 'polite';
     addElId($wrapperEl, wrapperId);
     addElLive($wrapperEl, live); // Slide
@@ -15002,7 +14995,7 @@ function A11y({
     swiper.$el.off('pointerup', handlePointerUp, true);
   }
   on('beforeInit', () => {
-    liveRegion = (0, _dom.default)("<span class=\"".concat(swiper.params.a11y.notificationClass, "\" aria-live=\"assertive\" aria-atomic=\"true\"></span>"));
+    liveRegion = (0, _dom.default)(`<span class="${swiper.params.a11y.notificationClass}" aria-live="assertive" aria-atomic="true"></span>`);
   });
   on('afterInit', () => {
     if (!swiper.params.a11y.enabled) return;
@@ -15034,9 +15027,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = History;
 var _ssrWindow = require("ssr-window");
 function History({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     history: {
@@ -15065,8 +15058,8 @@ function History({
     const key = pathArray[total - 2];
     const value = pathArray[total - 1];
     return {
-      key: key,
-      value: value
+      key,
+      value
     };
   };
   const setHistory = (key, index) => {
@@ -15083,9 +15076,9 @@ function History({
     if (swiper.params.history.root.length > 0) {
       let root = swiper.params.history.root;
       if (root[root.length - 1] === '/') root = root.slice(0, root.length - 1);
-      value = "".concat(root, "/").concat(key, "/").concat(value);
+      value = `${root}/${key}/${value}`;
     } else if (!location.pathname.includes(key)) {
-      value = "".concat(key, "/").concat(value);
+      value = `${key}/${value}`;
     }
     if (swiper.params.history.keepQuery) {
       value += location.search;
@@ -15096,11 +15089,11 @@ function History({
     }
     if (swiper.params.history.replaceState) {
       window.history.replaceState({
-        value: value
+        value
       }, null, value);
     } else {
       window.history.pushState({
-        value: value
+        value
       }, null, value);
     }
   };
@@ -15176,10 +15169,10 @@ var _ssrWindow = require("ssr-window");
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function HashNavigation({
-  swiper: swiper,
-  extendParams: extendParams,
-  emit: emit,
-  on: on
+  swiper,
+  extendParams,
+  emit,
+  on
 }) {
   let initialized = false;
   const document = (0, _ssrWindow.getDocument)();
@@ -15196,7 +15189,7 @@ function HashNavigation({
     const newHash = document.location.hash.replace('#', '');
     const activeSlideHash = swiper.slides.eq(swiper.activeIndex).attr('data-hash');
     if (newHash !== activeSlideHash) {
-      const newIndex = swiper.$wrapperEl.children(".".concat(swiper.params.slideClass, "[data-hash=\"").concat(newHash, "\"]")).index();
+      const newIndex = swiper.$wrapperEl.children(`.${swiper.params.slideClass}[data-hash="${newHash}"]`).index();
       if (typeof newIndex === 'undefined') return;
       swiper.slideTo(newIndex);
     }
@@ -15204,7 +15197,7 @@ function HashNavigation({
   const setHash = () => {
     if (!initialized || !swiper.params.hashNavigation.enabled) return;
     if (swiper.params.hashNavigation.replaceState && window.history && window.history.replaceState) {
-      window.history.replaceState(null, null, "#".concat(swiper.slides.eq(swiper.activeIndex).attr('data-hash')) || '');
+      window.history.replaceState(null, null, `#${swiper.slides.eq(swiper.activeIndex).attr('data-hash')}` || '');
       emit('hashSet');
     } else {
       const slide = swiper.slides.eq(swiper.activeIndex);
@@ -15272,10 +15265,10 @@ var _utils = require("../../shared/utils.js");
 /* eslint no-use-before-define: "off" */
 
 function Autoplay({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on,
-  emit: emit
+  swiper,
+  extendParams,
+  on,
+  emit
 }) {
   let timeout;
   swiper.autoplay = {
@@ -15464,10 +15457,10 @@ function Autoplay({
     document.removeEventListener('visibilitychange', onVisibilityChange);
   });
   Object.assign(swiper.autoplay, {
-    pause: pause,
-    run: run,
-    start: start,
-    stop: stop
+    pause,
+    run,
+    start,
+    stop
   });
 }
 },{"ssr-window":"../node_modules/ssr-window/ssr-window.esm.js","../../shared/utils.js":"../node_modules/swiper/shared/utils.js"}],"../node_modules/swiper/modules/thumbs/thumbs.js":[function(require,module,exports) {
@@ -15481,9 +15474,9 @@ var _utils = require("../../shared/utils.js");
 var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Thumb({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     thumbs: {
@@ -15520,8 +15513,8 @@ function Thumb({
         swiper._clientLeft = swiper.$wrapperEl[0].clientLeft;
         currentIndex = swiper.activeIndex;
       }
-      const prevIndex = swiper.slides.eq(currentIndex).prevAll("[data-swiper-slide-index=\"".concat(slideToIndex, "\"]")).eq(0).index();
-      const nextIndex = swiper.slides.eq(currentIndex).nextAll("[data-swiper-slide-index=\"".concat(slideToIndex, "\"]")).eq(0).index();
+      const prevIndex = swiper.slides.eq(currentIndex).prevAll(`[data-swiper-slide-index="${slideToIndex}"]`).eq(0).index();
+      const nextIndex = swiper.slides.eq(currentIndex).nextAll(`[data-swiper-slide-index="${slideToIndex}"]`).eq(0).index();
       if (typeof prevIndex === 'undefined') slideToIndex = nextIndex;else if (typeof nextIndex === 'undefined') slideToIndex = prevIndex;else if (nextIndex - currentIndex < currentIndex - prevIndex) slideToIndex = nextIndex;else slideToIndex = prevIndex;
     }
     swiper.slideTo(slideToIndex);
@@ -15573,7 +15566,7 @@ function Thumb({
     thumbsSwiper.slides.removeClass(thumbActiveClass);
     if (thumbsSwiper.params.loop || thumbsSwiper.params.virtual && thumbsSwiper.params.virtual.enabled) {
       for (let i = 0; i < thumbsToActivate; i += 1) {
-        thumbsSwiper.$wrapperEl.children("[data-swiper-slide-index=\"".concat(swiper.realIndex + i, "\"]")).addClass(thumbActiveClass);
+        thumbsSwiper.$wrapperEl.children(`[data-swiper-slide-index="${swiper.realIndex + i}"]`).addClass(thumbActiveClass);
       }
     } else {
       for (let i = 0; i < thumbsToActivate; i += 1) {
@@ -15594,8 +15587,8 @@ function Thumb({
           currentThumbsIndex = thumbsSwiper.activeIndex;
         } // Find actual thumbs index to slide to
 
-        const prevThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).prevAll("[data-swiper-slide-index=\"".concat(swiper.realIndex, "\"]")).eq(0).index();
-        const nextThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).nextAll("[data-swiper-slide-index=\"".concat(swiper.realIndex, "\"]")).eq(0).index();
+        const prevThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).prevAll(`[data-swiper-slide-index="${swiper.realIndex}"]`).eq(0).index();
+        const nextThumbsIndex = thumbsSwiper.slides.eq(currentThumbsIndex).nextAll(`[data-swiper-slide-index="${swiper.realIndex}"]`).eq(0).index();
         if (typeof prevThumbsIndex === 'undefined') {
           newThumbsIndex = nextThumbsIndex;
         } else if (typeof nextThumbsIndex === 'undefined') {
@@ -15630,7 +15623,7 @@ function Thumb({
   }
   on('beforeInit', () => {
     const {
-      thumbs: thumbs
+      thumbs
     } = swiper.params;
     if (!thumbs || !thumbs.swiper) return;
     init();
@@ -15652,8 +15645,8 @@ function Thumb({
     }
   });
   Object.assign(swiper.thumbs, {
-    init: init,
-    update: update
+    init,
+    update
   });
 }
 },{"../../shared/utils.js":"../node_modules/swiper/shared/utils.js","../../shared/dom.js":"../node_modules/swiper/shared/dom.js"}],"../node_modules/swiper/modules/free-mode/free-mode.js":[function(require,module,exports) {
@@ -15665,10 +15658,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = freeMode;
 var _utils = require("../../shared/utils.js");
 function freeMode({
-  swiper: swiper,
-  extendParams: extendParams,
-  emit: emit,
-  once: once
+  swiper,
+  extendParams,
+  emit,
+  once
 }) {
   extendParams({
     freeMode: {
@@ -15694,7 +15687,7 @@ function freeMode({
   function onTouchMove() {
     const {
       touchEventsData: data,
-      touches: touches
+      touches
     } = swiper; // Velocity
 
     if (data.velocities.length === 0) {
@@ -15709,13 +15702,13 @@ function freeMode({
     });
   }
   function onTouchEnd({
-    currentPos: currentPos
+    currentPos
   }) {
     const {
-      params: params,
-      $wrapperEl: $wrapperEl,
+      params,
+      $wrapperEl,
       rtlTranslate: rtl,
-      snapGrid: snapGrid,
+      snapGrid,
       touchEventsData: data
     } = swiper; // Time diff
 
@@ -15885,9 +15878,9 @@ function freeMode({
   }
   Object.assign(swiper, {
     freeMode: {
-      onTouchStart: onTouchStart,
-      onTouchMove: onTouchMove,
-      onTouchEnd: onTouchEnd
+      onTouchStart,
+      onTouchMove,
+      onTouchEnd
     }
   });
 }
@@ -15898,13 +15891,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Grid;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function Grid({
-  swiper: swiper,
-  extendParams: extendParams
+  swiper,
+  extendParams
 }) {
   extendParams({
     grid: {
@@ -15917,11 +15906,11 @@ function Grid({
   let numFullColumns;
   const initSlides = slidesLength => {
     const {
-      slidesPerView: slidesPerView
+      slidesPerView
     } = swiper.params;
     const {
-      rows: rows,
-      fill: fill
+      rows,
+      fill
     } = swiper.params.grid;
     slidesPerRow = slidesNumberEvenToRows / rows;
     numFullColumns = Math.floor(slidesLength / rows);
@@ -15936,12 +15925,12 @@ function Grid({
   };
   const updateSlide = (i, slide, slidesLength, getDirectionLabel) => {
     const {
-      slidesPerGroup: slidesPerGroup,
-      spaceBetween: spaceBetween
+      slidesPerGroup,
+      spaceBetween
     } = swiper.params;
     const {
-      rows: rows,
-      fill: fill
+      rows,
+      fill
     } = swiper.params.grid; // Set slides order
 
     let newSlideOrderIndex;
@@ -15972,20 +15961,22 @@ function Grid({
       row = Math.floor(i / slidesPerRow);
       column = i - row * slidesPerRow;
     }
-    slide.css(getDirectionLabel('margin-top'), row !== 0 ? spaceBetween && "".concat(spaceBetween, "px") : '');
+    slide.css(getDirectionLabel('margin-top'), row !== 0 ? spaceBetween && `${spaceBetween}px` : '');
   };
   const updateWrapperSize = (slideSize, snapGrid, getDirectionLabel) => {
     const {
-      spaceBetween: spaceBetween,
-      centeredSlides: centeredSlides,
-      roundLengths: roundLengths
+      spaceBetween,
+      centeredSlides,
+      roundLengths
     } = swiper.params;
     const {
-      rows: rows
+      rows
     } = swiper.params.grid;
     swiper.virtualSize = (slideSize + spaceBetween) * slidesNumberEvenToRows;
     swiper.virtualSize = Math.ceil(swiper.virtualSize / rows) - spaceBetween;
-    swiper.$wrapperEl.css(_defineProperty({}, getDirectionLabel('width'), "".concat(swiper.virtualSize + spaceBetween, "px")));
+    swiper.$wrapperEl.css({
+      [getDirectionLabel('width')]: `${swiper.virtualSize + spaceBetween}px`
+    });
     if (centeredSlides) {
       snapGrid.splice(0, snapGrid.length);
       const newSlidesGrid = [];
@@ -15998,9 +15989,9 @@ function Grid({
     }
   };
   swiper.grid = {
-    initSlides: initSlides,
-    updateSlide: updateSlide,
-    updateWrapperSize: updateWrapperSize
+    initSlides,
+    updateSlide,
+    updateWrapperSize
   };
 }
 },{}],"../node_modules/swiper/modules/manipulation/methods/appendSlide.js":[function(require,module,exports) {
@@ -16010,17 +16001,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = appendSlide;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function appendSlide(slides) {
   const swiper = this;
   const {
-    $wrapperEl: $wrapperEl,
-    params: params
+    $wrapperEl,
+    params
   } = swiper;
   if (params.loop) {
     swiper.loopDestroy();
   }
-  if (_typeof(slides) === 'object' && 'length' in slides) {
+  if (typeof slides === 'object' && 'length' in slides) {
     for (let i = 0; i < slides.length; i += 1) {
       if (slides[i]) $wrapperEl.append(slides[i]);
     }
@@ -16041,19 +16031,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = prependSlide;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function prependSlide(slides) {
   const swiper = this;
   const {
-    params: params,
-    $wrapperEl: $wrapperEl,
-    activeIndex: activeIndex
+    params,
+    $wrapperEl,
+    activeIndex
   } = swiper;
   if (params.loop) {
     swiper.loopDestroy();
   }
   let newActiveIndex = activeIndex + 1;
-  if (_typeof(slides) === 'object' && 'length' in slides) {
+  if (typeof slides === 'object' && 'length' in slides) {
     for (let i = 0; i < slides.length; i += 1) {
       if (slides[i]) $wrapperEl.prepend(slides[i]);
     }
@@ -16076,19 +16065,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = addSlide;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function addSlide(index, slides) {
   const swiper = this;
   const {
-    $wrapperEl: $wrapperEl,
-    params: params,
-    activeIndex: activeIndex
+    $wrapperEl,
+    params,
+    activeIndex
   } = swiper;
   let activeIndexBuffer = activeIndex;
   if (params.loop) {
     activeIndexBuffer -= swiper.loopedSlides;
     swiper.loopDestroy();
-    swiper.slides = $wrapperEl.children(".".concat(params.slideClass));
+    swiper.slides = $wrapperEl.children(`.${params.slideClass}`);
   }
   const baseLength = swiper.slides.length;
   if (index <= 0) {
@@ -16106,7 +16094,7 @@ function addSlide(index, slides) {
     currentSlide.remove();
     slidesBuffer.unshift(currentSlide);
   }
-  if (_typeof(slides) === 'object' && 'length' in slides) {
+  if (typeof slides === 'object' && 'length' in slides) {
     for (let i = 0; i < slides.length; i += 1) {
       if (slides[i]) $wrapperEl.append(slides[i]);
     }
@@ -16136,23 +16124,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = removeSlide;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function removeSlide(slidesIndexes) {
   const swiper = this;
   const {
-    params: params,
-    $wrapperEl: $wrapperEl,
-    activeIndex: activeIndex
+    params,
+    $wrapperEl,
+    activeIndex
   } = swiper;
   let activeIndexBuffer = activeIndex;
   if (params.loop) {
     activeIndexBuffer -= swiper.loopedSlides;
     swiper.loopDestroy();
-    swiper.slides = $wrapperEl.children(".".concat(params.slideClass));
+    swiper.slides = $wrapperEl.children(`.${params.slideClass}`);
   }
   let newActiveIndex = activeIndexBuffer;
   let indexToRemove;
-  if (_typeof(slidesIndexes) === 'object' && 'length' in slidesIndexes) {
+  if (typeof slidesIndexes === 'object' && 'length' in slidesIndexes) {
     for (let i = 0; i < slidesIndexes.length; i += 1) {
       indexToRemove = slidesIndexes[i];
       if (swiper.slides[indexToRemove]) swiper.slides.eq(indexToRemove).remove();
@@ -16206,7 +16193,7 @@ var _removeSlide = _interopRequireDefault(require("./methods/removeSlide.js"));
 var _removeAllSlides = _interopRequireDefault(require("./methods/removeAllSlides.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function Manipulation({
-  swiper: swiper
+  swiper
 }) {
   Object.assign(swiper, {
     appendSlide: _appendSlide.default.bind(swiper),
@@ -16225,21 +16212,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = effectInit;
 function effectInit(params) {
   const {
-    effect: effect,
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
-    overwriteParams: overwriteParams,
-    perspective: perspective,
-    recreateShadows: recreateShadows,
-    getEffectParams: getEffectParams
+    effect,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
+    overwriteParams,
+    perspective,
+    recreateShadows,
+    getEffectParams
   } = params;
   on('beforeInit', () => {
     if (swiper.params.effect !== effect) return;
-    swiper.classNames.push("".concat(swiper.params.containerModifierClass).concat(effect));
+    swiper.classNames.push(`${swiper.params.containerModifierClass}${effect}`);
     if (perspective && perspective()) {
-      swiper.classNames.push("".concat(swiper.params.containerModifierClass, "3d"));
+      swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
     }
     const overwriteParamsResult = overwriteParams ? overwriteParams() : {};
     Object.assign(swiper.params, overwriteParamsResult);
@@ -16304,15 +16291,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = effectVirtualTransitionEnd;
 function effectVirtualTransitionEnd({
-  swiper: swiper,
-  duration: duration,
-  transformEl: transformEl,
-  allSlides: allSlides
+  swiper,
+  duration,
+  transformEl,
+  allSlides
 }) {
   const {
-    slides: slides,
-    activeIndex: activeIndex,
-    $wrapperEl: $wrapperEl
+    slides,
+    activeIndex,
+    $wrapperEl
   } = swiper;
   if (swiper.params.virtualTranslate && duration !== 0) {
     let eventTriggered = false;
@@ -16346,9 +16333,9 @@ var _effectTarget = _interopRequireDefault(require("../../shared/effect-target.j
 var _effectVirtualTransitionEnd = _interopRequireDefault(require("../../shared/effect-virtual-transition-end.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function EffectFade({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     fadeEffect: {
@@ -16358,7 +16345,7 @@ function EffectFade({
   });
   const setTranslate = () => {
     const {
-      slides: slides
+      slides
     } = swiper;
     const params = swiper.params.fadeEffect;
     for (let i = 0; i < slides.length; i += 1) {
@@ -16375,28 +16362,28 @@ function EffectFade({
       const $targetEl = (0, _effectTarget.default)(params, $slideEl);
       $targetEl.css({
         opacity: slideOpacity
-      }).transform("translate3d(".concat(tx, "px, ").concat(ty, "px, 0px)"));
+      }).transform(`translate3d(${tx}px, ${ty}px, 0px)`);
     }
   };
   const setTransition = duration => {
     const {
-      transformEl: transformEl
+      transformEl
     } = swiper.params.fadeEffect;
     const $transitionElements = transformEl ? swiper.slides.find(transformEl) : swiper.slides;
     $transitionElements.transition(duration);
     (0, _effectVirtualTransitionEnd.default)({
-      swiper: swiper,
-      duration: duration,
-      transformEl: transformEl,
+      swiper,
+      duration,
+      transformEl,
       allSlides: true
     });
   };
   (0, _effectInit.default)({
     effect: 'fade',
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
     overwriteParams: () => ({
       slidesPerView: 1,
       slidesPerGroup: 1,
@@ -16417,9 +16404,9 @@ var _dom = _interopRequireDefault(require("../../shared/dom.js"));
 var _effectInit = _interopRequireDefault(require("../../shared/effect-init.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function EffectCube({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     cubeEffect: {
@@ -16433,11 +16420,11 @@ function EffectCube({
     let shadowBefore = isHorizontal ? $slideEl.find('.swiper-slide-shadow-left') : $slideEl.find('.swiper-slide-shadow-top');
     let shadowAfter = isHorizontal ? $slideEl.find('.swiper-slide-shadow-right') : $slideEl.find('.swiper-slide-shadow-bottom');
     if (shadowBefore.length === 0) {
-      shadowBefore = (0, _dom.default)("<div class=\"swiper-slide-shadow-".concat(isHorizontal ? 'left' : 'top', "\"></div>"));
+      shadowBefore = (0, _dom.default)(`<div class="swiper-slide-shadow-${isHorizontal ? 'left' : 'top'}"></div>`);
       $slideEl.append(shadowBefore);
     }
     if (shadowAfter.length === 0) {
-      shadowAfter = (0, _dom.default)("<div class=\"swiper-slide-shadow-".concat(isHorizontal ? 'right' : 'bottom', "\"></div>"));
+      shadowAfter = (0, _dom.default)(`<div class="swiper-slide-shadow-${isHorizontal ? 'right' : 'bottom'}"></div>`);
       $slideEl.append(shadowAfter);
     }
     if (shadowBefore.length) shadowBefore[0].style.opacity = Math.max(-progress, 0);
@@ -16453,14 +16440,14 @@ function EffectCube({
   };
   const setTranslate = () => {
     const {
-      $el: $el,
-      $wrapperEl: $wrapperEl,
-      slides: slides,
+      $el,
+      $wrapperEl,
+      slides,
       width: swiperWidth,
       height: swiperHeight,
       rtlTranslate: rtl,
       size: swiperSize,
-      browser: browser
+      browser
     } = swiper;
     const params = swiper.params.cubeEffect;
     const isHorizontal = swiper.isHorizontal();
@@ -16475,7 +16462,7 @@ function EffectCube({
           $wrapperEl.append($cubeShadowEl);
         }
         $cubeShadowEl.css({
-          height: "".concat(swiperWidth, "px")
+          height: `${swiperWidth}px`
         });
       } else {
         $cubeShadowEl = $el.find('.swiper-cube-shadow');
@@ -16521,7 +16508,7 @@ function EffectCube({
         ty = tx;
         tx = 0;
       }
-      const transform = "rotateX(".concat(isHorizontal ? 0 : -slideAngle, "deg) rotateY(").concat(isHorizontal ? slideAngle : 0, "deg) translate3d(").concat(tx, "px, ").concat(ty, "px, ").concat(tz, "px)");
+      const transform = `rotateX(${isHorizontal ? 0 : -slideAngle}deg) rotateY(${isHorizontal ? slideAngle : 0}deg) translate3d(${tx}px, ${ty}px, ${tz}px)`;
       if (progress <= 1 && progress > -1) {
         wrapperRotate = slideIndex * 90 + progress * 90;
         if (rtl) wrapperRotate = -slideIndex * 90 - progress * 90;
@@ -16532,29 +16519,29 @@ function EffectCube({
       }
     }
     $wrapperEl.css({
-      '-webkit-transform-origin': "50% 50% -".concat(swiperSize / 2, "px"),
-      'transform-origin': "50% 50% -".concat(swiperSize / 2, "px")
+      '-webkit-transform-origin': `50% 50% -${swiperSize / 2}px`,
+      'transform-origin': `50% 50% -${swiperSize / 2}px`
     });
     if (params.shadow) {
       if (isHorizontal) {
-        $cubeShadowEl.transform("translate3d(0px, ".concat(swiperWidth / 2 + params.shadowOffset, "px, ").concat(-swiperWidth / 2, "px) rotateX(90deg) rotateZ(0deg) scale(").concat(params.shadowScale, ")"));
+        $cubeShadowEl.transform(`translate3d(0px, ${swiperWidth / 2 + params.shadowOffset}px, ${-swiperWidth / 2}px) rotateX(90deg) rotateZ(0deg) scale(${params.shadowScale})`);
       } else {
         const shadowAngle = Math.abs(wrapperRotate) - Math.floor(Math.abs(wrapperRotate) / 90) * 90;
         const multiplier = 1.5 - (Math.sin(shadowAngle * 2 * Math.PI / 360) / 2 + Math.cos(shadowAngle * 2 * Math.PI / 360) / 2);
         const scale1 = params.shadowScale;
         const scale2 = params.shadowScale / multiplier;
         const offset = params.shadowOffset;
-        $cubeShadowEl.transform("scale3d(".concat(scale1, ", 1, ").concat(scale2, ") translate3d(0px, ").concat(swiperHeight / 2 + offset, "px, ").concat(-swiperHeight / 2 / scale2, "px) rotateX(-90deg)"));
+        $cubeShadowEl.transform(`scale3d(${scale1}, 1, ${scale2}) translate3d(0px, ${swiperHeight / 2 + offset}px, ${-swiperHeight / 2 / scale2}px) rotateX(-90deg)`);
       }
     }
     const zFactor = browser.isSafari || browser.isWebView ? -swiperSize / 2 : 0;
-    $wrapperEl.transform("translate3d(0px,0,".concat(zFactor, "px) rotateX(").concat(swiper.isHorizontal() ? 0 : wrapperRotate, "deg) rotateY(").concat(swiper.isHorizontal() ? -wrapperRotate : 0, "deg)"));
-    $wrapperEl[0].style.setProperty('--swiper-cube-translate-z', "".concat(zFactor, "px"));
+    $wrapperEl.transform(`translate3d(0px,0,${zFactor}px) rotateX(${swiper.isHorizontal() ? 0 : wrapperRotate}deg) rotateY(${swiper.isHorizontal() ? -wrapperRotate : 0}deg)`);
+    $wrapperEl[0].style.setProperty('--swiper-cube-translate-z', `${zFactor}px`);
   };
   const setTransition = duration => {
     const {
-      $el: $el,
-      slides: slides
+      $el,
+      slides
     } = swiper;
     slides.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
     if (swiper.params.cubeEffect.shadow && !swiper.isHorizontal()) {
@@ -16563,11 +16550,11 @@ function EffectCube({
   };
   (0, _effectInit.default)({
     effect: 'cube',
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
-    recreateShadows: recreateShadows,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
+    recreateShadows,
     getEffectParams: () => swiper.params.cubeEffect,
     perspective: () => true,
     overwriteParams: () => ({
@@ -16591,11 +16578,11 @@ exports.default = createShadow;
 var _dom = _interopRequireDefault(require("./dom.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function createShadow(params, $slideEl, side) {
-  const shadowClass = "swiper-slide-shadow".concat(side ? "-".concat(side) : '');
+  const shadowClass = `swiper-slide-shadow${side ? `-${side}` : ''}`;
   const $shadowContainer = params.transformEl ? $slideEl.find(params.transformEl) : $slideEl;
-  let $shadowEl = $shadowContainer.children(".".concat(shadowClass));
+  let $shadowEl = $shadowContainer.children(`.${shadowClass}`);
   if (!$shadowEl.length) {
-    $shadowEl = (0, _dom.default)("<div class=\"swiper-slide-shadow".concat(side ? "-".concat(side) : '', "\"></div>"));
+    $shadowEl = (0, _dom.default)(`<div class="swiper-slide-shadow${side ? `-${side}` : ''}"></div>`);
     $shadowContainer.append($shadowEl);
   }
   return $shadowEl;
@@ -16614,9 +16601,9 @@ var _effectTarget = _interopRequireDefault(require("../../shared/effect-target.j
 var _effectVirtualTransitionEnd = _interopRequireDefault(require("../../shared/effect-virtual-transition-end.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function EffectFlip({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     flipEffect: {
@@ -16651,7 +16638,7 @@ function EffectFlip({
   };
   const setTranslate = () => {
     const {
-      slides: slides,
+      slides,
       rtlTranslate: rtl
     } = swiper;
     const params = swiper.params.flipEffect;
@@ -16679,30 +16666,30 @@ function EffectFlip({
       if (params.slideShadows) {
         createSlideShadows($slideEl, progress, params);
       }
-      const transform = "translate3d(".concat(tx, "px, ").concat(ty, "px, 0px) rotateX(").concat(rotateX, "deg) rotateY(").concat(rotateY, "deg)");
+      const transform = `translate3d(${tx}px, ${ty}px, 0px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       const $targetEl = (0, _effectTarget.default)(params, $slideEl);
       $targetEl.transform(transform);
     }
   };
   const setTransition = duration => {
     const {
-      transformEl: transformEl
+      transformEl
     } = swiper.params.flipEffect;
     const $transitionElements = transformEl ? swiper.slides.find(transformEl) : swiper.slides;
     $transitionElements.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
     (0, _effectVirtualTransitionEnd.default)({
-      swiper: swiper,
-      duration: duration,
-      transformEl: transformEl
+      swiper,
+      duration,
+      transformEl
     });
   };
   (0, _effectInit.default)({
     effect: 'flip',
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
-    recreateShadows: recreateShadows,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
+    recreateShadows,
     getEffectParams: () => swiper.params.flipEffect,
     perspective: () => true,
     overwriteParams: () => ({
@@ -16726,9 +16713,9 @@ var _effectInit = _interopRequireDefault(require("../../shared/effect-init.js"))
 var _effectTarget = _interopRequireDefault(require("../../shared/effect-target.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function EffectCoverflow({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     coverflowEffect: {
@@ -16745,8 +16732,8 @@ function EffectCoverflow({
     const {
       width: swiperWidth,
       height: swiperHeight,
-      slides: slides,
-      slidesSizesGrid: slidesSizesGrid
+      slides,
+      slidesSizesGrid
     } = swiper;
     const params = swiper.params.coverflowEffect;
     const isHorizontal = swiper.isHorizontal();
@@ -16780,7 +16767,7 @@ function EffectCoverflow({
       if (Math.abs(rotateY) < 0.001) rotateY = 0;
       if (Math.abs(rotateX) < 0.001) rotateX = 0;
       if (Math.abs(scale) < 0.001) scale = 0;
-      const slideTransform = "translate3d(".concat(translateX, "px,").concat(translateY, "px,").concat(translateZ, "px)  rotateX(").concat(rotateX, "deg) rotateY(").concat(rotateY, "deg) scale(").concat(scale, ")");
+      const slideTransform = `translate3d(${translateX}px,${translateY}px,${translateZ}px)  rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
       const $targetEl = (0, _effectTarget.default)(params, $slideEl);
       $targetEl.transform(slideTransform);
       $slideEl[0].style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
@@ -16801,17 +16788,17 @@ function EffectCoverflow({
   };
   const setTransition = duration => {
     const {
-      transformEl: transformEl
+      transformEl
     } = swiper.params.coverflowEffect;
     const $transitionElements = transformEl ? swiper.slides.find(transformEl) : swiper.slides;
     $transitionElements.transition(duration).find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left').transition(duration);
   };
   (0, _effectInit.default)({
     effect: 'coverflow',
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
     perspective: () => true,
     overwriteParams: () => ({
       watchSlidesProgress: true
@@ -16831,9 +16818,9 @@ var _effectTarget = _interopRequireDefault(require("../../shared/effect-target.j
 var _effectVirtualTransitionEnd = _interopRequireDefault(require("../../shared/effect-virtual-transition-end.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function EffectCreative({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     creativeEffect: {
@@ -16858,13 +16845,13 @@ function EffectCreative({
   });
   const getTranslateValue = value => {
     if (typeof value === 'string') return value;
-    return "".concat(value, "px");
+    return `${value}px`;
   };
   const setTranslate = () => {
     const {
-      slides: slides,
-      $wrapperEl: $wrapperEl,
-      slidesSizesGrid: slidesSizesGrid
+      slides,
+      $wrapperEl,
+      slidesSizesGrid
     } = swiper;
     const params = swiper.params.creativeEffect;
     const {
@@ -16873,7 +16860,7 @@ function EffectCreative({
     const isCenteredSlides = swiper.params.centeredSlides;
     if (isCenteredSlides) {
       const margin = slidesSizesGrid[0] / 2 - swiper.params.slidesOffsetBefore || 0;
-      $wrapperEl.transform("translateX(calc(50% - ".concat(margin, "px))"));
+      $wrapperEl.transform(`translateX(calc(50% - ${margin}px))`);
     }
     for (let i = 0; i < slides.length; i += 1) {
       const $slideEl = slides.eq(i);
@@ -16906,7 +16893,7 @@ function EffectCreative({
       } // set translate
 
       t.forEach((value, index) => {
-        t[index] = "calc(".concat(value, "px + (").concat(getTranslateValue(data.translate[index]), " * ").concat(Math.abs(progress * multiplier), "))");
+        t[index] = `calc(${value}px + (${getTranslateValue(data.translate[index])} * ${Math.abs(progress * multiplier)}))`;
       }); // set rotates
 
       r.forEach((value, index) => {
@@ -16914,10 +16901,10 @@ function EffectCreative({
       });
       $slideEl[0].style.zIndex = -Math.abs(Math.round(slideProgress)) + slides.length;
       const translateString = t.join(', ');
-      const rotateString = "rotateX(".concat(r[0], "deg) rotateY(").concat(r[1], "deg) rotateZ(").concat(r[2], "deg)");
-      const scaleString = originalProgress < 0 ? "scale(".concat(1 + (1 - data.scale) * originalProgress * multiplier, ")") : "scale(".concat(1 - (1 - data.scale) * originalProgress * multiplier, ")");
+      const rotateString = `rotateX(${r[0]}deg) rotateY(${r[1]}deg) rotateZ(${r[2]}deg)`;
+      const scaleString = originalProgress < 0 ? `scale(${1 + (1 - data.scale) * originalProgress * multiplier})` : `scale(${1 - (1 - data.scale) * originalProgress * multiplier})`;
       const opacityString = originalProgress < 0 ? 1 + (1 - data.opacity) * originalProgress * multiplier : 1 - (1 - data.opacity) * originalProgress * multiplier;
-      const transform = "translate3d(".concat(translateString, ") ").concat(rotateString, " ").concat(scaleString); // Set shadows
+      const transform = `translate3d(${translateString}) ${rotateString} ${scaleString}`; // Set shadows
 
       if (custom && data.shadow || !custom) {
         let $shadowEl = $slideEl.children('.swiper-slide-shadow');
@@ -16940,23 +16927,23 @@ function EffectCreative({
   };
   const setTransition = duration => {
     const {
-      transformEl: transformEl
+      transformEl
     } = swiper.params.creativeEffect;
     const $transitionElements = transformEl ? swiper.slides.find(transformEl) : swiper.slides;
     $transitionElements.transition(duration).find('.swiper-slide-shadow').transition(duration);
     (0, _effectVirtualTransitionEnd.default)({
-      swiper: swiper,
-      duration: duration,
-      transformEl: transformEl,
+      swiper,
+      duration,
+      transformEl,
       allSlides: true
     });
   };
   (0, _effectInit.default)({
     effect: 'creative',
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
     perspective: () => swiper.params.creativeEffect.perspective,
     overwriteParams: () => ({
       watchSlidesProgress: true,
@@ -16977,9 +16964,9 @@ var _effectTarget = _interopRequireDefault(require("../../shared/effect-target.j
 var _effectVirtualTransitionEnd = _interopRequireDefault(require("../../shared/effect-virtual-transition-end.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function EffectCards({
-  swiper: swiper,
-  extendParams: extendParams,
-  on: on
+  swiper,
+  extendParams,
+  on
 }) {
   extendParams({
     cardsEffect: {
@@ -16992,13 +16979,13 @@ function EffectCards({
   });
   const setTranslate = () => {
     const {
-      slides: slides,
-      activeIndex: activeIndex
+      slides,
+      activeIndex
     } = swiper;
     const params = swiper.params.cardsEffect;
     const {
-      startTranslate: startTranslate,
-      isTouched: isTouched
+      startTranslate,
+      isTouched
     } = swiper.touchEventsData;
     const currentTranslate = swiper.translate;
     for (let i = 0; i < slides.length; i += 1) {
@@ -17007,7 +16994,7 @@ function EffectCards({
       const progress = Math.min(Math.max(slideProgress, -4), 4);
       let offset = $slideEl[0].swiperSlideOffset;
       if (swiper.params.centeredSlides && !swiper.params.cssMode) {
-        swiper.$wrapperEl.transform("translateX(".concat(swiper.minTranslate(), "px)"));
+        swiper.$wrapperEl.transform(`translateX(${swiper.minTranslate()}px)`);
       }
       if (swiper.params.centeredSlides && swiper.params.cssMode) {
         offset -= slides[0].swiperSlideOffset;
@@ -17026,24 +17013,28 @@ function EffectCards({
         rotate += -28 * progress * subProgress;
         scale += -0.5 * subProgress;
         tXAdd += 96 * subProgress;
-        tY = "".concat(-25 * subProgress * Math.abs(progress), "%");
+        tY = `${-25 * subProgress * Math.abs(progress)}%`;
       }
       if (progress < 0) {
         // next
-        tX = "calc(".concat(tX, "px + (").concat(tXAdd * Math.abs(progress), "%))");
+        tX = `calc(${tX}px + (${tXAdd * Math.abs(progress)}%))`;
       } else if (progress > 0) {
         // prev
-        tX = "calc(".concat(tX, "px + (-").concat(tXAdd * Math.abs(progress), "%))");
+        tX = `calc(${tX}px + (-${tXAdd * Math.abs(progress)}%))`;
       } else {
-        tX = "".concat(tX, "px");
+        tX = `${tX}px`;
       }
       if (!swiper.isHorizontal()) {
         const prevY = tY;
         tY = tX;
         tX = prevY;
       }
-      const scaleString = progress < 0 ? "".concat(1 + (1 - scale) * progress) : "".concat(1 - (1 - scale) * progress);
-      const transform = "\n        translate3d(".concat(tX, ", ").concat(tY, ", ").concat(tZ, "px)\n        rotateZ(").concat(params.rotate ? rotate : 0, "deg)\n        scale(").concat(scaleString, ")\n      ");
+      const scaleString = progress < 0 ? `${1 + (1 - scale) * progress}` : `${1 - (1 - scale) * progress}`;
+      const transform = `
+        translate3d(${tX}, ${tY}, ${tZ}px)
+        rotateZ(${params.rotate ? rotate : 0}deg)
+        scale(${scaleString})
+      `;
       if (params.slideShadows) {
         // Set shadows
         let $shadowEl = $slideEl.find('.swiper-slide-shadow');
@@ -17059,22 +17050,22 @@ function EffectCards({
   };
   const setTransition = duration => {
     const {
-      transformEl: transformEl
+      transformEl
     } = swiper.params.cardsEffect;
     const $transitionElements = transformEl ? swiper.slides.find(transformEl) : swiper.slides;
     $transitionElements.transition(duration).find('.swiper-slide-shadow').transition(duration);
     (0, _effectVirtualTransitionEnd.default)({
-      swiper: swiper,
-      duration: duration,
-      transformEl: transformEl
+      swiper,
+      duration,
+      transformEl
     });
   };
   (0, _effectInit.default)({
     effect: 'cards',
-    swiper: swiper,
-    on: on,
-    setTranslate: setTranslate,
-    setTransition: setTransition,
+    swiper,
+    on,
+    setTranslate,
+    setTransition,
     perspective: () => true,
     overwriteParams: () => ({
       watchSlidesProgress: true,
@@ -17311,7 +17302,7 @@ var _nft = _interopRequireDefault(require("../images/projects/nft.png"));
 var _Resume = _interopRequireDefault(require("../images/projects/Resume.png"));
 var _portfolio = _interopRequireDefault(require("../images/projects/portfolio.png"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var images = {
+const images = {
   luka: _.default,
   sana: _sana.default,
   Mahedi: _mahedi.default,
@@ -17335,29 +17326,53 @@ Object.defineProperty(exports, "__esModule", {
 exports.reviewers = exports.projects = exports.faq = void 0;
 var _images = _interopRequireDefault(require("./images"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var reviewers = [{
+let reviewers = [{
   name: "Luka Garang",
   position: "Founder | Hagana Wen",
   image: _images.default.luka,
-  review: "Fully commited and ready to share all he knows with you, when ever you seek for\n        his\n        hellp. Michael explain for me web devlopment is very easy way possible from html\n        to\n        react and through his help my carrier in web development is like a breezy. For\n        me\n        it's like he know almost everything because whenever I ask him, there's always\n        postive feedback for my question. He learn everyday and make sure he stregthen\n        his\n        weakness. If you want to learn coding whether from scratch or intermediate I\n        prefer\n        him."
+  review: `Fully commited and ready to share all he knows with you, when ever you seek for
+        his
+        hellp. Michael explain for me web devlopment is very easy way possible from html
+        to
+        react and through his help my carrier in web development is like a breezy. For
+        me
+        it's like he know almost everything because whenever I ask him, there's always
+        postive feedback for my question. He learn everyday and make sure he stregthen
+        his
+        weakness. If you want to learn coding whether from scratch or intermediate I
+        prefer
+        him.`
 }, {
   name: "Jhumon Chudhury",
   position: "Head forign affairs | University of global village",
   image: _images.default.Jhumon,
-  review: "Michael, you are one of the disciplined students \n    I have worked with so far this few years, I wish you\n     all the best in your carrier and with your current skills\n      I know the sky is not your limit. Keep going and face the\n       future with boldness."
+  review: `Michael, you are one of the disciplined students 
+    I have worked with so far this few years, I wish you
+     all the best in your carrier and with your current skills
+      I know the sky is not your limit. Keep going and face the
+       future with boldness.`
 }, {
   name: "Mehndi Moon",
   position: "Student | University of global village",
   image: _images.default.Mahedi,
-  review: "Thanks brother, you helped me with couple school \n    projects and actually take your time to teach me all these \n    programming basics, now I feel like pro in my class because \n    only few have the level of knowedge I posses, I will definetly \n    refer my friens to learn from you."
+  review: `Thanks brother, you helped me with couple school 
+    projects and actually take your time to teach me all these 
+    programming basics, now I feel like pro in my class because 
+    only few have the level of knowedge I posses, I will definetly 
+    refer my friens to learn from you.`
 }, {
   name: "Saimoon Hung",
   position: "Founder | Tech Sana",
   image: _images.default.sana,
-  review: "Skill is potrayed by humanity and kindness, Michael doesn't treat \n    people with difference regardless of background or culture, he treat based\n     on content of their character these few years we have been together we learned\n      a lot from each other and can't stop. If you need a mazing worker who only can't\n       provide quality but care about every part of it. this is the person. He's amazing \n       in what he does. "
+  review: `Skill is potrayed by humanity and kindness, Michael doesn't treat 
+    people with difference regardless of background or culture, he treat based
+     on content of their character these few years we have been together we learned
+      a lot from each other and can't stop. If you need a mazing worker who only can't
+       provide quality but care about every part of it. this is the person. He's amazing 
+       in what he does. `
 }];
 exports.reviewers = reviewers;
-var projects = [{
+let projects = [{
   id: 1,
   name: "Amazon-2.0",
   shortDesc: "Amazing Functionalities",
@@ -17369,7 +17384,7 @@ var projects = [{
   liveLink: "https://amazon-clone-2-0-foye4mp9g-kenyi-mic.vercel.app/",
   technologies: [{
     name: "NEXT JS",
-    title: "Next js",
+    title: `Next js`,
     link: "https://nextjs.org/"
   }, {
     name: "REACT JS",
@@ -17580,7 +17595,7 @@ var projects = [{
   }]
 }];
 exports.projects = projects;
-var faq = [{
+let faq = [{
   question: "How long does it take to build a website?",
   answer: "This completely depends on what you neeed. It takes longer to build a 1000 page megasite than asmaller eight page resturant website."
 }, {
@@ -17616,16 +17631,10 @@ var _data = require("./data");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-var loaders = document.querySelector(".loading__bar--inner");
-var loaderText = document.querySelector(".loading__counter--number");
-var count = 0;
-var loaderInterval = setInterval(function () {
+const loaders = document.querySelector(".loading__bar--inner");
+const loaderText = document.querySelector(".loading__counter--number");
+let count = 0;
+let loaderInterval = setInterval(() => {
   loaders.style.width = count + "%";
   loaderText.innerText = count + "%";
   count++;
@@ -17708,29 +17717,93 @@ var swipper = new _swiper.default(".swiper", {
     }
   }
 });
-var swiper_container = document.querySelector(".swiper-wrapper");
-_data.reviewers.map(function (reviewer) {
-  var template = "\n  <div class=\"swiper-slide\"> <div class=\"review\"> <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"> <g> <path fill=\"none\" d=\"M0 0h24v24H0z\"/> <path d=\"M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z\"/> </g> </svg> <div class=\"review__card\"> <div class=\"review__topborder\"> </div> <div class=\"review__text\"> <span>".concat(reviewer.review.substring(1, 0), "</span> ").concat(reviewer.review.substring(1, reviewer.review.length), " </div> <img src=").concat(reviewer.image, " alt=").concat(reviewer.name, " class=\"review__img\"> <div class=\"review__profile\"> <span>").concat(reviewer.name, "</span> <span>").concat(reviewer.position, "</span> </div> </div> </div></div>");
+const swiper_container = document.querySelector(".swiper-wrapper");
+_data.reviewers.map(reviewer => {
+  let template = `
+  <div class="swiper-slide"> <div class="review"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/> </g> </svg> <div class="review__card"> <div class="review__topborder"> </div> <div class="review__text"> <span>${reviewer.review.substring(1, 0)}</span> ${reviewer.review.substring(1, reviewer.review.length)} </div> <img src=${reviewer.image} alt=${reviewer.name} class="review__img"> <div class="review__profile"> <span>${reviewer.name}</span> <span>${reviewer.position}</span> </div> </div> </div></div>`;
   swiper_container.innerHTML += template;
 });
-var project_container = document.querySelector(".project");
-_data.projects.map(function (project) {
-  var project_template = "<div class=\"project__header\">\n<span>".concat(project.id, "/").concat(_data.projects.length, "</span>\n<span>").concat(project.createdAt, "</span>\n</div>\n<div class=\"project__infos\">\n<h1 class=\"project__infos--name\">\n    ").concat(project.name, "<span> (").concat(project.shortDesc, ")</span>\n</h1>\n</div>\n<div class=\"project__img\">\n<img src=").concat(project.image, " alt=").concat(project.name, " />\n<div class=\"project__links\">\n    <a href=").concat(project.sourcelink, " title=").concat(project.code, " target=\"_blank\">\n        <button class=\"contactButton\">\n            <span>Github</span>\n        </button>\n    </a>\n    <a href=").concat(project.liveLink, " class=\"cirleEyeButton\" title=").concat(project.live, " target=\"_blank\">\n        <svg class=\"textcircle\" viewBox=\"0 0 500 500\">\n            <defs>\n                <path id=\"textcircle\" d=\"M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z\" />\n            </defs>\n            <text>\n                <textPath xlink:href=\"#textcircle\" aria-label=\".Click to see the live version.\"\n                    textLength=\"900\">\n                    .Click to see the live version.\n                </textPath>\n            </text>\n        </svg>\n        <svg class=\"eye\" aria-hidden=\"true\" class=\"eye\" viewBox=\"0 0 70 70\"\n            xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"eye__outer\"\n                d=\"M10.5 35.308c5.227-7.98 14.248-13.252 24.5-13.252s19.273 5.271 24.5 13.252c-5.227 7.98-14.248 13.253-24.5 13.253s-19.273-5.272-24.5-13.253z\" />\n            <path class=\"eye__lashes-up\"\n                d=\"M35 8.802v8.836M49.537 11.383l-3.31 8.192M20.522 11.684l3.31 8.192\" />\n            <path class=\"eye__lashes-down\"\n                d=\"M35 61.818v-8.836 8.836zM49.537 59.237l-3.31-8.193 3.31 8.193zM20.522 58.936l3.31-8.193-3.31 8.193z\" />\n            <circle class=\"eye__iris\" cx=\"35\" cy=\"35.31\" r=\"5.221\" />\n            <circle class=\"eye__inner\" cx=\"35\" cy=\"35.31\" r=\"10.041\" />\n        </svg>\n    </a>\n</div>\n<div class=\"project__tags\">\n").concat(project.technologies.map(function (item) {
-    return "\n<a href=".concat(item.link, " target=\"_blank\" title=").concat(item.title, " class=\"dependencyLinks\">\n    <span>").concat(item.name, "</span>\n    <svg width=\"100%\" height=\"9\" viewBox=\"0 0 101 9\">\n        <path\n            d=\"M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294\"\n            pathLength=\"1\" fill=\"none\" stroke=\"#000\" />\n    </svg>\n</a>");
-  }), "\n   \n</div>\n</div>");
+let project_container = document.querySelector(".project");
+_data.projects.map(project => {
+  let project_template = `<div class="project__header">
+<span>${project.id}/${_data.projects.length}</span>
+<span>${project.createdAt}</span>
+</div>
+<div class="project__infos">
+<h1 class="project__infos--name">
+    ${project.name}<span> (${project.shortDesc})</span>
+</h1>
+</div>
+<div class="project__img">
+<img src=${project.image} alt=${project.name} />
+<div class="project__links">
+    <a href=${project.sourcelink} title=${project.code} target="_blank">
+        <button class="contactButton">
+            <span>Github</span>
+        </button>
+    </a>
+    <a href=${project.liveLink} class="cirleEyeButton" title=${project.live} target="_blank">
+        <svg class="textcircle" viewBox="0 0 500 500">
+            <defs>
+                <path id="textcircle" d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z" />
+            </defs>
+            <text>
+                <textPath xlink:href="#textcircle" aria-label=".Click to see the live version."
+                    textLength="900">
+                    .Click to see the live version.
+                </textPath>
+            </text>
+        </svg>
+        <svg class="eye" aria-hidden="true" class="eye" viewBox="0 0 70 70"
+            xmlns="http://www.w3.org/2000/svg">
+            <path class="eye__outer"
+                d="M10.5 35.308c5.227-7.98 14.248-13.252 24.5-13.252s19.273 5.271 24.5 13.252c-5.227 7.98-14.248 13.253-24.5 13.253s-19.273-5.272-24.5-13.253z" />
+            <path class="eye__lashes-up"
+                d="M35 8.802v8.836M49.537 11.383l-3.31 8.192M20.522 11.684l3.31 8.192" />
+            <path class="eye__lashes-down"
+                d="M35 61.818v-8.836 8.836zM49.537 59.237l-3.31-8.193 3.31 8.193zM20.522 58.936l3.31-8.193-3.31 8.193z" />
+            <circle class="eye__iris" cx="35" cy="35.31" r="5.221" />
+            <circle class="eye__inner" cx="35" cy="35.31" r="10.041" />
+        </svg>
+    </a>
+</div>
+<div class="project__tags">
+${project.technologies.map(item => `
+<a href=${item.link} target="_blank" title=${item.title} class="dependencyLinks">
+    <span>${item.name}</span>
+    <svg width="100%" height="9" viewBox="0 0 101 9">
+        <path
+            d="M.426 1.973C4.144 1.567 17.77-.514 21.443 1.48 24.296 3.026 24.844 4.627 27.5 7c3.075 2.748 6.642-4.141 10.066-4.688 7.517-1.2 13.237 5.425 17.59 2.745C58.5 3 60.464-1.786 66 2c1.996 1.365 3.174 3.737 5.286 4.41 5.423 1.727 25.34-7.981 29.14-1.294"
+            pathLength="1" fill="none" stroke="#000" />
+    </svg>
+</a>`)}
+   
+</div>
+</div>`;
   project_container.innerHTML += project_template;
 });
 
 //faq
 
-var faq_container = document.querySelector(".question__container");
-_data.faq.map(function (items) {
-  var faq_template = "<div class=\"question\">\n\n  \n  <div class=\"question__wrap\">\n  <div class=\"question__status\"></div>\n  <h3>".concat(items.question, "</h3>\n\n</div>\n<div class=\"question__answer\">\n  <p>").concat(items.answer, " </p>\n</div>\n</div>");
+let faq_container = document.querySelector(".question__container");
+_data.faq.map(items => {
+  let faq_template = `<div class="question">
+
+  
+  <div class="question__wrap">
+  <div class="question__status"></div>
+  <h3>${items.question}</h3>
+
+</div>
+<div class="question__answer">
+  <p>${items.answer} </p>
+</div>
+</div>`;
   faq_container.innerHTML += faq_template;
 });
-var questions = _toConsumableArray(document.querySelectorAll(".question"));
-questions.map(function (question) {
-  question.addEventListener("click", function () {
+let questions = [...document.querySelectorAll(".question")];
+questions.map(question => {
+  question.addEventListener("click", () => {
     question.classList.toggle("open");
   });
 });
@@ -17759,7 +17832,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63060" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57635" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

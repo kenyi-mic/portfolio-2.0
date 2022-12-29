@@ -31,6 +31,7 @@ let loaderInterval = setInterval(() => {
       opacity: 1,
       rotate: "360deg",
     });
+    
     gsap.to(".loading__box", {
       delay: 2,
       border: "none",
