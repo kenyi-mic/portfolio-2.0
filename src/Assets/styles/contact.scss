@@ -3,7 +3,7 @@
   background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
   font-family: sans-serif;
   background-blend-mode: multiply;
-  width: 100vw;
+  width: inherit;
 
   @media (max-width: 1100) {
     padding: 2rem;
@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
+    width: inherit;
     gap: 2rem;
     &-item {
       position: relative;
@@ -157,7 +158,7 @@
 }
 .contact__profile-col{
 
-  transform: scale3d(0.7, 0.7, 0.7);
+margin: 0 15px;
 }
 @media (max-width: 900px) {
   .form {

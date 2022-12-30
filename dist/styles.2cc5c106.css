@@ -321,7 +321,7 @@ ul {
   height: 100vh;
   background: #000;
   color: white;
-  background-image: url("/22.314be9e9.jpg");
+  background: transparent;
   background-size: cover;
   background-repeat: no-repeat;
   /* menu Button animation style*/
@@ -1880,7 +1880,7 @@ ul {
   height: 100vh;
   background: #000;
   color: white;
-  background-image: url("/22.314be9e9.jpg");
+  background: transparent;
   background-size: cover;
   background-repeat: no-repeat;
   /* menu Button animation style*/
@@ -2446,7 +2446,7 @@ ul {
   background: linear-gradient(to right, #820df0, #b050f0, #b180e9);
   font-family: sans-serif;
   background-blend-mode: multiply;
-  width: 100vw;
+  width: inherit;
 }
 @media (max-width: 1100) {
   .contact {
@@ -2467,6 +2467,7 @@ ul {
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
+  width: inherit;
   gap: 2rem;
 }
 .contact__profile-item {
@@ -2600,7 +2601,7 @@ ul {
 }
 
 .contact__profile-col {
-  transform: scale3d(0.7, 0.7, 0.7);
+  margin: 0 15px;
 }
 
 @media (max-width: 900px) {

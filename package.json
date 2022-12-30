@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "browserslist":[
-    "defaults"
+    "defaults",
+    "since 2017-06"
   ],
   "scripts": {
     "dev": "npx parcel src/index.html --open",
