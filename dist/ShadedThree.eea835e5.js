@@ -32406,59 +32406,87 @@ const images = {
 };
 var _default = images;
 exports.default = _default;
-},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png","../images/background/0.jpg":"Assets/images/background/0.jpg","../images/background/1.png":"Assets/images/background/1.png","../images/background/2.jpg":"Assets/images/background/2.jpg","../images/background/13.jpg":"Assets/images/background/13.jpg","../images/background/3.jpg":"Assets/images/background/3.jpg","../images/background/4.jpg":"Assets/images/background/4.jpg","../images/background/34.jpg":"Assets/images/background/34.jpg","../images/background/55.jpg":"Assets/images/background/55.jpg","../images/background/100.jpg":"Assets/images/background/100.jpg","../images/background/107.jpg":"Assets/images/background/107.jpg","../images/background/112.jpg":"Assets/images/background/112.jpg","../images/background/38.jpg":"Assets/images/background/38.jpg","../images/background/98.jpg":"Assets/images/background/98.jpg","../images/background/77.jpg":"Assets/images/background/77.jpg","../images/background/90.jpg":"Assets/images/background/90.jpg","../images/background/51.jpg":"Assets/images/background/51.jpg","../images/profile/me.png":"Assets/images/profile/me.png","../images/profile/software.png":"Assets/images/profile/software.png","../images/profile/dhaka.jpeg":"Assets/images/profile/dhaka.jpeg"}],"Assets/js/threeanim.js":[function(require,module,exports) {
+},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png","../images/background/0.jpg":"Assets/images/background/0.jpg","../images/background/1.png":"Assets/images/background/1.png","../images/background/2.jpg":"Assets/images/background/2.jpg","../images/background/13.jpg":"Assets/images/background/13.jpg","../images/background/3.jpg":"Assets/images/background/3.jpg","../images/background/4.jpg":"Assets/images/background/4.jpg","../images/background/34.jpg":"Assets/images/background/34.jpg","../images/background/55.jpg":"Assets/images/background/55.jpg","../images/background/100.jpg":"Assets/images/background/100.jpg","../images/background/107.jpg":"Assets/images/background/107.jpg","../images/background/112.jpg":"Assets/images/background/112.jpg","../images/background/38.jpg":"Assets/images/background/38.jpg","../images/background/98.jpg":"Assets/images/background/98.jpg","../images/background/77.jpg":"Assets/images/background/77.jpg","../images/background/90.jpg":"Assets/images/background/90.jpg","../images/background/51.jpg":"Assets/images/background/51.jpg","../images/profile/me.png":"Assets/images/profile/me.png","../images/profile/software.png":"Assets/images/profile/software.png","../images/profile/dhaka.jpeg":"Assets/images/profile/dhaka.jpeg"}],"Assets/shaders/ShadedThree.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
-var _images = _interopRequireDefault(require("./images"));
+var _images = _interopRequireDefault(require("../js/images"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const container = document.querySelector(".three-bg");
 const loader = new THREE.TextureLoader();
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGL1Renderer({
-  antialias: true
-});
-renderer.setSize(window.innerWidth, window.innerHeight);
-container.appendChild(renderer.domElement);
-const geometry = new THREE.PlaneGeometry(20, 15, 20, 15);
-const material = new THREE.MeshBasicMaterial({
-  color: 0x0ffff,
-  map: loader.load(_images.default.bg16)
-});
-const cube = new THREE.Mesh(geometry, material);
-
-//responsive
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-scene.add(cube);
-camera.position.z = 5;
-const count = geometry.attributes.position.count;
-const clock = new THREE.Clock();
-function animate() {
-  const time = clock.getElapsedTime();
-  for (let i = 0; i < count; i++) {
-    const x = geometry.attributes.position.getX(i);
-    const y = geometry.attributes.position.getY(i);
-    const animation1 = 0.75 * Math.sin(x * 2 + time * 0.7);
-    const animation2 = 0.25 * Math.sin(x * time * 0.7);
-    const animation3 = 0.1 * Math.sin(y * time * 0.7);
-    geometry.attributes.position.setZ(i, animation2 + animation3 * animation1);
-    geometry.computeVertexNormals();
-    geometry.attributes.position.needsUpdate = true;
+const texture1 = loader.load(_images.default.me);
+const texture2 = loader.load(_images.default.software);
+const texture3 = loader.load(_images.default.dhaka);
+class Shaded {
+  constructor() {
+    this.constructor = document.querySelector(".landing");
+    this.links = [...document.querySelectorAll(".shadedimg")];
+    this.scene = new THREE.Scene();
+    this.perspective = 1000;
+    this.sizes = new THREE.Vector2(0, 0);
+    this.offset = new THREE.Vector2(0, 0);
+    this.texture = {
+      uTexture: {
+        value: texture1
+      },
+      uAlpha: {
+        value: 0
+      },
+      uOffset: {
+        value: new THREE.Vector2(0, 0)
+      },
+      transparent: true
+    };
+    this.links.map((link, i) => {
+      link.addEventListener("mouseenter", () => {
+        switch (i) {
+          case 0:
+            this.uniform.uTexture.value = texture1;
+            break;
+          case 1:
+            this.uniform.uTexture.value = texture2;
+            break;
+          case 2:
+            this.uniform.uTexture.value = texture3;
+            break;
+        }
+      });
+      link.addEventListener("mouseleave", () => {
+        this.uniform.uAlpha = 0.0;
+      });
+    });
+    this.setupCamera();
   }
-  requestAnimationFrame(animate);
-  // cube.rotation.x += 0.01;
-  // cube.rotation.y += 0.01;
-  renderer.render(scene, camera);
+  get viewport() {
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let aspect = width / height;
+    return width, height, aspect;
+  }
+  setupCamera() {
+    window.addEventListener('resize', this.onResize.bind(this));
+    let fov = 180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective)) / Math.PI;
+    this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspect, 0.1, 1000);
+    this.camera.position.set(0, 0, this.perspective);
+    //renderer
+    this.renderer = new THREE.WebGL1Renderer({
+      antialias: true,
+      alpha: true
+    });
+    this.renderer.setSize(this.viewport.width, this.viewport.height);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.container.appendChild(this.renderer.domElement);
+  }
+  onResize() {
+    this.camera.aspect = this.viewport.aspect;
+    this.camera.fov = 180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective)) / Math.PI;
+    this.renderer.setSize(this.viewport.width, this.viewport.height);
+    this.camera.updateProjectionMatrix();
+  }
 }
-animate();
-},{"three":"../node_modules/three/build/three.module.js","./images":"Assets/js/images.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+new Shaded();
+},{"three":"../node_modules/three/build/three.module.js","../js/images":"Assets/js/images.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32627,5 +32655,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","Assets/js/threeanim.js"], null)
-//# sourceMappingURL=/threeanim.e6dafed7.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","Assets/shaders/ShadedThree.js"], null)
+//# sourceMappingURL=/ShadedThree.eea835e5.js.map

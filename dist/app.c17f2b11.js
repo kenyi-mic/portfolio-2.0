@@ -17311,6 +17311,12 @@ module.exports = "/77.f096935e.jpg";
 module.exports = "/90.7032e852.jpg";
 },{}],"Assets/images/background/51.jpg":[function(require,module,exports) {
 module.exports = "/51.9d2ee2c2.jpg";
+},{}],"Assets/images/profile/me.png":[function(require,module,exports) {
+module.exports = "/me.8516df01.png";
+},{}],"Assets/images/profile/software.png":[function(require,module,exports) {
+module.exports = "/software.eeb0bdac.png";
+},{}],"Assets/images/profile/dhaka.jpeg":[function(require,module,exports) {
+module.exports = "/dhaka.4882051d.jpeg";
 },{}],"Assets/js/images.js":[function(require,module,exports) {
 "use strict";
 
@@ -17345,6 +17351,9 @@ var _14 = _interopRequireDefault(require("../images/background/98.jpg"));
 var _15 = _interopRequireDefault(require("../images/background/77.jpg"));
 var _16 = _interopRequireDefault(require("../images/background/90.jpg"));
 var _17 = _interopRequireDefault(require("../images/background/51.jpg"));
+var _me = _interopRequireDefault(require("../images/profile/me.png"));
+var _software = _interopRequireDefault(require("../images/profile/software.png"));
+var _dhaka = _interopRequireDefault(require("../images/profile/dhaka.jpeg"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const images = {
   luka: _.default,
@@ -17373,11 +17382,14 @@ const images = {
   bg13: _14.default,
   bg14: _15.default,
   bg15: _16.default,
-  bg16: _17.default
+  bg16: _17.default,
+  me: _me.default,
+  software: _software.default,
+  dhaka: _dhaka.default
 };
 var _default = images;
 exports.default = _default;
-},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png","../images/background/0.jpg":"Assets/images/background/0.jpg","../images/background/1.png":"Assets/images/background/1.png","../images/background/2.jpg":"Assets/images/background/2.jpg","../images/background/13.jpg":"Assets/images/background/13.jpg","../images/background/3.jpg":"Assets/images/background/3.jpg","../images/background/4.jpg":"Assets/images/background/4.jpg","../images/background/34.jpg":"Assets/images/background/34.jpg","../images/background/55.jpg":"Assets/images/background/55.jpg","../images/background/100.jpg":"Assets/images/background/100.jpg","../images/background/107.jpg":"Assets/images/background/107.jpg","../images/background/112.jpg":"Assets/images/background/112.jpg","../images/background/38.jpg":"Assets/images/background/38.jpg","../images/background/98.jpg":"Assets/images/background/98.jpg","../images/background/77.jpg":"Assets/images/background/77.jpg","../images/background/90.jpg":"Assets/images/background/90.jpg","../images/background/51.jpg":"Assets/images/background/51.jpg"}],"Assets/js/data.js":[function(require,module,exports) {
+},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png","../images/background/0.jpg":"Assets/images/background/0.jpg","../images/background/1.png":"Assets/images/background/1.png","../images/background/2.jpg":"Assets/images/background/2.jpg","../images/background/13.jpg":"Assets/images/background/13.jpg","../images/background/3.jpg":"Assets/images/background/3.jpg","../images/background/4.jpg":"Assets/images/background/4.jpg","../images/background/34.jpg":"Assets/images/background/34.jpg","../images/background/55.jpg":"Assets/images/background/55.jpg","../images/background/100.jpg":"Assets/images/background/100.jpg","../images/background/107.jpg":"Assets/images/background/107.jpg","../images/background/112.jpg":"Assets/images/background/112.jpg","../images/background/38.jpg":"Assets/images/background/38.jpg","../images/background/98.jpg":"Assets/images/background/98.jpg","../images/background/77.jpg":"Assets/images/background/77.jpg","../images/background/90.jpg":"Assets/images/background/90.jpg","../images/background/51.jpg":"Assets/images/background/51.jpg","../images/profile/me.png":"Assets/images/profile/me.png","../images/profile/software.png":"Assets/images/profile/software.png","../images/profile/dhaka.jpeg":"Assets/images/profile/dhaka.jpeg"}],"Assets/js/data.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

@@ -25,6 +25,9 @@ import bg13 from "../images/background/98.jpg";
 import bg14 from "../images/background/77.jpg";
 import bg15 from "../images/background/90.jpg";
 import bg16 from "../images/background/51.jpg";
+import me from "../images/profile/me.png";
+import software from "../images/profile/software.png";
+import dhaka from "../images/profile/dhaka.jpeg";
 
 const images = {
   luka,
@@ -54,6 +57,10 @@ const images = {
   bg14,
   bg15,
   bg16,
+  me,
+  software,
+  dhaka,
+
   
 };
 
