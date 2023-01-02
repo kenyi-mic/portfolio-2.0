@@ -32406,11 +32406,17 @@ const images = {
 };
 var _default = images;
 exports.default = _default;
-},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png","../images/background/0.jpg":"Assets/images/background/0.jpg","../images/background/1.png":"Assets/images/background/1.png","../images/background/2.jpg":"Assets/images/background/2.jpg","../images/background/13.jpg":"Assets/images/background/13.jpg","../images/background/3.jpg":"Assets/images/background/3.jpg","../images/background/4.jpg":"Assets/images/background/4.jpg","../images/background/34.jpg":"Assets/images/background/34.jpg","../images/background/55.jpg":"Assets/images/background/55.jpg","../images/background/100.jpg":"Assets/images/background/100.jpg","../images/background/107.jpg":"Assets/images/background/107.jpg","../images/background/112.jpg":"Assets/images/background/112.jpg","../images/background/38.jpg":"Assets/images/background/38.jpg","../images/background/98.jpg":"Assets/images/background/98.jpg","../images/background/77.jpg":"Assets/images/background/77.jpg","../images/background/90.jpg":"Assets/images/background/90.jpg","../images/background/51.jpg":"Assets/images/background/51.jpg","../images/profile/me.png":"Assets/images/profile/me.png","../images/profile/software.png":"Assets/images/profile/software.png","../images/profile/dhaka.jpeg":"Assets/images/profile/dhaka.jpeg"}],"Assets/shaders/ShadedThree.js":[function(require,module,exports) {
+},{"../images/profile/1.png":"Assets/images/profile/1.png","../images/profile/jhumon.jpg":"Assets/images/profile/jhumon.jpg","../images/profile/mahedi.jpg":"Assets/images/profile/mahedi.jpg","../images/profile/sana.jpg":"Assets/images/profile/sana.jpg","../images/projects/Amazon.png":"Assets/images/projects/Amazon.png","../images/projects/beeflix.png":"Assets/images/projects/beeflix.png","../images/projects/dashboard.png":"Assets/images/projects/dashboard.png","../images/projects/Blog.png":"Assets/images/projects/Blog.png","../images/projects/nft.png":"Assets/images/projects/nft.png","../images/projects/Resume.png":"Assets/images/projects/Resume.png","../images/projects/portfolio.png":"Assets/images/projects/portfolio.png","../images/background/0.jpg":"Assets/images/background/0.jpg","../images/background/1.png":"Assets/images/background/1.png","../images/background/2.jpg":"Assets/images/background/2.jpg","../images/background/13.jpg":"Assets/images/background/13.jpg","../images/background/3.jpg":"Assets/images/background/3.jpg","../images/background/4.jpg":"Assets/images/background/4.jpg","../images/background/34.jpg":"Assets/images/background/34.jpg","../images/background/55.jpg":"Assets/images/background/55.jpg","../images/background/100.jpg":"Assets/images/background/100.jpg","../images/background/107.jpg":"Assets/images/background/107.jpg","../images/background/112.jpg":"Assets/images/background/112.jpg","../images/background/38.jpg":"Assets/images/background/38.jpg","../images/background/98.jpg":"Assets/images/background/98.jpg","../images/background/77.jpg":"Assets/images/background/77.jpg","../images/background/90.jpg":"Assets/images/background/90.jpg","../images/background/51.jpg":"Assets/images/background/51.jpg","../images/profile/me.png":"Assets/images/profile/me.png","../images/profile/software.png":"Assets/images/profile/software.png","../images/profile/dhaka.jpeg":"Assets/images/profile/dhaka.jpeg"}],"Assets/shaders/vertex.glsl":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform vec2 uOffset;\nvarying vec2 vUv;\n\nfloat M_PI = 3.141529;\n\nvec3 deformationCurve(vec3 position, vec2 uv, vec2 offset){\n    position.x = position.x + (sin(uv.y * M_PI) * offset.x);\n    position.y = position.y + (sin(uv.x * M_PI) * offset.y);\n    return position;\n}\n\nvoid main(){\n    vUv = uv;\n    vec3 newPosition = deformationCurve(position, uv, uOffset);\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0) * 0.9;\n}";
+},{}],"Assets/shaders/fragment.glsl":[function(require,module,exports) {
+module.exports = "#define GLSLIFY 1\nuniform sampler2D uTexture;\nuniform float uAlpha;\nuniform vec2 uOffset;\nvarying vec2 vUv;\n\nvec3 rgbShift(sampler2D textureimage, vec2 uv, vec2 offset ){\n    float r = texture2D(textureimage, uv + offset).r;\n    vec2 gb = texture2D(textureimage, uv).gb;\n    return vec3(r, gb);\n}\n\nvoid main(){\n    // vec3 color = texture2D(uTexture, vUv).rgb;\n    vec3 color = rgbShift(uTexture, vUv, uOffset);\n    gl_FragColor = vec4(color, uAlpha);\n}\n";
+},{}],"Assets/js/ShadedThree.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
-var _images = _interopRequireDefault(require("../js/images"));
+var _images = _interopRequireDefault(require("./images"));
+var _vertex = _interopRequireDefault(require("../shaders/vertex.glsl"));
+var _fragment = _interopRequireDefault(require("../shaders/fragment.glsl"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -32418,12 +32424,18 @@ const loader = new THREE.TextureLoader();
 const texture1 = loader.load(_images.default.me);
 const texture2 = loader.load(_images.default.software);
 const texture3 = loader.load(_images.default.dhaka);
+const lerp = (start, end, t) => {
+  return start * (1 - t) + end * t;
+};
 class Shaded {
   constructor() {
     this.constructor = document.querySelector(".landing");
-    this.links = [...document.querySelectorAll(".shadedimg")];
+    this.inner = document.querySelector(".intro");
+    this.links = [...document.querySelectorAll("#shadedimg")];
     this.scene = new THREE.Scene();
     this.perspective = 1000;
+    this.targetX = 0;
+    this.targetY = 0;
     this.sizes = new THREE.Vector2(0, 0);
     this.offset = new THREE.Vector2(0, 0);
     this.texture = {
@@ -32431,10 +32443,10 @@ class Shaded {
         value: texture1
       },
       uAlpha: {
-        value: 0
+        value: 0.0
       },
       uOffset: {
-        value: new THREE.Vector2(0, 0)
+        value: new THREE.Vector2(0.0, 0.0)
       },
       transparent: true
     };
@@ -32442,33 +32454,53 @@ class Shaded {
       link.addEventListener("mouseenter", () => {
         switch (i) {
           case 0:
-            this.uniform.uTexture.value = texture1;
+            this.uniforms.uTexture.value = texture1;
             break;
           case 1:
-            this.uniform.uTexture.value = texture2;
+            this.uniforms.uTexture.value = texture2;
             break;
           case 2:
-            this.uniform.uTexture.value = texture3;
+            this.uniforms.uTexture.value = texture3;
             break;
         }
       });
       link.addEventListener("mouseleave", () => {
-        this.uniform.uAlpha = 0.0;
+        this.uniforms.uAlpha = lerp(this.uniforms.uAlpha.value, 0.0, 0.1);
       });
     });
+    this.checkHovered();
     this.setupCamera();
+    this.followMouseMove();
+    this.createMesh();
+    this.render();
   }
   get viewport() {
     let width = window.innerWidth;
     let height = window.innerHeight;
-    let aspect = width / height;
-    return width, height, aspect;
+    let aspectRatio = width / height;
+    return {
+      width,
+      height,
+      aspectRatio
+    };
+  }
+  checkHovered() {
+    this.inner.addEventListener("mouseenter", () => {
+      this.hovered = true;
+    });
+    this.inner.addEventListener("mouseleave", () => {
+      this.hovered = false;
+      this.uniforms.uTexture = {
+        value: texture1
+      };
+    });
   }
   setupCamera() {
-    window.addEventListener('resize', this.onResize.bind(this));
+    window.addEventListener("resize", this.onResize.bind(this));
     let fov = 180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective)) / Math.PI;
-    this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspect, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(fov, this.viewport.aspectRatio, 0.1, 1000);
     this.camera.position.set(0, 0, this.perspective);
+
     //renderer
     this.renderer = new THREE.WebGL1Renderer({
       antialias: true,
@@ -32478,15 +32510,44 @@ class Shaded {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.container.appendChild(this.renderer.domElement);
   }
+  createMesh() {
+    this.geometry = new THREE.PlaneGeometry(1, 1, 20, 20);
+    this.material = new THREE.ShaderMaterial({
+      uniforms: this.uniforms,
+      vertexShader: _vertex.default,
+      fragmentShader: _fragment.default,
+      transparent: true
+    });
+    this.mesh = new THREE.Mesh(this.geometry, this.material);
+    this.sizes.set(370, 470, 1);
+    this.mesh.scale.set(this.sizes.x, this.sizes.y, 1);
+    this.mesh.position.set(this.offset.x, this.offset.y, 0);
+    this.scene.add(this.mesh);
+  }
+  followMouseMove() {
+    window.addEventListener("mousemove", e => {
+      this.targetX = e.clientX;
+      this.targetY = e.clientY;
+    });
+  }
   onResize() {
-    this.camera.aspect = this.viewport.aspect;
+    this.camera.aspect = this.viewport.aspectRatio;
     this.camera.fov = 180 * (2 * Math.atan(this.viewport.height / 2 / this.perspective)) / Math.PI;
     this.renderer.setSize(this.viewport.width, this.viewport.height);
     this.camera.updateProjectionMatrix();
   }
+  render() {
+    this.offset.x = lerp(this.offset.x, this.targetX, 0.1);
+    this.offset.y = lerp(this.offset.y, this.targetY, 0.1);
+    this.uniforms.uOffset.value.set((this.targetX - this.offset.x) * 0.003 - (this.targetY - this.offset.y) * 0.003);
+    this.mesh.position.set(this.offset.x - width.innerWidth / 2, -this.offset.y + window.innerHeight / 2);
+    this.hovered ? this.uniforms.uAlpha.value = lerp(this.uniforms.uAlpha.value, 1.0, 0.1) : this.uniforms.uAlpha.value = lerp(this.uniforms.uAlpha.value, 0.0, 0.1);
+    this.renderer.render(this.scene, this.camera);
+    window.requestAnimationFrame(this.render.bind(this));
+  }
 }
 new Shaded();
-},{"three":"../node_modules/three/build/three.module.js","../js/images":"Assets/js/images.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"three":"../node_modules/three/build/three.module.js","./images":"Assets/js/images.js","../shaders/vertex.glsl":"Assets/shaders/vertex.glsl","../shaders/fragment.glsl":"Assets/shaders/fragment.glsl"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32511,7 +32572,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50066" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52247" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -32655,5 +32716,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","Assets/shaders/ShadedThree.js"], null)
-//# sourceMappingURL=/ShadedThree.eea835e5.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","Assets/js/ShadedThree.js"], null)
+//# sourceMappingURL=/ShadedThree.763ce029.js.map

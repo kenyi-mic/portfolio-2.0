@@ -43,15 +43,10 @@ function animate() {
     const y = geometry.attributes.position.getY(i);
 
     const animation1 = 0.75 * Math.sin(x * 2 + time * 0.7);
-    const animation2 = 0.25 * Math.sin(x *  time * 0.7);
-    const animation3 = 0.1 * Math.sin(y *  time * 0.7);
-  
+    const animation2 = 0.25 * Math.sin(x * time * 0.7);
+    const animation3 = 0.1 * Math.sin(y * time * 0.7);
 
-
-    geometry.attributes.position.setZ(
-      i,
-      animation2 + animation3 * animation1 
-    );
+    geometry.attributes.position.setZ(i, animation2 + animation3 * animation1);
 
     geometry.computeVertexNormals();
     geometry.attributes.position.needsUpdate = true;

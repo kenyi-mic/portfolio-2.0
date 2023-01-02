@@ -254,8 +254,7 @@ let projects = [
       {
         name: "ETHERS",
         title: "JavaScript Etherium plugin",
-        link:
-          "https://moralis.io/ethers-js-tutorial-how-to-get-started-using-a-simple-ethers-js-example/",
+        link: "https://moralis.io/ethers-js-tutorial-how-to-get-started-using-a-simple-ethers-js-example/",
       },
       {
         name: "SANITY CMS",

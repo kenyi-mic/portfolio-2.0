@@ -62,11 +62,11 @@
     <div class="landing">
         <!---Three js background-->
         <div class="three-bg"></div>
-        <div class="bg"></div>
+       
         <div class="intro">
-            <h1 class="shadedimg">I'm <span class="auto-type-name"></span> </h1>
-            <h2 class="shadedimg"> <span class="auto-type-profession"></span> Based in <a href="">Bangladesh</a> </h2>
-            <p class="shadedimg">I love building cool stuff <span>Don't forget it's almost <a href="">Cyber age</a> </span></p>
+            <h1 id="shadedimg">I'm <span class="auto-type-name"></span> </h1>
+            <h2 id="shadedimg"> <span class="auto-type-profession"></span> Based in <a href="https://www.britannica.com/place/Bangladesh">Bangladesh</a> </h2>
+            <p id="shadedimg">I love building cool stuff <span>Don't forget it's almost <a href="">Cyber age</a> </span></p>
         </div>
         <!---Header-->
         <header class="header">
@@ -104,7 +104,9 @@
         <!---Scroll down-->
         <div class="scrollDown">
             <div class="scrollDown__wheel">
-                <div class="scrollDown__wheel--inner"></div>
+                <div class="scrollDown__wheel--inner">
+                    <a href="#skill"></a>
+                </div>
             </div>
             <div class="scrollDown__arrows">
                 <span class="scrollDown__arrow"></span><span class="scrollDown__arrow"></span><span
@@ -113,7 +115,7 @@
         </div>
     </div>
     <!--Skills-->
-    <section class="skills">
+    <section id="skill" class="skills">
         <div class="skills__header">
             MY EXPERTISE
         </div>
@@ -360,7 +362,8 @@
     </section>
     <script src="./Assets/js/app.js"></script>
     <script src="./Assets/js/threeanim.js"></script>
-    <script src="./Assets/shaders/ShadedThree.js "></script>
+    <script src="./Assets/js/ShadedThree.js "></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </body>

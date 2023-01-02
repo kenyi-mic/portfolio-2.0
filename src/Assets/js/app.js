@@ -2,6 +2,27 @@ import gsap from "gsap";
 import Typed from "typed.js";
 import Swiper, { Pagination, Navigation } from "swiper";
 import { faq, projects, reviewers } from "./data";
+import imagesLoaded from "imagesloaded";
+import Scrollbar, { ScrollbarPlugin } from "smooth-scrollbar";
+
+class DisableScrollPlugin extends ScrollbarPlugin {
+  static pluginName = "disableScroll";
+
+  static defaultOptions = {
+    direction: "",
+  };
+
+  transformDelta(delta) {
+    if (this.options.direction) {
+      delta[this.options.direction] = 0;
+    }
+
+    return { ...delta };
+  }
+}
+
+// load the plugin
+Scrollbar.use(DisableScrollPlugin);
 
 const loaders = document.querySelector(".loading__bar--inner");
 const loaderText = document.querySelector(".loading__counter--number");
@@ -18,7 +39,7 @@ let loaderInterval = setInterval(() => {
       left: "1000%",
     });
     gsap.to(".loading__text, .loading__counter", {
-      duration: 0.5,
+      duration: 1,
       opacity: 0,
     });
     gsap.to(".loading__box", {
@@ -31,25 +52,66 @@ let loaderInterval = setInterval(() => {
       opacity: 1,
       rotate: "360deg",
     });
-    
+
     gsap.to(".loading__box", {
       delay: 2,
       border: "none",
     });
-    gsap.to(".loading", {
-      delay: 2,
-      duration: 2,
-      opacity: 0.5,
-      background: "transparent",
-    });
-    gsap.to(".loading__svg", {
-      delay: 2,
-      duration: 100,
-      opacity: 0.5,
-      rotate: "360deg",
+    imagesLoaded(document.querySelectorAll("img"), () => {
+      gsap.to(".loading", {
+        delay: 2,
+        duration: 2,
+        zIndex: 1,
+        opacity: 0.1,
+
+        background: "transparent",
+      });
+      gsap.to(".loading__svg", {
+        delay: 2,
+        duration: 100,
+        opacity: 0.5,
+        rotate: "360deg",
+      });
+      gsap.to(".header", {
+        duration: 1,
+        delay: 2,
+        top: "0",
+      });
+      gsap.to(".intro", {
+        duration: 1,
+        delay: 2,
+        zIndex: 2,
+      });
+      gsap.to(".socials", {
+        duration: 1,
+        delay: 2.5,
+        bottom: "10rem",
+      });
+      gsap.to(".scrollDown", {
+        duration: 1,
+        delay: 3,
+        bottom: "3rem",
+      });
+
+      let options = {
+        damping: 0.1,
+        alwaysShowTracks: true,
+      };
+      let pageSmoothScroll = Scrollbar.init(
+        document.body,
+        {
+          plugins: {
+            disableScroll: {
+              direction: "x",
+            },
+          },
+        },
+        options
+      );
+      pageSmoothScroll.track.xAxis.element.remove();
     });
   }
-}, 30);
+}, 5);
 
 new Typed(".auto-type-name", {
   strings: ["Michael Kenyi", "Michael Henry"],

@@ -16,6 +16,7 @@
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -82,6 +83,7 @@ ul {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -141,7 +143,6 @@ ul {
   width: 100%;
   z-index: 99;
   display: grid;
-  display: none;
   place-items: center;
   background-color: rgba(4, 1, 32, 0.952);
   font-family: "Orbitron", sans-serif;
@@ -266,6 +267,7 @@ ul {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -382,7 +384,7 @@ ul {
 }
 .landing .header {
   position: absolute;
-  top: 1rem;
+  top: -100%;
   left: 50%;
   transform: translate(-50%);
   z-index: 2;
@@ -482,7 +484,7 @@ ul {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 10rem;
+  bottom: -100%;
   display: flex;
   align-items: center;
   z-index: 2;
@@ -514,7 +516,7 @@ ul {
 }
 .landing .scrollDown {
   position: absolute;
-  bottom: 3rem;
+  bottom: -100%;
   left: 50%;
   transform: translateX(-50%);
   width: 50px;
@@ -591,6 +593,10 @@ ul {
     opacity: 1;
   }
 }
+
+.landing canvas {
+  position: absolute;
+}
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
 * {
@@ -609,6 +615,7 @@ ul {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -741,6 +748,7 @@ ul {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -1760,6 +1768,7 @@ button.swiper-pagination-bullet {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -1825,6 +1834,7 @@ ul {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
+  height: 100vh;
 }
 * button,
 * input,
@@ -1941,7 +1951,7 @@ ul {
 }
 .landing .header {
   position: absolute;
-  top: 1rem;
+  top: -100%;
   left: 50%;
   transform: translate(-50%);
   z-index: 2;
@@ -2041,7 +2051,7 @@ ul {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 10rem;
+  bottom: -100%;
   display: flex;
   align-items: center;
   z-index: 2;
@@ -2073,7 +2083,7 @@ ul {
 }
 .landing .scrollDown {
   position: absolute;
-  bottom: 3rem;
+  bottom: -100%;
   left: 50%;
   transform: translateX(-50%);
   width: 50px;
@@ -2149,6 +2159,10 @@ ul {
   100% {
     opacity: 1;
   }
+}
+
+.landing canvas {
+  position: absolute;
 }
 
 .section {
